@@ -44,7 +44,7 @@
       overflow-x: hidden;
     }
 
-    /* Cosmic Background Effect */
+    /* Cosmic Background Effect with Animation */
     body::before {
       content: '';
       position: fixed;
@@ -57,6 +57,40 @@
         radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.15) 0%, transparent 25%),
         var(--bg-color);
       z-index: -1;
+      animation: gradientShift 15s ease infinite;
+      background-size: 200% 200%;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Floating Particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      animation: float linear infinite;
+      filter: blur(1px);
+    }
+
+    @keyframes float {
+      to { 
+        transform: translateY(-100vh) rotate(360deg); 
+        opacity: 0;
+      }
     }
 
     /* Typography */
@@ -114,15 +148,22 @@
       padding: 0 1.5rem;
     }
 
-    /* Navigation */
+    /* Navigation - Glass Morphism */
     nav {
       position: fixed;
       width: 100%;
       background-color: rgba(10, 10, 10, 0.8);
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       z-index: 100;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       padding: 1rem 0;
+      transition: all var(--transition);
+    }
+
+    nav.scrolled {
+      padding: 0.5rem 0;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
     }
 
     .nav-container {
@@ -141,6 +182,11 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+      transition: transform var(--transition);
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
     }
 
     .nav-links {
@@ -151,10 +197,27 @@
     .nav-links a {
       color: var(--text-muted);
       font-weight: 500;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width var(--transition);
     }
 
     .nav-links a:hover {
       color: var(--accent);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
     }
 
     .menu-toggle {
@@ -164,6 +227,7 @@
       color: white;
       font-size: 1.5rem;
       cursor: pointer;
+      z-index: 101;
     }
 
     /* Hero Section */
@@ -187,6 +251,14 @@
         rgba(124, 58, 237, 0.7) 50%, 
         rgba(236, 72, 153, 0.6) 100%);
       z-index: -2;
+      animation: gradientPulse 15s ease infinite;
+      background-size: 200% 200%;
+    }
+
+    @keyframes gradientPulse {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .hero-content {
@@ -201,11 +273,31 @@
       background-clip: text;
       color: transparent;
       margin-bottom: 1rem;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }
 
     .hero p {
       font-size: 1.25rem;
       margin-bottom: 2rem;
+    }
+
+    .avatar-container {
+      margin-bottom: 2rem;
+    }
+
+    .avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
     }
 
     .hero-buttons {
@@ -220,22 +312,43 @@
       border-radius: 8px;
       font-weight: 600;
       transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, var(--accent), var(--accent-hover), var(--accent-active));
+      z-index: -1;
+      transition: opacity var(--transition);
+      opacity: 0;
+    }
+
+    .btn:hover::before {
+      opacity: 1;
     }
 
     .btn-primary {
       background-color: var(--accent);
       color: white;
+      box-shadow: var(--glow);
     }
 
     .btn-primary:hover {
-      background-color: var(--accent-hover);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(139, 92, 246, 0.5);
     }
 
     .btn-secondary {
       border: 1px solid rgba(255, 255, 255, 0.2);
       background-color: rgba(255, 255, 255, 0.05);
+      color: white;
     }
 
     .btn-secondary:hover {
@@ -250,12 +363,23 @@
     }
 
     .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
       color: var(--text-muted);
       font-size: 1.25rem;
+      transition: all var(--transition);
     }
 
     .social-links a:hover {
-      color: var(--accent);
+      background: var(--accent);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: var(--glow);
     }
 
     /* Sections */
@@ -297,6 +421,12 @@
       background-color: rgba(139, 92, 246, 0.1);
       border-radius: 999px;
       font-size: 0.875rem;
+      transition: all var(--transition);
+    }
+
+    .detail-item:hover {
+      background-color: rgba(139, 92, 246, 0.2);
+      transform: translateY(-2px);
     }
 
     .education-card {
@@ -304,6 +434,13 @@
       border-radius: var(--border-radius);
       padding: 2rem;
       border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: all var(--transition);
+    }
+
+    .education-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
     }
 
     .education-item {
@@ -326,54 +463,139 @@
       padding: 0.25rem 0.75rem;
       border-radius: 999px;
       font-size: 0.75rem;
+      transition: all var(--transition);
     }
 
-    /* Skills Section */
+    .tag:hover {
+      background-color: rgba(139, 92, 246, 0.2);
+    }
+
+    /* Skills Section - Modern Grid Layout */
+    .skills-section {
+      position: relative;
+      overflow: hidden;
+    }
+
     .skills-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2rem;
     }
 
     .skill-category {
       background-color: var(--bg-elevated);
       border-radius: var(--border-radius);
-      padding: 1.5rem;
+      padding: 2rem;
       border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-category::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%);
+      z-index: 0;
+    }
+
+    .skill-category:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      border-color: rgba(139, 92, 246, 0.3);
     }
 
     .skill-category h3 {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
     }
 
     .skill-category h3 img {
-      width: 24px;
-      height: 24px;
+      width: 28px;
+      height: 28px;
     }
 
     .skills-list {
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 1rem;
+      position: relative;
+      z-index: 1;
     }
 
     .skill-item {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.75rem;
     }
 
-    .skill-item img {
-      width: 20px;
-      height: 20px;
+    .skill-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      width: 40%;
+      min-width: 120px;
+    }
+
+    .skill-header img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .skill-proficiency {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      width: 60%;
+    }
+
+    .progress-bar {
+      flex-grow: 1;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: var(--width);
+      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+      border-radius: 3px;
+      animation: progressFill 1.5s ease-out forwards;
+    }
+
+    .percentage {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      min-width: 40px;
+      text-align: right;
+    }
+
+    @keyframes progressFill {
+      from { width: 0; }
+      to { width: var(--width); }
     }
 
     /* Projects Section */
     .projects-grid {
       display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 2rem;
     }
 
@@ -383,17 +605,30 @@
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.1);
       transition: all var(--transition);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     }
 
     .project-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);
+      box-shadow: 0 15px 40px rgba(139, 92, 246, 0.3);
       border-color: var(--accent);
     }
 
     .project-image {
       height: 200px;
       overflow: hidden;
+      position: relative;
+    }
+
+    .project-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(10, 10, 10, 0.7), transparent);
+      z-index: 1;
     }
 
     .project-image img {
@@ -404,7 +639,7 @@
     }
 
     .project-card:hover .project-image img {
-      transform: scale(1.05);
+      transform: scale(1.1);
     }
 
     .project-content {
@@ -435,6 +670,7 @@
       border-radius: var(--border-radius);
       padding: 2rem;
       border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     }
 
     .form-group {
@@ -456,6 +692,14 @@
       border-radius: 8px;
       color: white;
       font-family: inherit;
+      transition: all var(--transition);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
     }
 
     .form-group textarea {
@@ -468,6 +712,7 @@
       border-radius: var(--border-radius);
       padding: 2rem;
       border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     }
 
     .info-item {
@@ -484,6 +729,7 @@
     .info-item i {
       width: 24px;
       text-align: center;
+      color: var(--accent);
     }
 
     /* Footer */
@@ -491,6 +737,17 @@
       background-color: var(--bg-elevated);
       padding: 2rem 0;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
     }
 
     .footer-content {
@@ -508,10 +765,12 @@
 
     .footer-links a {
       color: var(--text-muted);
+      transition: all var(--transition);
     }
 
     .footer-links a:hover {
       color: var(--accent);
+      transform: translateY(-2px);
     }
 
     .copyright {
@@ -522,7 +781,25 @@
     /* Responsive Design */
     @media (max-width: 768px) {
       .nav-links {
-        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: var(--bg-color);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: all var(--transition);
+        z-index: 100;
+      }
+
+      .nav-links.show {
+        transform: translateY(0);
+        opacity: 1;
       }
 
       .menu-toggle {
@@ -566,14 +843,46 @@
     .animate-fadeInUp {
       animation: fadeInUp 1s ease-out;
     }
+
+    /* Create floating particles */
+    function createParticles() {
+      const particlesContainer = document.createElement('div');
+      particlesContainer.className = 'particles';
+      document.body.appendChild(particlesContainer);
+      
+      const particleCount = 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random size between 1px and 3px
+        const size = Math.random() * 2 + 1;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        // Random animation duration between 10s and 20s
+        const duration = Math.random() * 10 + 10;
+        particle.style.animationDuration = `${duration}s`;
+        
+        // Random delay
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
   </style>
 </head>
 <body>
   <!-- Navigation -->
-  <nav>
+  <nav id="navbar">
     <div class="nav-container">
       <a href="#" class="logo">YS.</a>
-      <div class="nav-links">
+      <div class="nav-links" id="navLinks">
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
@@ -589,7 +898,7 @@
   <section class="hero">
     <div class="hero-content animate-fadeIn">
       <div class="avatar-container">
-        <img src="YOS.jpg" alt="Yosia Parade Banua Sinaga" class="avatar">
+        <img src="images/YOS.jpg" alt="Yosia Parade Banua Sinaga" class="avatar">
       </div>
       <h1 class="animate-fadeInUp">Yosia Parade Banua Sinaga</h1>
       <p class="animate-fadeInUp" style="animation-delay: 0.2s">Informatics Student • Frontend Developer • Data Enthusiast</p>
@@ -650,104 +959,253 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="section">
+    <section id="skills" class="section skills-section">
       <div class="container">
         <h2 class="section-title">My Skills & Expertise</h2>
-        <p class="section-subtitle" style="text-align: center; margin-bottom: 3rem;">Technologies and methodologies I work with</p>
+        <p class="section-subtitle">Technologies and methodologies I work with</p>
         
         <div class="skills-container">
           <!-- Frontend Development -->
           <div class="skill-category">
-            <h3><img src="https://cdn-icons-png.flaticon.com/512/5968/5968267.png" alt="Frontend"> Frontend Development</h3>
+            <h3><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="Frontend"> Frontend Development</h3>
             <div class="skills-list">
               <div class="skill-item">
-                <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="HTML5">
-                <span>HTML5</span>
+                <div class="skill-header">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5">
+                  <span>HTML5</span>
+                </div>
+                <div class="skill-proficiency">
+                  <div class="progress-bar" style="--width:95%"></div>
+                  <span class="percentage">95%</span>
+                </div>
               </div>
               <div class="skill-item">
-                <img src="https://cdn-icons-png.flaticon.com/512/732/732190.png" alt="CSS3">
-                <span>CSS3</span>
+                <div class="skill-header">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3">
+                  <span>CSS3</span>
+                </div>
+                <div class="skill-proficiency">
+                  <div class="progress-bar" style="--width:90%"></div>
+                  <span class="percentage">90%</span>
+                </div>
               </div>
               <div class="skill-item">
-                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png" alt="JavaScript">
-                <span>JavaScript (ES6+)</span>
+                <div class="skill-header">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+                  <span>JavaScript (ES6+)</span>
+                </div>
+                <div class="skill-proficiency">
+                  <div class="progress-bar" style="--width:85%"></div>
+                  <span class="percentage">85%</span>
+                </div>
               </div>
               <div class="skill-item">
-                <img src="https://cdn-icons-png.flaticon.com/512/1183/1183672.png" alt="React">
-                <span>React.js</span>
+                <div class="skill-header">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
+                  <span>React.js</span>
+                </div>
+                <div class="skill-proficiency">
+                  <div class="progress-bar" style="--width:80%"></div>
+                  <span class="percentage">80%</span>
+                </div>
               </div>
               <div class="skill-item">
-                <img src="https://cdn-icons-png.flaticon.com/512/906/906324.png" alt="Tailwind">
-                <span>Tailwind CSS</span>
+                <div class="skill-header">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" alt="Tailwind">
+                  <span>Tailwind CSS</span>
+                </div>
+                <div class="skill-proficiency">
+                  <div class="progress-bar" style="--width:88%"></div>
+                  <span class="percentage">88%</span>
+                </div>
               </div>
             </div>
           </div>
 
           <!-- UI/UX Design -->
           <div class="skill-category">
-            <h3><img src="https://cdn-icons-png.flaticon.com/512/2779/2779775.png" alt="UI/UX"> UI/UX Design</h3>
+            <h3><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="UI/UX"> UI/UX Design</h3>
             <div class="skills-list">
               <div class="skill-item">
-                <img src="https://cdn-icons-png.flaticon.com/512/3447/3447567.png" alt="User Research">
-                <span>User Research</span>
+                <div class="skill-header">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma">
+                  <span>Figma</span>
+                </div>
+                <div class="skill-proficiency">
+                  <div class="progress-bar" style="--width:90%"></div>
+                  <span class="percentage">90%</span>
+                </div>
               </div>
               <div class="skill-item">
-                <img src="https://cdn-icons-png.flaticon.com/512/3652/3652191.png" alt="Wireframing">
-                <span>Wireframing</span>
+                <div class="skill-header">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xd/xd-plain.svg" alt="Adobe XD">
+                  <span>Adobe XD</span>
+                </div>
+                <div class="skill-proficiency">
+                  <div class="progress-bar" style="--width:80%"></div>
+                  <span class="percentage">80%</span>
+                </div>
               </div>
               <div class="skill-item">
-                <img src="https://cdn-icons-png.flaticon.com/512/4231/4231032.png" alt="Prototyping">
-                <span>Prototyping</span>
+                <div class="skill-header">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" alt="Illustrator">
+                  <span>Illustrator</span>
+                </div>
+                <div class="skill-proficiency">
+                  <div class="progress-bar" style="--width:75%"></div>
+                  <span class="percentage">75%</span>
+                </div>
               </div>
               <div class="skill-item">
-                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" alt="Figma">
-                <span>Figma</span>
+                <div class="skill-header">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" alt="Photoshop">
+                  <span>Photoshop</span>
+                </div>
+                <div class="skill-proficiency">
+                  <div class="progress-bar" style="--width:70%"></div>
+                  <span class="percentage">70%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Backend Development -->
+          <div class="skill-category">
+            <h3><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Backend"> Backend Development</h3>
+            <div class="skills-list">
+              <div class="skill-item">
+                <div class="skill-header">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js">
+                  <span>Node.js</span>
+                </div>
+                <div class="skill-proficiency">
+                  <div class="progress-bar" style="--width:78%"></div>
+                  <span class="percentage">78%</span>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-header">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt="Express">
+                  <span>Express.js</span>
+                </div>
+                <div class="skill-proficiency">
+                  <div class="progress-bar" style="--width:75%"></div>
+                  <span class="percentage">75%</span>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-header">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB">
+                  <span>MongoDB</span>
+                </div>
+                <div class="skill-proficiency">
+                  <div class="progress-bar" style="--width:70%"></div>
+                  <span class="percentage">70%</span>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-header">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL">
+                  <span>PostgreSQL</span>
+                </div>
+                <div class="skill-proficiency">
+                  <div class="progress-bar" style="--width:65%"></div>
+                  <span class="percentage">65%</span>
+                </div>
               </div>
             </div>
           </div>
 
           <!-- Data Analysis -->
           <div class="skill-category">
-            <h3><img src="https://cdn-icons-png.flaticon.com/512/2103/2103633.png" alt="Data"> Data Analysis</h3>
+            <h3><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Data"> Data Analysis</h3>
             <div class="skills-list">
               <div class="skill-item">
-                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968350.png" alt="Python">
-                <span>Python</span>
+                <div class="skill-header">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+                  <span>Python</span>
+                </div>
+                <div class="skill-proficiency">
+                  <div class="progress-bar" style="--width:85%"></div>
+                  <span class="percentage">85%</span>
+                </div>
               </div>
               <div class="skill-item">
-                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968322.png" alt="Pandas">
-                <span>Pandas & NumPy</span>
+                <div class="skill-header">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas">
+                  <span>Pandas & NumPy</span>
+                </div>
+                <div class="skill-proficiency">
+                  <div class="progress-bar" style="--width:80%"></div>
+                  <span class="percentage">80%</span>
+                </div>
               </div>
               <div class="skill-item">
-                <img src="https://cdn-icons-png.flaticon.com/512/2103/2103633.png" alt="Data Viz">
-                <span>Data Visualization</span>
+                <div class="skill-header">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matplotlib/matplotlib-original.svg" alt="Matplotlib">
+                  <span>Data Visualization</span>
+                </div>
+                <div class="skill-proficiency">
+                  <div class="progress-bar" style="--width:75%"></div>
+                  <span class="percentage">75%</span>
+                </div>
               </div>
               <div class="skill-item">
-                <img src="https://cdn-icons-png.flaticon.com/512/4492/4492311.png" alt="SQL">
-                <span>SQL</span>
+                <div class="skill-header">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="SQL">
+                  <span>SQL</span>
+                </div>
+                <div class="skill-proficiency">
+                  <div class="progress-bar" style="--width:70%"></div>
+                  <span class="percentage">70%</span>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Other Skills -->
+          <!-- Tools & Other -->
           <div class="skill-category">
-            <h3><img src="https://cdn-icons-png.flaticon.com/512/1055/1055687.png" alt="Other"> Other Skills</h3>
+            <h3><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Tools"> Tools & Other</h3>
             <div class="skills-list">
               <div class="skill-item">
-                <img src="https://cdn-icons-png.flaticon.com/512/4494/4494748.png" alt="Git">
-                <span>Git & GitHub</span>
+                <div class="skill-header">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
+                  <span>Git</span>
+                </div>
+                <div class="skill-proficiency">
+                  <div class="progress-bar" style="--width:85%"></div>
+                  <span class="percentage">85%</span>
+                </div>
               </div>
               <div class="skill-item">
-                <img src="https://cdn-icons-png.flaticon.com/512/2165/2165004.png" alt="API">
-                <span>RESTful APIs</span>
+                <div class="skill-header">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
+                  <span>GitHub</span>
+                </div>
+                <div class="skill-proficiency">
+                  <div class="progress-bar" style="--width:80%"></div>
+                  <span class="percentage">80%</span>
+                </div>
               </div>
               <div class="skill-item">
-                <img src="https://cdn-icons-png.flaticon.com/512/2450/2450398.png" alt="Agile">
-                <span>Agile Methodologies</span>
+                <div class="skill-header">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code">
+                  <span>VS Code</span>
+                </div>
+                <div class="skill-proficiency">
+                  <div class="progress-bar" style="--width:90%"></div>
+                  <span class="percentage">90%</span>
+                </div>
               </div>
               <div class="skill-item">
-                <img src="https://cdn-icons-png.flaticon.com/512/1055/1055687.png" alt="Problem Solving">
-                <span>Problem Solving</span>
+                <div class="skill-header">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker">
+                  <span>Docker</span>
+                </div>
+                <div class="skill-proficiency">
+                  <div class="progress-bar" style="--width:70%"></div>
+                  <span class="percentage">70%</span>
+                </div>
               </div>
             </div>
           </div>
@@ -837,7 +1295,7 @@
         <div class="contact-container">
           <div class="contact-form">
             <h3>Send Me a Message</h3>
-            <form>
+            <form id="contactForm">
               <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" id="name" placeholder="Enter your name" required>
@@ -904,10 +1362,13 @@
   <script>
     // Mobile Menu Toggle
     const menuToggle = document.getElementById('menuToggle');
-    const navLinks = document.querySelector('.nav-links');
+    const navLinks = document.getElementById('navLinks');
     
     menuToggle.addEventListener('click', () => {
       navLinks.classList.toggle('show');
+      menuToggle.innerHTML = navLinks.classList.contains('show') 
+        ? '<i class="fas fa-times"></i>' 
+        : '<i class="fas fa-bars"></i>';
     });
     
     // Smooth Scrolling for Anchor Links
@@ -927,18 +1388,19 @@
           // Close mobile menu if open
           if (navLinks.classList.contains('show')) {
             navLinks.classList.remove('show');
+            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
           }
         }
       });
     });
     
-    // Add shadow to navbar on scroll
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
-      const nav = document.querySelector('nav');
       if (window.scrollY > 50) {
-        nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+        navbar.classList.add('scrolled');
       } else {
-        nav.style.boxShadow = 'none';
+        navbar.classList.remove('scrolled');
       }
     });
 
@@ -957,11 +1419,57 @@
       });
     };
     
-    // Run once on page load
-    animateOnScroll();
-    
-    // Run on scroll
-    window.addEventListener('scroll', animateOnScroll);
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.createElement('div');
+      particlesContainer.className = 'particles';
+      document.body.appendChild(particlesContainer);
+      
+      const particleCount = 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random size between 1px and 3px
+        const size = Math.random() * 2 + 1;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        // Random animation duration between 10s and 20s
+        const duration = Math.random() * 10 + 10;
+        particle.style.animationDuration = `${duration}s`;
+        
+        // Random delay
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Form submission
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Thank you for your message! I will get back to you soon.');
+        this.reset();
+      });
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      // Run once on page load
+      animateOnScroll();
+      createParticles();
+      
+      // Run on scroll
+      window.addEventListener('scroll', animateOnScroll);
+    });
   </script>
 </body>
 </html>
