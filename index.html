@@ -898,7 +898,7 @@
   <section class="hero">
     <div class="hero-content animate-fadeIn">
       <div class="avatar-container">
-        <img src="YOS.jpg" alt="Yosia Parade Banua Sinaga" class="avatar">
+        <img src="images/YOS.jpg" alt="Yosia Parade Banua Sinaga" class="avatar">
       </div>
       <h1 class="animate-fadeInUp">Yosia Parade Banua Sinaga</h1>
       <p class="animate-fadeInUp" style="animation-delay: 0.2s">Informatics Student • Frontend Developer • Data Enthusiast</p>
@@ -1253,12 +1253,11 @@
               <h3>Medicine Reminder App</h3>
               <p>A mobile application designed to help users manage their medication schedules with customizable reminders and dosage tracking.</p>
               <div class="project-links">
-                <a href="#" class="btn btn-secondary"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                <a href="https://www.figma.com/proto/BTHh4ul6fyvbZbxY5ziWFd/Untitled?page-id=0%3A1&node-id=1-1143&p=f&viewport=619%2C490%2C0.31&t=zI4f3iifLP7sb8fg-1&scaling=min-zoom&content-scaling=fixed" target="_blank" class="btn btn-primary"><i class="fas fa-external-link-alt"></i> Prototype</a>
                 <a href="#" class="btn btn-secondary"><i class="fab fa-github"></i> View Code</a>
               </div>
             </div>
-          </div>
-          
+          </div>                                                                                 
           <!-- Project 3 -->
           <div class="project-card">
             <div class="project-image">
@@ -1273,15 +1272,11 @@
               <h3>Car Rental Platform</h3>
               <p>A full-stack vehicle rental platform developed as a software engineering project with vehicle inventory management and booking system.</p>
               <div class="project-links">
-                <a href="#" class="btn btn-secondary"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                <a href="https://www.figma.com/proto/mUwbQVlzkqb2bUtSkUBSsN/InnoRide?page-id=0%3A1&node-id=5-64&p=f&viewport=209%2C-1%2C0.51&t=G5jaDyvw4eKboxg5-1&scaling=min-zoom&content-scaling=fixed" target="_blank" class="btn btn-secondary"><i class="fas fa-external-link-alt"></i> Prototype</a>
                 <a href="https://github.com/adnsyhh/InnoRide-Project" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i> View Code</a>
               </div>
             </div>
           </div>
-        </div>
-        
-        <div style="text-align: center; margin-top: 3rem;">
-          <a href="#" class="btn btn-primary">View All Projects</a>
         </div>
       </div>
     </section>
@@ -1292,25 +1287,24 @@
         <h2 class="section-title">Get In Touch</h2>
         <p class="section-subtitle" style="text-align: center; margin-bottom: 3rem;">I'm currently exploring internship opportunities and exciting projects</p>
         
-        <div class="contact-container">
-          <div class="contact-form">
-            <h3>Send Me a Message</h3>
-            <form id="contactForm">
-              <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" placeholder="Enter your name" required>
-              </div>
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" placeholder="your.email@example.com" required>
-              </div>
-              <div class="form-group">
-                <label for="message">Message</label>
-                <textarea id="message" placeholder="Hi Yosia, I'd like to connect about..." required></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">Send Message</button>
-            </form>
+      <div class="contact-form">
+        <h3>Send Me a Message</h3>
+        <form id="contactForm" action="https://formspree.io/f/xyzjyzdl" method="POST">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" placeholder="Enter your name" required>
           </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="your.email@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea name="message" id="message" placeholder="Hi Yosia, I'd like to connect about..." required></textarea>
+          </div>
+          <button type="submit" class="btn-primary">Send Message</button>
+        </form>
+      </div>
           
           <div class="contact-info">
             <h3>Contact Information</h3>
