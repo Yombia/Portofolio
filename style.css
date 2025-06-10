@@ -849,6 +849,39 @@ a:hover {
   text-align: right;
 }
 
+.skill-level {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.skill-level.beginner {
+  background-color: #e0f2fe;
+  color: #0369a1;
+}
+
+.skill-level.intermediate {
+  background-color: #f0fdf4;
+  color: #15803d;
+}
+
+.skill-level.advanced {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+}
+
+.skill-level.expert {
+  background-color: #f5f3ff;
+  color: #7e22ce;
+}
+
+.skill-level.pro {
+  background-color: #fef2f2;
+  color: #b91c1c;
+}
+
 /* Projects Section - Advanced 3D Card Effect */
 .projects-grid {
   display: grid;
