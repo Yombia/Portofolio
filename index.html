@@ -1,1328 +1,1149 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Portfolio of Yosia Sinaga - Informatics Student, Frontend Developer, and Data Enthusiast">
-  <title>Yosia Sinaga | Informatics Student & Developer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root {
-      --text-color: rgba(255, 255, 255, 0.95);
-      --text-muted: rgba(255, 255, 255, 0.7);
-      --bg-color: #0a0a0a;
-      --bg-elevated: #1a1a1a;
-      --bg-elevated-hover: #252525;
-      --accent: #8b5cf6;
-      --accent-hover: #a78bfa;
-      --accent-active: #7c3aed;
-      --glow: 0 0 15px rgba(139, 92, 246, 0.5); 
-      --card-bg: linear-gradient(145deg, #1e1e1e, #2a2a2a);
-      --section-padding: clamp(4rem, 8vw, 8rem);
-      --max-width: min(1200px, 90vw);
-      --border-radius: 16px;
-      --transition: cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
-      --fast-transition: cubic-bezier(0.4, 0, 0.2, 1) 0.15s;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      line-height: 1.7;
-      color: var(--text-color);
-      background-color: var(--bg-color);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: 
-        radial-gradient(circle at 20% 30%, rgba(123, 97, 255, 0.15) 0%, transparent 25%),
-        radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.15) 0%, transparent 25%),
-        var(--bg-color);
-      z-index: -1;
-      animation: gradientShift 15s ease infinite;
-      background-size: 200% 200%;
-    }
-
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .particle {
-      position: absolute;
-      background: rgba(255, 255, 255, 0.6);
-      border-radius: 50%;
-      animation: float linear infinite;
-      filter: blur(1px);
-    }
-
-    @keyframes float {
-      to { 
-        transform: translateY(-100vh) rotate(360deg); 
-        opacity: 0;
-      }
-    }
-
-    h1, h2, h3, h4 {
-      font-weight: 700;
-      line-height: 1.2;
-      letter-spacing: -0.025em;
-    }
-
-    h1 {
-      font-size: clamp(2.75rem, 6vw, 4.5rem);
-    }
-
-    h2 {
-      font-size: clamp(2rem, 4vw, 3rem);
-      margin-bottom: 2rem;
-      position: relative;
-      display: inline-block;
-    }
-
-    h2::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 0;
-      width: 60%;
-      height: 4px;
-      background: linear-gradient(90deg, var(--accent), transparent);
-      border-radius: 2px;
-    }
-
-    p {
-      margin-bottom: 1.5rem;
-      max-width: 65ch;
-      font-size: clamp(1rem, 1.1vw, 1.125rem);
-      line-height: 1.8;
-      color: var(--text-muted);
-    }
-
-    a {
-      color: var(--accent);
-      text-decoration: none;
-      transition: all var(--fast-transition);
-    }
-
-    a:hover {
-      color: var(--accent-hover);
-    }
-
-    .container {
-      width: 100%;
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    nav {
-      position: fixed;
-      width: 100%;
-      background-color: rgba(10, 10, 10, 0.8);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      z-index: 100;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 1rem 0;
-      transition: all var(--transition);
-    }
-
-    nav.scrolled {
-      padding: 0.5rem 0;
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-    }
-
-    .nav-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      background: linear-gradient(to right, #8b5cf6, #ec4899);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      transition: transform var(--transition);
-    }
-
-    .logo:hover {
-      transform: scale(1.05);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-    }
-
-    .nav-links a {
-      color: var(--text-muted);
-      font-weight: 500;
-      position: relative;
-      padding: 0.5rem 0;
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--accent);
-      transition: width var(--transition);
-    }
-
-    .nav-links a:hover {
-      color: var(--accent);
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    .menu-toggle {
-      display: none;
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.5rem;
-      cursor: pointer;
-      z-index: 101;
-    }
-
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: var(--section-padding) 1.5rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, 
-        rgba(79, 70, 229, 0.8) 0%, 
-        rgba(124, 58, 237, 0.7) 50%, 
-        rgba(236, 72, 153, 0.6) 100%);
-      z-index: -2;
-      animation: gradientPulse 15s ease infinite;
-      background-size: 200% 200%;
-    }
-
-    @keyframes gradientPulse {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .hero-content {
-      max-width: 800px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero h1 {
-      background: linear-gradient(to right, #ffffff, #d4d4d8);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 1rem;
-      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .hero p {
-      font-size: 1.25rem;
-      margin-bottom: 2rem;
-    }
-
-    .avatar-container {
-      margin-bottom: 2rem;
-    }
-
-    .avatar {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-      animation: float 6s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      margin-bottom: 2rem;
-    }
-
-    .btn {
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      font-weight: 600;
-      transition: all var(--transition);
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, var(--accent), var(--accent-hover), var(--accent-active));
-      z-index: -1;
-      transition: opacity var(--transition);
-      opacity: 0;
-    }
-
-    .btn:hover::before {
-      opacity: 1;
-    }
-
-    .btn-primary {
-      background-color: var(--accent);
-      color: white;
-      box-shadow: var(--glow);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(139, 92, 246, 0.5);
-    }
-
-    .btn-secondary {
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      background-color: rgba(255, 255, 255, 0.05);
-      color: white;
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--accent);
-      background-color: rgba(139, 92, 246, 0.1);
-    }
-
-    .social-links {
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-    }
-
-    .social-links a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text-muted);
-      font-size: 1.25rem;
-      transition: all var(--transition);
-    }
-
-    .social-links a:hover {
-      background: var(--accent);
-      color: white;
-      transform: translateY(-3px);
-      box-shadow: var(--glow);
-    }
-
-    section {
-      padding: var(--section-padding) 0;
-      position: relative;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    /* About Section */
-    .about-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: stretch;
-    }
-
-    .about-text {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      background-color: var(--bg-elevated);
-      border-radius: var(--border-radius);
-      padding: 2rem;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    }
-
-    .about-details {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .detail-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      background-color: rgba(139, 92, 246, 0.1);
-      border-radius: 999px;
-      font-size: 0.875rem;
-      transition: all var(--transition);
-    }
-
-    .detail-item:hover {
-      background-color: rgba(139, 92, 246, 0.2);
-      transform: translateY(-2px);
-    }
-
-    .education-card {
-      background-color: var(--bg-elevated);
-      border-radius: var(--border-radius);
-      padding: 2rem;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      transition: all var(--transition);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 100%;
-    }
-
-    .education-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-    }
-
-    .education-item {
-      margin-bottom: 1.5rem;
-    }
-
-    .education-item:last-child {
-      margin-bottom: 0;
-    }
-
-    .coursework-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.5rem;
-    }
-
-    .tag {
-      background-color: rgba(255, 255, 255, 0.05);
-      padding: 0.25rem 0.75rem;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      transition: all var(--transition);
-    }
-
-    .tag:hover {
-      background-color: rgba(139, 92, 246, 0.2);
-    }
-
-    /* Skills Section - Enhanced */
-    .skills-section {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .skills-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-    }
-
-    .skill-category {
-      background-color: var(--bg-elevated);
-      border-radius: var(--border-radius);
-      padding: 2rem;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      transition: all var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .skill-category::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%);
-      z-index: 0;
-    }
-
-    .skill-category:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-      border-color: rgba(139, 92, 246, 0.3);
-    }
-
-    .skill-category h3 {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
-      position: relative;
-      z-index: 1;
-      background: linear-gradient(to right, #ffffff, var(--accent));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .skill-category h3 img {
-      width: 28px;
-      height: 28px;
-    }
-
-    .skills-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .skill-item {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.5rem;
-      border-radius: 8px;
-      transition: all var(--transition);
-    }
-
-    .skill-item:hover {
-      background: rgba(139, 92, 246, 0.1);
-      transform: translateX(5px);
-    }
-
-    .skill-header {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      width: 40%;
-      min-width: 120px;
-    }
-
-    .skill-header img {
-      width: 24px;
-      height: 24px;
-    }
-
-    .skill-proficiency {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      width: 60%;
-    }
-
-    .progress-bar {
-      flex-grow: 1;
-      height: 8px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 4px;
-      overflow: hidden;
-      position: relative;
-      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
-    }
-
-    .progress-bar::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: var(--width);
-      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
-      border-radius: 4px;
-      animation: progressFill 1.5s ease-out forwards;
-      box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
-    }
-
-    .percentage {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--accent);
-      min-width: 40px;
-      text-align: right;
-    }
-
-    @keyframes progressFill {
-      from { width: 0; }
-      to { width: var(--width); }
-    }
-
-    /* Projects Section */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-
-    .project-card {
-      background-color: var(--bg-elevated);
-      border-radius: var(--border-radius);
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: all var(--transition);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    }
-
-    .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(139, 92, 246, 0.3);
-      border-color: var(--accent);
-    }
-
-    .project-image {
-      height: 200px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .project-image::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to top, rgba(10, 10, 10, 0.7), transparent);
-      z-index: 1;
-    }
-
-    .project-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    .project-card:hover .project-image img {
-      transform: scale(1.1);
-    }
-
-    .project-content {
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .project-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .project-links {
-      display: flex;
-      gap: 1rem;
-      margin-top: auto;
-    }
-
-    /* Contact Section */
-    .contact-container {
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-    }
-
-    .contact-info {
-      background-color: var(--bg-elevated);
-      border-radius: var(--border-radius);
-      padding: 2rem;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      max-width: 500px;
-      width: 100%;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .contact-info::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, transparent 100%);
-      z-index: 0;
-    }
-
-    .contact-info h3 {
-      position: relative;
-      z-index: 1;
-      margin-bottom: 2rem;
-      background: linear-gradient(to right, #ffffff, var(--accent));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .info-item {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-      position: relative;
-      z-index: 1;
-      padding: 0.5rem;
-      border-radius: 8px;
-      transition: all var(--transition);
-    }
-
-    .info-item:hover {
-      background: rgba(139, 92, 246, 0.1);
-      transform: translateX(5px);
-    }
-
-    .info-item:last-child {
-      margin-bottom: 0;
-    }
-
-    .info-item i {
-      width: 24px;
-      text-align: center;
-      color: var(--accent);
-      font-size: 1.25rem;
-    }
-
-    /* Footer */
-    footer {
-      background-color: var(--bg-elevated);
-      padding: 2rem 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      position: relative;
-    }
-
-    footer::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
-    }
-
-    .footer-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.5rem;
-      text-align: center;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 1.5rem;
-    }
-
-    .footer-links a {
-      color: var(--text-muted);
-      transition: all var(--transition);
-    }
-
-    .footer-links a:hover {
-      color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    .copyright {
-      color: var(--text-muted);
-      font-size: 0.875rem;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .nav-links {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background: var(--bg-color);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-        transform: translateY(-100%);
-        opacity: 0;
-        transition: all var(--transition);
-        z-index: 100;
-      }
-
-      .nav-links.show {
-        transform: translateY(0);
-        opacity: 1;
-      }
-
-      .menu-toggle {
-        display: block;
-      }
-
-      .about-content {
-        grid-template-columns: 1fr;
-      }
-
-      .contact-container {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .hero-buttons {
-        flex-direction: column;
-      }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .animate-fadeIn {
-      animation: fadeIn 1s ease-out;
-    }
-
-    .animate-fadeInUp {
-      animation: fadeInUp 1s ease-out;
-    }
-
-    function createParticles() {
-      const particlesContainer = document.createElement('div');
-      particlesContainer.className = 'particles';
-      document.body.appendChild(particlesContainer);
-      
-      const particleCount = 30;
-      
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        
-        const size = Math.random() * 2 + 1;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.top = `${Math.random() * 100}%`;
-        
-        const duration = Math.random() * 10 + 10;
-        particle.style.animationDuration = `${duration}s`;
-        
-        particle.style.animationDelay = `${Math.random() * 5}s`;
-        
-        particlesContainer.appendChild(particle);
-      }
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Yosia Sinaga · Full-stack Developer</title>
+<meta name="description" content="Portfolio of Yosia Parade Banua Sinaga, a full-stack developer focused on frontend and UI design. Projects, skills, organizations and research." />
+<meta name="author" content="Yosia Parade Banua Sinaga" />
+<meta name="theme-color" content="#07080c" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2307080c'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-weight='700' font-size='38' fill='%238496ff'%3EY%3C/text%3E%3C/svg%3E" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Yosia Sinaga · Full-stack Developer" />
+<meta property="og:description" content="Portfolio of Yosia Parade Banua Sinaga, a full-stack developer focused on frontend and UI design. Projects, skills, organizations and research." />
+<meta property="og:image" content="yosia.webp" />
+<meta name="twitter:card" content="summary" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Geist:wght@400..700&family=Geist+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@1,6..72,400&display=swap" rel="stylesheet" />
+
+<style>
+  /* Concept: dark-first editorial portfolio. Grotesque display type, clean sans body, mono metadata,
+     one ultramarine accent, hairline structure, soft light. Everything sits on a 1200px grid. */
+  :root{
+    --bg:#f5f6f8; --bg-2:#eceef2; --surface:#ffffff; --surface-2:#f9fafb;
+    --ink:#0c0e13; --ink-soft:#4a5260; --ink-faint:#868e9b;
+    --line:rgba(12,14,19,.11); --line-soft:rgba(12,14,19,.06); --line-strong:rgba(12,14,19,.22);
+    --accent:#2a3ff0; --accent-ink:#ffffff; --accent-soft:rgba(42,63,240,.08);
+    --ok:#0f8a52; --glow:rgba(42,63,240,.10); --shadow:rgba(15,20,40,.16);
+    --display:'Bricolage Grotesque','Arial Narrow',system-ui,sans-serif;
+    --sans:'Geist',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --mono:'Geist Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    --serif:'Newsreader',Georgia,serif;
+    --wrap:1200px; --gutter:clamp(1rem,4vw,3rem);
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#07080c; --bg-2:#0c0e14; --surface:#10131a; --surface-2:#141822;
+      --ink:#eef0f5; --ink-soft:#a3abb8; --ink-faint:#68717f;
+      --line:rgba(238,240,245,.10); --line-soft:rgba(238,240,245,.055); --line-strong:rgba(238,240,245,.2);
+      --accent:#8496ff; --accent-ink:#070912; --accent-soft:rgba(132,150,255,.12);
+      --ok:#3fcf8e; --glow:rgba(132,150,255,.16); --shadow:rgba(0,0,0,.6); color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#07080c; --bg-2:#0c0e14; --surface:#10131a; --surface-2:#141822;
+    --ink:#eef0f5; --ink-soft:#a3abb8; --ink-faint:#68717f;
+    --line:rgba(238,240,245,.10); --line-soft:rgba(238,240,245,.055); --line-strong:rgba(238,240,245,.2);
+    --accent:#8496ff; --accent-ink:#070912; --accent-soft:rgba(132,150,255,.12);
+    --ok:#3fcf8e; --glow:rgba(132,150,255,.16); --shadow:rgba(0,0,0,.6); color-scheme:dark;
+  }
+
+  /* ---------- base ---------- */
+  *,*::before,*::after{box-sizing:border-box;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;overflow-x:clip;position:relative;}
+  body::before{content:"";position:fixed;inset:-20vmax;z-index:-2;pointer-events:none;
+    background:radial-gradient(40vmax 40vmax at 14% 8%,var(--glow),transparent 62%),radial-gradient(36vmax 36vmax at 90% 92%,var(--glow),transparent 64%);
+    animation:drift 30s ease-in-out infinite alternate;}
+  @keyframes drift{from{transform:translate3d(-2%,-1%,0) scale(1)}to{transform:translate3d(2%,2%,0) scale(1.08)}}
+  a{color:inherit;text-decoration:none;}
+  img,video,svg{max-width:100%;display:block;}
+  button{font:inherit;cursor:pointer;color:inherit;background:none;border:0;padding:0;}
+  ::selection{background:var(--accent);color:var(--accent-ink);}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px;}
+  .wrap{width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gutter);}
+  .skip{position:fixed;left:1rem;top:-4rem;z-index:100;background:var(--accent);color:var(--accent-ink);padding:.6rem 1rem;border-radius:10px;font-weight:600;transition:top .2s;}
+  .skip:focus{top:1rem;}
+  .progress{position:fixed;left:0;top:0;height:2px;width:100%;z-index:60;background:var(--accent);transform-origin:0 50%;transform:scaleX(0);pointer-events:none;}
+
+  /* ---------- buttons ---------- */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;height:44px;padding:0 1.15rem;border-radius:999px;
+    border:1px solid var(--line-strong);background:color-mix(in oklab,var(--surface) 70%,transparent);color:var(--ink);
+    font:500 .92rem/1 var(--sans);letter-spacing:-.005em;white-space:nowrap;
+    transition:border-color .2s ease,background .2s ease,color .2s ease,transform .2s var(--ease),filter .2s ease,box-shadow .2s ease;}
+  .btn:hover{border-color:var(--ink);background:var(--surface);}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);
+    box-shadow:0 10px 26px -12px color-mix(in oklab,var(--accent) 80%,transparent);}
+  .btn.primary:hover{filter:brightness(1.07);transform:translateY(-1px);}
+  .btn.sm{height:38px;padding:0 .95rem;font-size:.86rem;}
+  .btn svg{width:16px;height:16px;flex:none;}
+  .btn .arr{display:inline-block;transition:transform .2s var(--ease);}
+  .btn:hover .arr{transform:translateX(3px);}
+  .btn:hover .arr.up{transform:translate(2px,-2px);}
+  .btn small{font:500 .66rem/1 var(--mono);letter-spacing:.06em;opacity:.75;padding-left:.55rem;border-left:1px solid currentColor;}
+
+  /* ---------- nav ---------- */
+  .top{position:fixed;left:0;right:0;top:calc(env(safe-area-inset-top,0px) + .75rem);z-index:50;display:flex;justify-content:center;padding-inline:var(--gutter);pointer-events:none;}
+  .pill{pointer-events:auto;position:relative;display:flex;align-items:center;gap:.45rem;width:100%;max-width:840px;height:56px;padding:0 .45rem 0 .55rem;
+    background:color-mix(in oklab,var(--surface) 70%,transparent);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);
+    border:1px solid var(--line);border-radius:999px;box-shadow:0 14px 34px -18px var(--shadow);transition:background .3s ease,border-color .3s ease;}
+  .scrolled .pill{background:color-mix(in oklab,var(--surface) 86%,transparent);border-color:var(--line-strong);}
+  .nav-links{position:relative;display:flex;flex:1;justify-content:space-around;align-items:center;margin-right:.35rem;}
+  .nav-links a{position:relative;z-index:1;font:500 .9rem/1 var(--sans);color:var(--ink-soft);padding:.72rem 1rem;border-radius:999px;transition:color .2s ease;}
+  .nav-links a:hover,.nav-links a.on{color:var(--ink);}
+  .nav-ind{position:absolute;z-index:0;top:50%;left:0;width:0;height:38px;transform:translateY(-50%);border-radius:999px;pointer-events:none;
+    background:var(--accent-soft);box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--accent) 24%,transparent);opacity:0;
+    transition:left .4s var(--ease),width .4s var(--ease),opacity .25s ease;}
+  .divide{width:1px;height:22px;background:var(--line);flex:none;}
+  .seg{display:inline-flex;align-items:center;height:36px;padding:3px;border:1px solid var(--line);border-radius:999px;flex:none;}
+  .seg button{font:500 .7rem/1 var(--mono);letter-spacing:.04em;height:28px;padding:0 .6rem;border-radius:999px;color:var(--ink-faint);transition:color .2s,background .2s;}
+  .seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg);}
+  .icon-btn{flex:none;width:36px;height:36px;display:grid;place-items:center;border:1px solid var(--line);border-radius:999px;color:var(--ink-soft);transition:color .2s,border-color .2s;}
+  .icon-btn:hover{color:var(--ink);border-color:var(--line-strong);}
+  .icon-btn svg{width:17px;height:17px;}
+  .i-sun{display:none;}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .i-sun{display:block;} :root:not([data-theme="light"]) .i-moon{display:none;} }
+  :root[data-theme="dark"] .i-sun{display:block;} :root[data-theme="dark"] .i-moon{display:none;}
+  .hire{height:40px;padding:0 1.05rem;font-size:.86rem;flex:none;}
+  .menu-btn{display:none;}
+  .menu{position:absolute;left:0;right:0;top:calc(100% + .5rem);display:grid;gap:.15rem;padding:.5rem;border-radius:20px;
+    background:var(--surface);
+    border:1px solid var(--line-strong);box-shadow:0 24px 50px -20px var(--shadow);opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .2s ease,transform .25s var(--ease);}
+  .menu a{display:flex;justify-content:space-between;align-items:center;padding:.85rem 1rem;border-radius:12px;font:600 1.05rem/1 var(--display);letter-spacing:-.01em;}
+  .menu a span{font:500 .7rem/1 var(--mono);color:var(--ink-faint);}
+  .menu a:hover,.menu a.on{background:var(--accent-soft);}
+  .menu-open .menu{opacity:1;transform:none;pointer-events:auto;}
+  @media (max-width:880px){
+    .nav-links,.divide{display:none;}
+    .menu-btn{display:grid;margin-right:auto;}
+  }
+  @media (min-width:881px){ .menu{display:none;} }
+  @media (max-width:400px){ .hire{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;padding:calc(env(safe-area-inset-top,0px) + 8.5rem) 0 clamp(4rem,8vw,6.5rem);overflow:hidden;}
+  .hero::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);background-size:56px 56px;background-position:center top;
+    -webkit-mask-image:radial-gradient(ellipse 75% 70% at 60% 30%,#000 30%,transparent 100%);mask-image:radial-gradient(ellipse 75% 70% at 60% 30%,#000 30%,transparent 100%);}
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:clamp(2rem,5vw,4.5rem);align-items:center;}
+  .status{display:inline-flex;align-items:center;gap:.6rem;padding:.45rem .9rem .45rem .75rem;border:1px solid var(--line);border-radius:999px;
+    background:color-mix(in oklab,var(--surface) 55%,transparent);font:500 .82rem/1.2 var(--sans);color:var(--ink-soft);margin-bottom:1.7rem;}
+  .pulse{position:relative;width:8px;height:8px;border-radius:50%;background:var(--ok);flex:none;}
+  .pulse::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--ok);opacity:.6;animation:ping 2.4s ease-out infinite;}
+  @keyframes ping{0%{transform:scale(.6);opacity:.7}80%,100%{transform:scale(1.7);opacity:0}}
+  h1.name{font-family:var(--display);font-weight:700;font-optical-sizing:auto;font-size:clamp(2.9rem,6.4vw,5.4rem);line-height:.93;letter-spacing:-.045em;margin:0 0 1.6rem;}
+  .lede{font-size:clamp(1.06rem,1.45vw,1.24rem);line-height:1.62;color:var(--ink-soft);max-width:46ch;margin:0 0 2.2rem;text-wrap:pretty;}
+  .lede strong{color:var(--ink);font-weight:500;}
+  .cta{display:flex;flex-wrap:wrap;gap:.65rem;}
+  .hero-stats{display:flex;flex-wrap:wrap;gap:1.2rem 0;margin:2.8rem 0 0;padding-top:1.5rem;border-top:1px solid var(--line);max-width:560px;}
+  .hero-stats div{display:flex;flex-direction:column-reverse;gap:.3rem;padding-right:clamp(1.2rem,3vw,2.2rem);margin-right:clamp(1.2rem,3vw,2.2rem);border-right:1px solid var(--line);}
+  .hero-stats div:last-child{border-right:0;margin-right:0;padding-right:0;}
+  .hero-stats dt{font:500 .7rem/1.2 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);}
+  .hero-stats dd{margin:0;font:700 1.4rem/1 var(--display);letter-spacing:-.025em;}
+  .portrait{position:relative;margin:0;display:grid;place-items:center;min-width:0;}
+  .portrait::before{content:"";position:absolute;width:min(100%,440px);aspect-ratio:1/1.05;border-radius:50%;
+    background:radial-gradient(circle at 50% 45%,var(--glow),transparent 62%);filter:blur(6px);z-index:0;}
+  .portrait img{position:relative;z-index:1;width:min(100%,420px);height:auto;filter:drop-shadow(0 26px 55px var(--shadow));
+    -webkit-mask-image:linear-gradient(to bottom,#000 70%,transparent 97%),linear-gradient(to right,transparent 0,#000 14%,#000 86%,transparent 100%);
+    -webkit-mask-composite:source-in;
+    mask-image:linear-gradient(to bottom,#000 70%,transparent 97%),linear-gradient(to right,transparent 0,#000 14%,#000 86%,transparent 100%);
+    mask-composite:intersect;}
+  @media (max-width:820px){
+    .hero{padding-top:calc(env(safe-area-inset-top,0px) + 6.5rem);}
+    .hero-grid{grid-template-columns:1fr;}
+    .portrait{order:-1;}
+    .portrait img{width:min(78%,290px);}
+  }
+
+  /* ---------- sections ---------- */
+  .sec{padding-block:clamp(4.5rem,9vw,7.5rem);border-top:1px solid var(--line);scroll-margin-top:5rem;}
+  .sec-head{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:1.2rem 3rem;align-items:end;margin-bottom:clamp(2.4rem,5vw,3.8rem);}
+  .sec-k{display:flex;align-items:center;gap:.7rem;font:500 .74rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 1.1rem;}
+  .sec-k b{color:var(--accent);font-weight:500;}
+  .sec-k::after{content:"";width:40px;height:1px;background:var(--line-strong);}
+  .sec-head h2{font-family:var(--display);font-weight:700;font-size:clamp(2.2rem,4.8vw,3.6rem);line-height:1;letter-spacing:-.04em;margin:0;text-wrap:balance;}
+  .sec-head .intro{margin:0;color:var(--ink-soft);font-size:1.04rem;line-height:1.6;max-width:42ch;justify-self:end;text-wrap:pretty;}
+  @media (max-width:760px){ .sec-head{grid-template-columns:1fr;} .sec-head .intro{justify-self:start;} }
+  .sub-h{display:flex;align-items:center;gap:.7rem;font:500 .72rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 1rem;}
+  .sub-h::after{content:"";flex:1;height:1px;background:var(--line);}
+
+  /* ---------- about ---------- */
+  .about-intro{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(1.6rem,5vw,4rem);align-items:start;margin-bottom:clamp(3rem,6vw,4.5rem);}
+  .about-lede{font-family:var(--display);font-weight:500;font-size:clamp(1.4rem,2.5vw,2rem);line-height:1.28;letter-spacing:-.022em;margin:0;text-wrap:pretty;}
+  .about-lede em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--accent);letter-spacing:0;}
+  .about-side{display:flex;flex-direction:column;gap:1.6rem;min-width:0;}
+  .about-body{color:var(--ink-soft);margin:0;font-size:1.02rem;}
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin:0;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+  .facts div{background:var(--surface);padding:.9rem 1rem;min-width:0;}
+  .facts dt{font:500 .66rem/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:.45rem;}
+  .facts dd{margin:0;font-weight:600;font-size:.95rem;line-height:1.35;}
+  .journey{margin:0 0 clamp(3rem,6vw,4.5rem);}
+  .tl{list-style:none;margin:0;padding:0;}
+  .tl li{position:relative;display:grid;grid-template-columns:minmax(170px,.3fr) 1fr;gap:1.5rem;padding:1.4rem 0;border-bottom:1px solid var(--line);}
+  .tl li:first-child{padding-top:.4rem;}
+  .tl .when{font:500 .78rem/1.5 var(--mono);color:var(--ink-faint);padding-top:.25rem;}
+  .tl .what{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.2rem 1.5rem;align-items:baseline;}
+  .tl b{font-family:var(--display);font-weight:650;font-size:1.22rem;letter-spacing:-.02em;}
+  .tl .at{grid-column:1/-1;font:500 .78rem/1.4 var(--mono);color:var(--accent);margin-bottom:.45rem;}
+  .tl p{grid-column:1/-1;margin:0;color:var(--ink-soft);font-size:.98rem;max-width:70ch;}
+  .tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+  .track{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:1.5rem 1.5rem 1.4rem;display:flex;flex-direction:column;gap:.6rem;
+    transition:border-color .25s ease,transform .3s var(--ease);}
+  .track:hover{border-color:color-mix(in oklab,var(--accent) 45%,var(--line));transform:translateY(-3px);}
+  .track .ic{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);margin-bottom:.35rem;}
+  .track .ic svg{width:20px;height:20px;}
+  .track h3{font-family:var(--display);font-weight:650;font-size:1.2rem;letter-spacing:-.02em;margin:0;}
+  .track p{margin:0;color:var(--ink-soft);font-size:.95rem;flex:1;}
+  .chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.4rem;}
+  .chips span,.tags span{font:500 .7rem/1 var(--mono);color:var(--ink-soft);border:1px solid var(--line);border-radius:999px;padding:.42rem .65rem;background:var(--bg);}
+  @media (max-width:860px){ .about-intro{grid-template-columns:1fr;} .tracks{grid-template-columns:1fr;} .tl li{grid-template-columns:1fr;gap:.4rem;} }
+
+  /* ---------- projects ---------- */
+  .showcase{display:flex;flex-direction:column;gap:clamp(4.5rem,9vw,7rem);}
+  .proj{display:grid;grid-template-columns:minmax(0,1.28fr) minmax(0,1fr);gap:clamp(1.8rem,4.5vw,3.8rem);align-items:center;scroll-margin-top:6rem;}
+  .proj.flip .proj-media{order:2;}
+  .proj-media{position:relative;min-width:0;}
+  .proj-media::before{content:"";position:absolute;inset:6% -5% -8%;z-index:-1;background:radial-gradient(60% 60% at 50% 55%,var(--glow),transparent 72%);filter:blur(10px);}
+  .browser{border:1px solid var(--line);border-radius:16px;background:var(--surface);overflow:hidden;
+    box-shadow:0 40px 80px -40px var(--shadow),0 0 0 1px color-mix(in oklab,var(--ink) 3%,transparent) inset;transition:transform .45s var(--ease),border-color .3s ease;}
+  .proj:hover .browser{transform:translateY(-5px);border-color:color-mix(in oklab,var(--accent) 50%,var(--line));}
+  .browser-bar{display:flex;align-items:center;gap:.8rem;height:42px;padding:0 .9rem;border-bottom:1px solid var(--line);background:var(--surface-2);}
+  .dots{display:flex;gap:6px;flex:none;}
+  .dots i{width:10px;height:10px;border-radius:50%;background:var(--line-strong);display:block;}
+  .url{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:.4rem;height:26px;font:500 .72rem/1 var(--mono);color:var(--ink-soft);background:var(--bg);
+    border:1px solid var(--line-soft);border-radius:8px;padding:0 .7rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .url svg{width:11px;height:11px;color:var(--ok);flex:none;}
+  .live{flex:none;display:inline-flex;align-items:center;gap:.4rem;font:500 .64rem/1 var(--mono);letter-spacing:.08em;color:var(--ok);}
+  .live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px color-mix(in oklab,var(--ok) 25%,transparent);}
+  .screen{position:relative;display:block;width:100%;aspect-ratio:16/10;background:var(--bg-2);cursor:pointer;overflow:hidden;}
+  .screen video,.screen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;}
+  .screen .hint{position:absolute;right:.8rem;bottom:.8rem;display:inline-flex;align-items:center;gap:.45rem;font:500 .74rem/1 var(--sans);color:#fff;
+    background:rgba(8,10,16,.66);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:999px;padding:.5rem .8rem;opacity:0;transform:translateY(6px);transition:opacity .25s ease,transform .25s var(--ease);}
+  .screen .hint svg{width:12px;height:12px;}
+  .proj:hover .screen .hint,.screen:focus-visible .hint{opacity:1;transform:none;}
+  .proj-body{display:flex;flex-direction:column;gap:.85rem;min-width:0;}
+  .ptop{display:flex;align-items:center;gap:.65rem;flex-wrap:wrap;font:500 .74rem/1 var(--mono);color:var(--ink-faint);}
+  .ptop .idx{color:var(--accent);}
+  .ptop .sep{width:18px;height:1px;background:var(--line-strong);}
+  .badge{font:500 .66rem/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;padding:.4rem .6rem;border-radius:999px;color:var(--accent);background:var(--accent-soft);}
+  .proj-body h3{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,3.3vw,2.7rem);letter-spacing:-.035em;line-height:1;margin:.1rem 0 0;}
+  .role{font:500 .78rem/1.5 var(--mono);color:var(--ink-faint);margin:0;}
+  .proj-body .lead{margin:.2rem 0 0;color:var(--ink);font-size:1.1rem;line-height:1.5;font-weight:500;letter-spacing:-.005em;}
+  .proj-body .desc{margin:0;color:var(--ink-soft);font-size:.98rem;line-height:1.7;}
+  .tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.15rem;}
+  .actions{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:.5rem;}
+  @media (max-width:900px){ .proj{grid-template-columns:1fr;} .proj.flip .proj-media{order:0;} }
+
+  /* ---------- skills ---------- */
+  .marquee{position:relative;overflow:hidden;padding-block:1.1rem;margin-bottom:1.6rem;border-block:1px solid var(--line);
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);}
+  .marquee-track{display:flex;width:max-content;animation:marq 80s linear infinite;}
+  .marquee:hover .marquee-track{animation-play-state:paused;}
+  .marquee span{display:inline-flex;align-items:center;gap:.6rem;margin-right:2.8rem;font:500 .84rem/1 var(--sans);color:var(--ink-faint);white-space:nowrap;}
+  .marquee svg{width:19px;height:19px;fill:currentColor;flex:none;}
+  @keyframes marq{to{transform:translateX(-50%)}}
+  .bento{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem;}
+  .sk{grid-column:span 2;position:relative;display:flex;flex-direction:column;gap:1.1rem;min-width:0;overflow:hidden;
+    background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:1.5rem 1.5rem 1.3rem;transition:border-color .3s ease;}
+  .sk.w3{grid-column:span 3;}
+  .sk::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(110% 80% at 100% 0,var(--glow),transparent 55%);opacity:0;transition:opacity .4s ease;}
+  .sk:hover{border-color:color-mix(in oklab,var(--accent) 40%,var(--line));}
+  .sk:hover::after{opacity:1;}
+  .sk > *{position:relative;z-index:1;}
+  .sk-head{display:flex;align-items:baseline;gap:.7rem;}
+  .sk-no{font:500 .72rem/1 var(--mono);color:var(--accent);}
+  .sk-head h3{font-family:var(--display);font-weight:650;font-size:1.25rem;letter-spacing:-.02em;margin:0;}
+  .sk-head .cnt{margin-left:auto;font:500 .68rem/1 var(--mono);color:var(--ink-faint);white-space:nowrap;}
+  .sk-desc{margin:-.55rem 0 0;color:var(--ink-soft);font-size:.94rem;line-height:1.55;}
+  .tiles{display:grid;grid-template-columns:repeat(var(--cols,3),minmax(0,1fr));grid-auto-rows:1fr;gap:.5rem;flex:1;}
+  .tile{--cc:var(--c);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.55rem;min-width:0;
+    border:1px solid var(--line-soft);border-radius:12px;background:var(--bg);padding:1rem .3rem .75rem;
+    transition:border-color .25s ease,background .25s ease,transform .25s var(--ease);}
+  .tile[data-tone="light"]{--cc:color-mix(in oklab,var(--c) 70%,#000);}
+  .tile svg{width:26px;height:26px;fill:currentColor;color:var(--ink-soft);transition:color .25s ease,transform .3s var(--ease);}
+  .tile b{font:500 .68rem/1.2 var(--sans);color:var(--ink-soft);text-align:center;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-inline:.15rem;}
+  .tile:hover{border-color:color-mix(in oklab,var(--cc) 55%,var(--line));background:color-mix(in oklab,var(--cc) 9%,var(--bg));transform:translateY(-2px);}
+  .tile:hover svg{color:var(--cc);transform:scale(1.08);}
+  .tile:hover b{color:var(--ink);}
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]) .tile[data-tone="dark"]{--cc:var(--ink);}
+    :root:not([data-theme="light"]) .tile[data-tone="light"]{--cc:var(--c);}
+  }
+  :root[data-theme="dark"] .tile[data-tone="dark"]{--cc:var(--ink);}
+  :root[data-theme="dark"] .tile[data-tone="light"]{--cc:var(--c);}
+  .sk-foot{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;padding-top:1rem;border-top:1px dashed var(--line);}
+  .sk-foot .k{font:500 .64rem/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-faint);margin-right:.3rem;}
+  .sk-foot a,.sk-foot .x{font:500 .74rem/1 var(--sans);color:var(--ink-soft);border:1px solid var(--line);border-radius:999px;padding:.45rem .7rem;transition:border-color .2s,color .2s;}
+  .sk-foot a:hover{border-color:var(--accent);color:var(--accent);}
+  .ways{list-style:none;margin:0;padding:0;flex:1;display:flex;flex-direction:column;justify-content:space-between;}
+  .ways li{display:flex;gap:.85rem;align-items:baseline;padding:.62rem 0;border-bottom:1px solid var(--line-soft);font-size:.97rem;color:var(--ink);}
+  .ways li:last-child{border-bottom:0;}
+  .ways li span{font:500 .68rem/1 var(--mono);color:var(--accent);flex:none;}
+  @media (max-width:960px){ .bento{grid-template-columns:repeat(2,1fr);} .sk{grid-column:span 1;} .sk.w3,.sk.full{grid-column:span 2;} }
+  @media (max-width:620px){
+    .bento{grid-template-columns:1fr;} .sk,.sk.w3,.sk.full{grid-column:span 1;}
+    .sk.w3 .tiles{--cols:2 !important;grid-auto-rows:auto;}
+    .sk.w3 .tile{flex-direction:row;justify-content:flex-start;gap:.7rem;padding:.7rem .85rem;}
+    .sk.w3 .tile svg{width:20px;height:20px;} .sk.w3 .tile b{font-size:.8rem;}
+  }
+
+  /* ---------- organizations ---------- */
+  .orgs{display:grid;gap:1.4rem;}
+  .org{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);width:100%;text-align:left;border:1px solid var(--line);border-radius:20px;overflow:hidden;
+    background:var(--surface);transition:border-color .3s ease,transform .4s var(--ease),box-shadow .4s ease;}
+  .org:hover{border-color:color-mix(in oklab,var(--accent) 50%,var(--line));transform:translateY(-4px);box-shadow:0 40px 70px -45px var(--shadow);}
+  .org-media{position:relative;min-width:0;min-height:380px;overflow:hidden;background:var(--bg-2);}
+  .org-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease);}
+  .org:hover .org-media img{transform:scale(1.04);}
+  .count{position:absolute;z-index:4;bottom:.9rem;display:inline-flex;align-items:center;gap:.4rem;font:500 .74rem/1 var(--sans);color:#fff;
+    background:rgba(8,10,16,.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:999px;padding:.5rem .8rem;}
+  .org-media .count{left:.9rem;}
+  .count svg{width:13px;height:13px;}
+  .org-body{padding:clamp(1.4rem,3.4vw,2.4rem);display:flex;flex-direction:column;gap:.8rem;min-width:0;justify-content:center;}
+  .org-body h3{font-family:var(--display);font-weight:700;font-size:clamp(1.6rem,2.8vw,2.2rem);letter-spacing:-.03em;line-height:1.05;margin:0;}
+  .org-body .lead{margin:0;color:var(--ink);font-size:1.02rem;line-height:1.6;}
+  .points{margin:.1rem 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:.5rem;}
+  .points li{position:relative;padding-left:1.3rem;color:var(--ink-soft);font-size:.95rem;line-height:1.55;}
+  .points li::before{content:"";position:absolute;left:0;top:.62em;width:.6rem;height:.6rem;border-radius:3px;border:1.5px solid var(--accent);}
+  .strip{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-top:.4rem;}
+  .strip img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;border:1px solid var(--line);}
+  .open{display:inline-flex;align-items:center;gap:.4rem;font:600 .88rem/1 var(--sans);color:var(--accent);margin-top:.4rem;}
+  .open .arr{transition:transform .2s var(--ease);}
+  .org:hover .open .arr{transform:translateX(3px);}
+  .posters-card{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);}
+  .fan{position:relative;min-height:420px;overflow:hidden;min-width:0;background:radial-gradient(70% 70% at 60% 50%,var(--glow),transparent 70%),var(--bg-2);}
+  .fan img{position:absolute;top:50%;width:min(54%,300px);aspect-ratio:1;object-fit:cover;border-radius:12px;border:1px solid var(--line);
+    box-shadow:0 26px 50px -20px var(--shadow);transition:transform .6s var(--ease);}
+  .fan .p0{left:7%;transform:translateY(-50%) rotate(-8deg);z-index:1;}
+  .fan .p1{left:24%;transform:translateY(-54%) rotate(1deg);z-index:3;}
+  .fan .p2{left:41%;transform:translateY(-49%) rotate(8deg);z-index:2;}
+  .posters-card:hover .fan .p0{transform:translateY(-50%) translateX(-14%) rotate(-11deg);}
+  .posters-card:hover .fan .p1{transform:translateY(-56%) scale(1.04) rotate(0deg);}
+  .posters-card:hover .fan .p2{transform:translateY(-49%) translateX(14%) rotate(11deg);}
+  .fan .count{right:.9rem;}
+  @media (max-width:860px){
+    .org,.posters-card{grid-template-columns:1fr;}
+    .org-media{min-height:0;aspect-ratio:4/3;}
+    .posters-card .fan{order:-1;min-height:300px;} .fan img{width:min(50%,210px);}
+  }
+
+  /* ---------- research ---------- */
+  .research{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(1.8rem,4.5vw,3.6rem);align-items:center;}
+  .rtop{display:flex;align-items:center;gap:.65rem;flex-wrap:wrap;font:500 .74rem/1 var(--mono);color:var(--ink-faint);}
+  .rtitle{font-family:var(--display);font-weight:700;font-size:clamp(1.55rem,2.8vw,2.15rem);letter-spacing:-.03em;line-height:1.1;margin:1rem 0 1rem;text-wrap:balance;}
+  .authors{font:500 .8rem/1.5 var(--mono);color:var(--ink-faint);margin:0 0 .35rem;}
+  .authors b{color:var(--ink);font-weight:500;}
+  .venue{font-size:.98rem;color:var(--ink);margin:0 0 1.2rem;}
+  .abs{color:var(--ink-soft);margin:0 0 1.4rem;font-size:1rem;line-height:1.7;max-width:62ch;}
+  .cert{display:block;width:100%;text-align:left;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--surface);
+    box-shadow:0 40px 80px -40px var(--shadow);transition:transform .45s var(--ease),border-color .3s ease;}
+  .cert:hover{transform:translateY(-5px) rotate(-.4deg);border-color:color-mix(in oklab,var(--accent) 55%,var(--line));}
+  .cert img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;}
+  .cert-cap{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.85rem 1.05rem;border-top:1px solid var(--line);font:500 .84rem/1.3 var(--sans);color:var(--ink-soft);}
+  .cert-cap i{font-style:normal;color:var(--accent);}
+  .rstats{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;margin:clamp(2.2rem,4vw,3rem) 0 0;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;}
+  .rstat{background:var(--surface);padding:1.15rem 1.2rem 1.25rem;min-width:0;}
+  .rstat dt{font:500 .66rem/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 .6rem;}
+  .rstat dd{margin:0;font-family:var(--display);font-weight:700;font-size:clamp(1.45rem,2.6vw,2rem);letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums;}
+  .rstat.key dd{color:var(--accent);}
+  .rnote{font:500 .74rem/1.5 var(--mono);color:var(--ink-faint);margin:.8rem 0 0;}
+  @media (max-width:860px){ .research{grid-template-columns:1fr;} .rstats{grid-template-columns:1fr 1fr;} .rstat:last-child{grid-column:span 2;} }
+
+  /* ---------- contact / footer ---------- */
+  .contact{padding-block:clamp(3.5rem,7vw,5.5rem);background:var(--bg-2);border-top:1px solid var(--line);scroll-margin-top:5rem;}
+  .foot-top{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:2rem;align-items:end;}
+  .foot-big{font-family:var(--display);font-weight:700;font-size:clamp(2.2rem,6vw,4.4rem);letter-spacing:-.045em;line-height:1;margin:0;text-wrap:balance;}
+  .foot-big em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--accent);letter-spacing:-.02em;}
+  .contacts{display:flex;flex-direction:column;gap:.65rem;font:500 .9rem/1.4 var(--sans);}
+  .contacts a{display:inline-flex;gap:.6rem;align-items:baseline;color:var(--ink);border-bottom:1px solid transparent;width:fit-content;transition:color .2s,border-color .2s;}
+  .contacts a:hover{color:var(--accent);border-bottom-color:var(--accent);}
+  .contacts .k{font:500 .7rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);min-width:5.5rem;}
+  @media (max-width:720px){ .foot-top{grid-template-columns:1fr;align-items:start;} }
+
+  /* ---------- detail overlay ---------- */
+  .overlay{position:fixed;inset:0;z-index:70;display:grid;place-items:center;padding:clamp(0rem,3vw,2rem);
+    background:color-mix(in oklab,#000 58%,transparent);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);animation:fade .2s ease;}
+  .overlay[hidden]{display:none;}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  .sheet{position:relative;background:var(--bg);width:100%;max-width:1080px;max-height:min(92vh,100%);overflow-y:auto;overscroll-behavior:contain;
+    border:1px solid var(--line-strong);border-radius:22px;padding:clamp(1.3rem,4vw,2.6rem);box-shadow:0 50px 100px -40px rgba(0,0,0,.7);animation:rise .35s var(--ease);}
+  @keyframes rise{from{opacity:0;transform:translateY(24px) scale(.985)}to{opacity:1;transform:none}}
+  .sheet-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.8rem;}
+  .sheet h3{font-family:var(--display);font-weight:700;font-size:clamp(1.7rem,4vw,2.7rem);letter-spacing:-.035em;line-height:1.02;margin:.35rem 0 0;}
+  .close{flex:none;display:inline-flex;align-items:center;gap:.4rem;height:38px;padding:0 .9rem;border:1px solid var(--line-strong);border-radius:999px;font:500 .84rem/1 var(--sans);color:var(--ink-soft);transition:color .2s,border-color .2s;}
+  .close:hover{color:var(--ink);border-color:var(--ink);}
+  .sheet .lead{font-size:1.12rem;line-height:1.55;color:var(--ink);margin:.6rem 0 .8rem;max-width:66ch;}
+  .sheet .desc{color:var(--ink-soft);margin:0 0 1.5rem;max-width:74ch;}
+  .viewer{position:relative;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--bg-2);aspect-ratio:16/10;margin-bottom:.75rem;}
+  .viewer video,.viewer img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:var(--bg-2);}
+  .vnav{position:absolute;top:50%;z-index:2;width:42px;height:42px;margin-top:-21px;border-radius:50%;display:grid;place-items:center;color:#fff;
+    background:rgba(8,10,16,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;transition:opacity .2s ease,background .2s;}
+  .vnav svg{width:18px;height:18px;}
+  .vnav.prev{left:.8rem;} .vnav.next{right:.8rem;}
+  .vwrap{position:relative;}
+  .vwrap:hover .vnav,.vnav:focus-visible{opacity:1;}
+  .vnav:hover{background:rgba(8,10,16,.8);}
+  @media (hover:none){ .vnav{opacity:1;} }
+  .thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:.5rem;margin-bottom:.5rem;}
+  .th{position:relative;border:1px solid var(--line);border-radius:10px;overflow:hidden;aspect-ratio:16/10;background:var(--bg-2);opacity:.55;transition:opacity .2s ease,border-color .2s ease;}
+  .th img{width:100%;height:100%;object-fit:cover;object-position:top;}
+  .th:hover{opacity:1;}
+  .th.on{opacity:1;border-color:var(--accent);box-shadow:0 0 0 1px var(--accent);}
+  .th .play{position:absolute;inset:0;display:grid;place-items:center;color:#fff;background:rgba(8,10,16,.35);}
+  .th .play svg{width:16px;height:16px;}
+  .cap{font:500 .76rem/1.4 var(--mono);color:var(--ink-faint);margin:0 0 1.6rem;min-height:1em;display:flex;justify-content:space-between;gap:1rem;}
+  .meta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:0 0 1.6rem;}
+  .meta-grid > div{background:var(--surface);padding:.9rem 1rem;min-width:0;}
+  .meta-grid dt{font:500 .64rem/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:.45rem;}
+  .meta-grid dd{margin:0;font-weight:600;font-size:.95rem;line-height:1.35;}
+  @media (max-width:720px){ .meta-grid{grid-template-columns:1fr 1fr;} }
+  .sheet h4{display:flex;align-items:center;gap:.7rem;font:500 .7rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin:1.6rem 0 .9rem;}
+  .sheet h4::after{content:"";flex:1;height:1px;background:var(--line);}
+  .access{border:1px dashed var(--line-strong);border-radius:12px;padding:.9rem 1rem;font:500 .82rem/1.75 var(--mono);color:var(--ink-soft);margin:0;background:var(--surface);}
+  .access b{color:var(--ink);font-weight:500;}
+  @media (max-width:640px){
+    .overlay{place-items:end center;padding:0;}
+    .sheet{border-radius:22px 22px 0 0;max-height:94vh;padding-bottom:calc(2rem + env(safe-area-inset-bottom,0px));}
+  }
+
+  /* ---------- email popover ---------- */
+  .mailpop{position:fixed;z-index:80;width:min(330px,calc(100vw - 2rem));background:var(--surface);border:1px solid var(--line-strong);border-radius:18px;padding:.5rem;
+    box-shadow:0 30px 70px -24px var(--shadow),0 2px 8px -4px var(--shadow);display:flex;flex-direction:column;gap:.25rem;animation:mp-in .2s var(--ease);}
+  .mailpop[hidden]{display:none;}
+  @keyframes mp-in{from{opacity:0;transform:translateY(6px) scale(.98)}to{opacity:1;transform:none}}
+  .mp-head{padding:.6rem .7rem .7rem;display:flex;flex-direction:column;gap:.3rem;border-bottom:1px solid var(--line-soft);margin-bottom:.25rem;}
+  .mp-head span{font:500 .64rem/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-faint);}
+  .mp-head b{font-weight:600;font-size:.98rem;word-break:break-all;}
+  .mp-row{display:flex;align-items:center;justify-content:space-between;gap:.6rem;width:100%;text-align:left;font:500 .9rem/1 var(--sans);color:var(--ink);
+    border:1px solid transparent;border-radius:12px;padding:.8rem .8rem;transition:background .15s ease,border-color .15s ease;}
+  .mp-row i{font-style:normal;color:var(--ink-faint);}
+  .mp-row:hover{background:var(--bg);border-color:var(--line);}
+  .mp-row.primary{background:var(--accent);color:var(--accent-ink);}
+  .mp-row.primary i{color:inherit;opacity:.8;}
+  .mp-row.primary:hover{filter:brightness(1.07);background:var(--accent);}
+  .mp-row.done{color:var(--ok);}
+  @media (max-width:600px){ .mailpop{left:1rem !important;right:1rem;top:auto !important;bottom:calc(1rem + env(safe-area-inset-bottom,0px));width:auto;} }
+
+  /* ---------- reveal ---------- */
+  .io .reveal{opacity:0;transform:translateY(22px);}
+  .io .reveal.vis{opacity:1;transform:none;transition:opacity .8s ease var(--d,0s),transform .8s var(--ease) var(--d,0s);}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    body::before,.marquee-track,.pulse::after{animation:none;}
+    .io .reveal{opacity:1;transform:none;}
+    .overlay,.sheet,.mailpop{animation:none;}
+  }
+</style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav id="navbar">
-    <div class="nav-container">
-      <a href="#" class="logo">YS.</a>
-      <div class="nav-links" id="navLinks">
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-      </div>
-      <button class="menu-toggle" id="menuToggle">
-        <i class="fas fa-bars"></i>
-      </button>
-    </div>
-  </nav>
 
-  <!-- Hero Section -->
+<a class="skip" href="#about" data-i18n="ui.skip">Skip to content</a>
+<div class="progress" id="progress"></div>
+
+<header class="top" id="top-bar">
+  <div class="pill">
+    <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 8h16M4 16h16"/></svg>
+    </button>
+    <nav class="nav-links" aria-label="Primary">
+      <span class="nav-ind" id="nav-ind"></span>
+      <a href="#about" data-nav="about" data-i18n="nav.about">About</a>
+      <a href="#work" data-nav="work" data-i18n="nav.work">Projects</a>
+      <a href="#skills" data-nav="skills" data-i18n="nav.skills">Skills</a>
+      <a href="#orgs" data-nav="orgs" data-i18n="nav.orgs">Organizations</a>
+      <a href="#contact" data-nav="contact" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <span class="divide"></span>
+    <div class="seg" role="group" aria-label="Language">
+      <button id="lang-en" type="button" aria-pressed="true">EN</button>
+      <button id="lang-id" type="button" aria-pressed="false">ID</button>
+    </div>
+    <button class="icon-btn" id="theme" type="button" aria-label="Toggle light and dark mode">
+      <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+      <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/></svg>
+    </button>
+    <a class="btn primary hire" href="mailto:yosiaparadesinaga@gmail.com" data-mail data-i18n="nav.hire">Contact me</a>
+    <nav class="menu" id="menu" aria-label="Mobile">
+      <a href="#about" data-nav="about"><b data-i18n="nav.about">About</b><span>01</span></a>
+      <a href="#work" data-nav="work"><b data-i18n="nav.work">Projects</b><span>02</span></a>
+      <a href="#skills" data-nav="skills"><b data-i18n="nav.skills">Skills</b><span>03</span></a>
+      <a href="#orgs" data-nav="orgs"><b data-i18n="nav.orgs">Organizations</b><span>04</span></a>
+      <a href="#research" data-nav="research"><b data-i18n="nav.research">Research</b><span>05</span></a>
+      <a href="#contact" data-nav="contact"><b data-i18n="nav.contact">Contact</b><span>06</span></a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
   <section class="hero">
-    <div class="hero-content animate-fadeIn">
-      <div class="avatar-container">
-        <img src="yosyos.jpg" alt="Yosia Parade Banua Sinaga" class="avatar">
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <span class="status reveal"><span class="pulse"></span><span data-i18n="hero.status">Open to full-stack, frontend and data roles</span></span>
+        <h1 class="name reveal" style="--d:.05s">Yosia&nbsp;Parade<br />Banua Sinaga</h1>
+        <p class="lede reveal" style="--d:.1s" data-i18n="hero.lede"></p>
+        <div class="cta reveal" style="--d:.15s">
+          <a class="btn primary" id="cv-btn" href="cv/Yosia_Sinaga_CV.pdf" download="Yosia_Sinaga_CV.pdf" data-dl="Yosia_Sinaga_CV.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>
+            <span data-i18n="hero.cv">Download CV</span><small>PDF</small></a>
+          <a class="btn" href="#work"><span data-i18n="hero.cta1">View projects</span><span class="arr">→</span></a>
+          <a class="btn" href="mailto:yosiaparadesinaga@gmail.com" data-mail><span data-i18n="hero.cta2">Contact me</span></a>
+        </div>
+        <dl class="hero-stats reveal" style="--d:.2s">
+          <div><dt data-i18n="hero.s1">Conference paper</dt><dd>ICIC 2026</dd></div>
+          <div><dt data-i18n="hero.s2">Internship 2025</dt><dd>Telkom Indonesia</dd></div>
+        </dl>
       </div>
-      <h1 class="animate-fadeInUp">Yosia Parade Banua Sinaga</h1>
-      <p class="animate-fadeInUp" style="animation-delay: 0.2s">Informatics Student • Frontend Developer • Data Enthusiast</p>
-      <div class="hero-buttons animate-fadeInUp" style="animation-delay: 0.4s">
-        <a href="#projects" class="btn btn-primary">View My Work</a>
-        <a href="#contact" class="btn btn-secondary">Contact Me</a>
+      <figure class="portrait reveal" style="--d:.1s">
+        <img src="yosia.webp" width="760" height="1066" alt="Yosia Parade Banua Sinaga" fetchpriority="high" />
+      </figure>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="sec" id="about">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <div><p class="sec-k"><b>01</b><span data-i18n="nav.about">About</span></p><h2 data-i18n="about.title">About me</h2></div>
+      </header>
+      <div class="about-intro">
+        <p class="about-lede reveal" data-i18n="about.lede"></p>
+        <div class="about-side reveal" style="--d:.08s">
+          <p class="about-body" data-i18n="about.body"></p>
+        </div>
       </div>
-      <div class="social-links animate-fadeInUp" style="animation-delay: 0.6s">
-        <a href="https://github.com/Yombia" target="_blank"><i class="fab fa-github"></i></a>
-        <a href="https://linkedin.com/in/yosia-sinaga-497170259" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-        <a href="https://twitter.com/yosiasinaga" target="_blank"><i class="fab fa-twitter"></i></a>
-        <a href="https://instagram.com/yombiaa" target="_blank"><i class="fab fa-instagram"></i></a>
+      <div class="journey reveal">
+        <h3 class="sub-h" data-i18n="about.jh">Experience</h3>
+        <ol class="tl">
+          <li><span class="when" data-i18n="about.j1w"></span><div class="what"><b>Software Engineer Intern</b><span class="at">Telkom Indonesia · Digital Business Technology</span><p data-i18n="about.j1"></p></div></li>
+          <li><span class="when" data-i18n="about.j2w"></span><div class="what"><b>Data Analyst</b><span class="at">CV Borisma Karya · Medan</span><p data-i18n="about.j2"></p></div></li>
+        </ol>
+      </div>
+      <h3 class="sub-h reveal" data-i18n="about.th">Focus areas</h3>
+      <div class="tracks">
+        <div class="track reveal">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2.5"/><path d="M8 21h8M9 9l-2 2 2 2M15 9l2 2-2 2"/></svg></span>
+          <h3 data-i18n="about.t1h"></h3><p data-i18n="about.t1p"></p>
+          <div class="chips"><span>React</span><span>Laravel</span><span>Flutter</span><span>Figma</span></div>
+        </div>
+        <div class="track reveal" style="--d:.06s">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+          <h3 data-i18n="about.t2h"></h3><p data-i18n="about.t2p"></p>
+          <div class="chips"><span>SQL</span><span>Python</span><span>Power BI</span><span>Excel</span></div>
+        </div>
+        <div class="track reveal" style="--d:.12s">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><path d="M7 7l3 3.5M7 17l3-3.5M14 12h3"/></svg></span>
+          <h3 data-i18n="about.t3h"></h3><p data-i18n="about.t3p"></p>
+          <div class="chips"><span>PyTorch</span><span>Transformers</span><span>scikit-learn</span></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Main Content -->
-  <main>
-    <!-- About Section -->
-    <section id="about" class="section">
-      <div class="container">
-        <h2 class="section-title">About Me</h2>
-        <div class="about-content">
-          <div class="about-text">
-            <p>Hello! I'm Yosia, a passionate Informatics student at Telkom University with a strong interest in UI/UX design, frontend development, and data analysis. I love creating beautiful, functional interfaces and turning complex data into meaningful insights.</p>
-            <p>When I'm not coding, you can find me exploring new design trends, contributing to open-source projects, or learning about the latest data visualization techniques. I believe in continuous learning and pushing the boundaries of what's possible with technology.</p>
-            <div class="about-details">
-              <div class="detail-item">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>Bandung, Indonesia</span>
-              </div>
-              <div class="detail-item">
-                <i class="fas fa-briefcase"></i>
-                <span>Available for internships</span>
-              </div>
-            </div>
-          </div>
-          <div class="education-card">
-            <h3>Education</h3>
-            <div class="education-item">
-              <h4>Telkom University</h4>
-              <p>Bachelor of Informatics Engineering</p>
-              <p class="text-muted">2022 - Present</p>
-            </div>
-            <div class="education-item">
-              <h4>Relevant Coursework</h4>
-              <div class="coursework-tags">
-                <span class="tag">Data Structures</span>
-                <span class="tag">Algorithms</span>
-                <span class="tag">Web Development</span>
-                <span class="tag">Database Systems</span>
-                <span class="tag">Human-Computer Interaction</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="section skills-section">
-      <div class="container">
-        <h2 class="section-title">My Skills & Expertise</h2>
-        <p class="section-subtitle">Technologies and methodologies I work with</p>
-        
-        <div class="skills-container">
-  <!-- Frontend Development -->
-  <div class="skill-category">
-    <h3><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="Frontend"> Frontend Development</h3>
-    <div class="skills-list">
-      <div class="skill-item">
-        <div class="skill-header">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5">
-          <span>HTML5</span>
-        </div>
-        <div class="skill-level intermediate">
-          <span>Intermediate</span>
-        </div>
-      </div>
-      <div class="skill-item">
-        <div class="skill-header">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3">
-          <span>CSS3</span>
-        </div>
-        <div class="skill-level expert">
-          <span>Expert</span>
-        </div>
-      </div>
-      <div class="skill-item">
-        <div class="skill-header">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
-          <span>JavaScript (ES6+)</span>
-        </div>
-        <div class="skill-level expert">
-          <span>Expert</span>
-        </div>
-      </div>
-      <div class="skill-item">
-        <div class="skill-header">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" alt="Tailwind">
-          <span>Tailwind CSS</span>
-        </div>
-        <div class="skill-level advanced">
-          <span>Advanced</span>
-        </div>
-      </div>
+  <!-- PROJECTS -->
+  <section class="sec" id="work">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <div><p class="sec-k"><b>02</b><span data-i18n="nav.work">Projects</span></p><h2 data-i18n="work.title">Selected projects</h2></div>
+      </header>
+      <div class="showcase" id="work-list"></div>
     </div>
-  </div>
+  </section>
 
-  <!-- UI/UX Design -->
-  <div class="skill-category">
-    <h3><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="UI/UX"> UI/UX Design</h3>
-    <div class="skills-list">
-      <div class="skill-item">
-        <div class="skill-header">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma">
-          <span>Figma</span>
-        </div>
-        <div class="skill-level expert">
-          <span>Expert</span>
-        </div>
-      </div>
-      <div class="skill-item">
-        <div class="skill-header">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xd/xd-plain.svg" alt="Adobe XD">
-          <span>Adobe XD</span>
-        </div>
-        <div class="skill-level advanced">
-          <span>Advanced</span>
-        </div>
-      </div>
-      <div class="skill-item">
-        <div class="skill-header">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" alt="Illustrator">
-          <span>Illustrator</span>
-        </div>
-        <div class="skill-level intermediate">
-          <span>Intermediate</span>
-        </div>
-      </div>
-      <div class="skill-item">
-        <div class="skill-header">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" alt="Photoshop">
-          <span>Photoshop</span>
-        </div>
-        <div class="skill-level intermediate">
-          <span>Intermediate</span>
-        </div>
-      </div>
+  <!-- SKILLS -->
+  <section class="sec" id="skills">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <div><p class="sec-k"><b>03</b><span data-i18n="nav.skills">Skills</span></p><h2 data-i18n="skills.title">Skills &amp; tools</h2></div>
+      </header>
+      <div class="marquee reveal" aria-hidden="true"><div class="marquee-track" id="marquee"></div></div>
+      <div class="bento reveal" id="skills-grid"></div>
     </div>
-  </div>
+  </section>
 
-  <!-- Backend Development -->
-  <div class="skill-category">
-    <h3><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Backend"> Backend Development</h3>
-    <div class="skills-list">
-      <div class="skill-item">
-        <div class="skill-header">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js">
-          <span>Node.js</span>
-        </div>
-        <div class="skill-level advanced">
-          <span>Advanced</span>
-        </div>
-      </div>
-      <div class="skill-item">
-        <div class="skill-header">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB">
-          <span>MongoDB</span>
-        </div>
-        <div class="skill-level intermediate">
-          <span>Intermediate</span>
-        </div>
-      </div>
-      <div class="skill-item">
-        <div class="skill-header">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java">
-          <span>Java</span>
-        </div>
-        <div class="skill-level expert">
-          <span>Expert</span>
-        </div>
-      </div>
-      <div class="skill-item">
-        <div class="skill-header">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP">
-          <span>PHP</span>
-        </div>
-        <div class="skill-level intermediate">
-          <span>Intermediate</span>
-        </div>
-      </div>
-      <div class="skill-item">
-        <div class="skill-header">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
-          <span>Python</span>
-        </div>
-        <div class="skill-level advanced">
-          <span>Advanced</span>
-        </div>
-      </div>
+  <!-- ORGANIZATIONS -->
+  <section class="sec" id="orgs">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <div><p class="sec-k"><b>04</b><span data-i18n="nav.orgs">Organizations</span></p><h2 data-i18n="orgs.title">Organizations</h2></div>
+      </header>
+      <div class="orgs" id="org-cards"></div>
     </div>
-  </div>
+  </section>
 
-  <!-- Data Analysis -->
-  <div class="skill-category">
-    <h3><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Data"> Data Analysis</h3>
-    <div class="skills-list">
-      <div class="skill-item">
-        <div class="skill-header">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
-          <span>Python</span>
-        </div>
-        <div class="skill-level intermediate">
-          <span>Intermediate</span>
-        </div>
-      </div>
-      <div class="skill-item">
-        <div class="skill-header">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas">
-          <span>Pandas & NumPy</span>
-        </div>
-        <div class="skill-level advanced">
-          <span>Advanced</span>
-        </div>
-      </div>
-      <div class="skill-item">
-        <div class="skill-header">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matplotlib/matplotlib-original.svg" alt="Matplotlib">
-          <span>Data Visualization</span>
-        </div>
-        <div class="skill-level intermediate">
-          <span>Intermediate</span>
-        </div>
-      </div>
-      <div class="skill-item">
-        <div class="skill-header">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="SQL">
-          <span>SQL</span>
-        </div>
-        <div class="skill-level intermediate">
-          <span>Intermediate</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tools & Other -->
-  <div class="skill-category">
-    <h3><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Tools"> Tools & Other</h3>
-    <div class="skills-list">
-      <div class="skill-item">
-        <div class="skill-header">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
-          <span>Git</span>
-        </div>
-        <div class="skill-level beginner">
-          <span>Beginner</span>
-        </div>
-      </div>
-      <div class="skill-item">
-        <div class="skill-header">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
-          <span>GitHub</span>
-        </div>
-        <div class="skill-level beginner">
-          <span>Beginner</span>
-        </div>
-      </div>
-      <div class="skill-item">
-        <div class="skill-header">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code">
-          <span>VS Code</span>
-        </div>
-        <div class="skill-level intermediate">
-          <span>Intermediate</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-    <!-- Projects Section -->
-    <section id="projects" class="section">
-      <div class="container">
-        <h2 class="section-title">Featured Projects</h2>
-        
-        <div class="projects-grid">
-          <!-- Project 1 -->
-          <div class="project-card">
-            <div class="project-image">
-              <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Recipe App">
-            </div>
-            <div class="project-content">
-              <div class="project-tags">
-                <span class="tag">Web Development</span>
-                <span class="tag">React</span>
-                <span class="tag">Firebase</span>
-              </div>
-              <h3>Indonesian Recipe Web App</h3>
-              <p>A comprehensive web application for discovering, saving, and sharing authentic Indonesian recipes with user authentication and personalized favorites.</p>
-              <div class="project-links">
-                <a href="https://www.figma.com/proto/4uhIQeYmxmM2QdqmhlVmW8/Untitled?page-id=0%3A1&node-id=8-178&p=f&viewport=205%2C847%2C0.23&t=dMJAiIu4zXZMifpw-1&scaling=scale-down&content-scaling=fixed" target="_blank" class="btn btn-secondary"><i class="fas fa-external-link-alt"></i> Prototype</a>
-                <a href="#" class="btn btn-secondary"><i class="fab fa-github"></i> View Code</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Project 2 -->
-          <div class="project-card">
-            <div class="project-image">
-              <img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Medicine App">
-            </div>
-            <div class="project-content">
-              <div class="project-tags">
-                <span class="tag">Mobile App</span>
-                <span class="tag">Flutter</span>
-                <span class="tag">Dart</span>
-              </div>
-              <h3>Medicine Reminder App</h3>
-              <p>A mobile application designed to help users manage their medication schedules with customizable reminders and dosage tracking.</p>
-              <div class="project-links">
-                <a href="https://www.figma.com/proto/BTHh4ul6fyvbZbxY5ziWFd/Untitled?page-id=0%3A1&node-id=1-1143&p=f&viewport=619%2C490%2C0.31&t=zI4f3iifLP7sb8fg-1&scaling=min-zoom&content-scaling=fixed" target="_blank" class="btn btn-primary"><i class="fas fa-external-link-alt"></i> Prototype</a>
-                <a href="#" class="btn btn-secondary"><i class="fab fa-github"></i> View Code</a>
-              </div>
-            </div>
-          </div>                                                                                 
-          <!-- Project 3 -->
-          <div class="project-card">
-            <div class="project-image">
-              <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Car Rental">
-            </div>
-            <div class="project-content">
-              <div class="project-tags">
-                <span class="tag">Full-stack</span>
-                <span class="tag">Node.js</span>
-                <span class="tag">MongoDB</span>
-              </div>
-              <h3>Car Rental Platform</h3>
-              <p>A full-stack vehicle rental platform developed as a software engineering project with vehicle inventory management and booking system.</p>
-              <div class="project-links">
-                <a href="https://www.figma.com/proto/mUwbQVlzkqb2bUtSkUBSsN/InnoRide?page-id=0%3A1&node-id=5-64&p=f&viewport=209%2C-1%2C0.51&t=G5jaDyvw4eKboxg5-1&scaling=min-zoom&content-scaling=fixed" target="_blank" class="btn btn-secondary"><i class="fas fa-external-link-alt"></i> Prototype</a>
-                <a href="https://github.com/adnsyhh/InnoRide-Project" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i> View Code</a>
-              </div>
-            </div>
+  <!-- RESEARCH -->
+  <section class="sec" id="research">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <div><p class="sec-k"><b>05</b><span data-i18n="nav.research">Research</span></p><h2 data-i18n="research.title">Research</h2></div>
+      </header>
+      <div class="research">
+        <div class="reveal">
+          <div class="rtop"><span class="badge" data-i18n="research.tag">Conference paper</span><span data-i18n="research.when"></span></div>
+          <h3 class="rtitle">Multimodal Cyberbullying Detection on Platform X Using Cross-Attention Fusion of IndoBERTweet and Vision Transformer</h3>
+          <p class="authors"><b>Yosia Sinaga</b>, Erwin Budi Setiawan · Telkom University</p>
+          <p class="venue">The Eleventh International Conference on Informatics and Computing (ICIC 2026), Universitas Atma Jaya Yogyakarta</p>
+          <p class="abs" data-i18n="research.body"></p>
+          <div class="actions">
+            <a class="btn primary" href="research/Sinaga-Setiawan-ICIC2026.pdf" target="_blank" rel="noopener"><span data-i18n="research.read">Read the paper</span><span class="arr up">↗</span></a>
+            <a class="btn" href="research/Sinaga-Setiawan-ICIC2026.pdf" download="Sinaga-Setiawan-ICIC2026.pdf" data-dl="Sinaga-Setiawan-ICIC2026.pdf"><span data-i18n="research.dl">Download PDF</span></a>
+            <button class="btn" type="button" data-research><span data-i18n="research.more">Pages &amp; certificate</span><span class="arr">→</span></button>
           </div>
         </div>
+        <button class="cert reveal" style="--d:.08s" type="button" data-research aria-label="Certificate of Appreciation, ICIC 2026">
+          <img src="research/certificate.webp" width="1920" height="1080" alt="Certificate of Appreciation, ICIC 2026" loading="lazy">
+          <span class="cert-cap"><span data-i18n="research.cert">Certificate of presentation, ICIC 2026</span><i>↗</i></span>
+        </button>
       </div>
-    </section>
+      <dl class="rstats reveal">
+        <div class="rstat key"><dt>F1-score</dt><dd data-i18n="research.v1">84.70%</dd></div>
+        <div class="rstat"><dt data-i18n="research.s2">Accuracy</dt><dd data-i18n="research.v2">86.44%</dd></div>
+        <div class="rstat"><dt data-i18n="research.s3">Precision</dt><dd data-i18n="research.v3">87.61%</dd></div>
+        <div class="rstat"><dt>Recall</dt><dd data-i18n="research.v4">81.97%</dd></div>
+        <div class="rstat"><dt data-i18n="research.s5">Labeled data</dt><dd data-i18n="research.v5">42,367</dd></div>
+      </dl>
+      <p class="rnote reveal" data-i18n="research.note"></p>
+    </div>
+  </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section">
-      <div class="container">
-        <h2 class="section-title">Get In Touch</h2>
-        <p class="section-subtitle" style="text-align: center; margin-bottom: 3rem;">I'm currently exploring internship opportunities and exciting projects</p>
-        
-        <div class="contact-container">
-          <div class="contact-info">
-            <h3>Contact Information</h3>
-            <div class="info-item">
-              <i class="fas fa-envelope"></i>
-              <a href="mailto:yosiaparadesinaga@gmail.com">yosiaparadesinaga@gmail.com</a>
-            </div>
-            <div class="info-item">
-              <i class="fab fa-linkedin-in"></i>
-              <a href="https://linkedin.com/in/yosia-sinaga-497170259" target="_blank">linkedin.com/in/yosia-sinaga</a>
-            </div>
-            <div class="info-item">
-              <i class="fab fa-github"></i>
-              <a href="https://github.com/Yombia" target="_blank">github.com/Yombia</a>
-            </div>
-            <div class="info-item">
-              <i class="fas fa-map-marker-alt"></i>
-              <span>Bandung, West Java, Indonesia</span>
-            </div>
-          </div>
+  <!-- CONTACT -->
+  <footer class="contact" id="contact">
+    <div class="wrap">
+      <div class="foot-top reveal">
+        <h2 class="foot-big" data-i18n="contact.big"></h2>
+        <div class="contacts">
+          <a href="mailto:yosiaparadesinaga@gmail.com" data-mail><span class="k">Email</span>yosiaparadesinaga@gmail.com</a>
+          <a href="https://linkedin.com/in/yosiasinaga" target="_blank" rel="noopener"><span class="k">LinkedIn</span>Yosia Sinaga ↗</a>
+          <a href="https://github.com/Yombia" target="_blank" rel="noopener"><span class="k">GitHub</span>Yombia ↗</a>
+          <a href="https://www.instagram.com/yosiaasinaga/" target="_blank" rel="noopener"><span class="k">Instagram</span>yosiaasinaga ↗</a>
         </div>
       </div>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer>
-    <div class="container footer-content">
-      <div class="footer-links">
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-      </div>
-      <p class="copyright">© 2025 Yosia Sinaga. All rights reserved.</p>
     </div>
   </footer>
+</main>
 
-  <script>
-    // Navigation Toggle for Mobile
-    const menuToggle = document.getElementById('menuToggle');
-    const navLinks = document.getElementById('navLinks');
+<div class="mailpop" id="mailpop" hidden role="dialog" aria-label="Email">
+  <div class="mp-head"><span data-i18n="mail.title">Contact</span><b>yosiaparadesinaga@gmail.com</b></div>
+  <a class="mp-row primary" id="mp-gmail" href="#" target="_blank" rel="noopener"><span data-i18n="mail.gmail">Write in Gmail</span><i>↗</i></a>
+  <a class="mp-row" id="mp-app" href="#" target="_blank" rel="noopener"><span data-i18n="mail.app">Open mail app</span><i>↗</i></a>
+  <button class="mp-row" id="mp-copy" type="button"><span data-i18n="mail.copy">Copy email address</span><i>⧉</i></button>
+</div>
 
-    menuToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('show');
-      menuToggle.querySelector('i').classList.toggle('fa-bars');
-      menuToggle.querySelector('i').classList.toggle('fa-times');
-    });
+<div class="overlay" id="overlay" hidden role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+  <div class="sheet" id="sheet"></div>
+</div>
 
-    // Scroll Behavior for Navbar
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-    });
+<script>
+(() => {
+  'use strict';
+  const root = document.documentElement;
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Create Particles
-    createParticles();
-  </script>
+  /* theme */
+  try { const t = localStorage.getItem('theme'); if (t === 'dark' || t === 'light') root.setAttribute('data-theme', t); } catch (e) {}
+  const curTheme = () => root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  $('#theme').addEventListener('click', () => { const n = curTheme() === 'dark' ? 'light' : 'dark'; root.setAttribute('data-theme', n); try { localStorage.setItem('theme', n); } catch (e) {} });
+
+  /* file downloads (CV, paper): plain links everywhere; inside claude.ai the viewer's save prompt is used */
+  let dl = null;
+  try { if (window.claude && typeof window.claude.use === 'function') window.claude.use('downloads').then(n => { dl = n; }, () => {}); } catch (e) {}
+  document.addEventListener('click', async e => {
+    const a = e.target.closest('a[data-dl]'); if (!a || !dl) return;
+    e.preventDefault();
+    try {
+      const r = await fetch(a.getAttribute('href')); if (!r.ok) throw { code: 'fetch' };
+      await dl.save({ filename: a.dataset.dl, data: await r.blob() });
+    } catch (err) {
+      const c = err && err.code;
+      if (c !== 'declined' && c !== 'rate_limited') window.open(a.href, '_blank', 'noopener');
+    }
+  });
+
+  const T = {
+    en: {
+      'ui.skip':'Skip to content','ui.top':'Back to top',
+      'nav.about':'About','nav.work':'Projects','nav.skills':'Skills','nav.orgs':'Organizations','nav.research':'Research','nav.contact':'Contact','nav.hire':'Contact me',
+      'hero.status':'Open to full-stack, frontend and data roles',
+      'hero.lede':'Full-stack developer with a focus on <strong>frontend and UI design</strong>. I build both the backend and the interface, and I make sure the product is easy and pleasant to use.',
+      'hero.cv':'Download CV','hero.cta1':'View projects','hero.cta2':'Contact me',
+      'hero.s1':'Conference paper','hero.s2':'Internship 2025',
+      'mail.title':'Contact','mail.gmail':'Write in Gmail','mail.app':'Open mail app','mail.copy':'Copy email address','mail.copied':'Copied ✓','mail.subject':'Hello Yosia',
+      'about.title':'About me',
+      'about.lede':'I\'m Yosia, a full-stack developer. I enjoy building <em>complete products</em>, from the database to the screen the user sees.',
+      'about.body':'I studied Informatics at Telkom University. In team projects I usually work as the full-stack developer: I build the API and the interface, and I often design the UI as well. I also have experience in data analysis, and my thesis on multimodal cyberbullying detection was presented at an international conference.',
+      'about.f1':'Based in','about.f2':'Education','about.f2v':'Informatics, Telkom University','about.f3':'Languages','about.f3v':'Indonesian, English','about.f4':'Open to','about.f4v':'Full-stack, frontend, data',
+      'about.jh':'Experience','about.j1w':'Jun – Aug 2025','about.j2w':'Jan – Jun 2025','about.j3w':'Dec 2024 – Dec 2025',
+      'about.j1':'Built a self-hosted internal tools platform so Product Owners could manage data without direct database access. Access is split into three levels and checked in both the interface and the SQL queries.',
+      'about.j2':'Managed the data workflow for 6 to 10 client projects and built more than 10 dashboards and reports with Excel, SQL, Python and Power BI.',
+      'about.j3h':'Head of Human Resource Development','about.j3':'Led the work programs and member development of the division in KBSU, the North Sumatra student association at Telkom University.',
+      'about.j4h':'Bachelor of Informatics','about.j4':'Thesis on multimodal cyberbullying detection for Indonesian posts on X, presented at ICIC 2026.',
+      'about.th':'Focus areas',
+      'about.t1h':'Full-stack & UI design','about.t1p':'Web and mobile apps with React, Laravel and Flutter, from database design and API to the user interface.',
+      'about.t2h':'Data analysis','about.t2p':'Dashboards and reports with SQL, Python and Power BI, based on real client and operational data.',
+      'about.t3h':'Machine learning','about.t3p':'Text and image classification for Indonesian content, the topic of my thesis.',
+      'work.title':'Selected projects','work.intro':'Four projects with live demos. You can open each one and try it yourself.',
+      'ui.live':'Live demo','ui.source':'Source code','ui.details':'Details','ui.case':'Case study','ui.app':'Live app','ui.proto':'Prototype',
+      'ui.access':'Demo access','ui.watch':'Watch the demo','ui.walk':'Demo video','ui.photos':'photos','ui.posters':'posters',
+      'ui.openOrg':'View photos and details','ui.openPosters':'View the posters','ui.close':'Close','ui.highlights':'Highlights','ui.links':'Links','ui.prev':'Previous','ui.next':'Next',
+      'skills.title':'Skills & tools','skills.intro':'The technologies I use in my projects and at work.',
+      'skills.c1':'Frontend & mobile','skills.c2':'Backend & database','skills.c3':'Data & ML','skills.c4':'Design & tools','skills.c5':'Soft skills',
+      'skills.d1':'Web apps, dashboards and mobile apps.','skills.d2':'APIs, authentication, database design and container deployment.',
+      'skills.d3':'From client reports to deep learning models.','skills.d4':'UI design, version control, API testing and deployment.',
+      'skills.d5':'Developed through team projects, an internship and leading an organization division.',
+      'skills.used':'Used in','skills.tools':'tools','skills.thesis':'Thesis','skills.borisma':'Client dashboards',
+      'soft':['Leadership and team coordination','Cross-functional collaboration','Stakeholder communication','Analytical thinking and problem solving','Public speaking','Time management'],
+      'orgs.title':'Organizations','orgs.intro':'Leadership and teamwork experience outside the classroom.',
+      'research.title':'Research','research.intro':'My undergraduate thesis, presented at an international conference.',
+      'research.tag':'Conference paper','research.when':'Presented on 8–9 October 2026',
+      'research.body':'On platform X, an insult is often carried by the text and the image together, so a system that only reads the text can miss it. This study combines IndoBERTweet for the text and a Vision Transformer for the image, connected with two-way cross-attention, and adds a TF-IDF feature to the text. The model was trained and tested on 42,367 manually labeled Indonesian tweet and image pairs, and it performed better than models that use only the text or only the image.',
+      'research.read':'Read the paper','research.dl':'Download PDF','research.more':'Pages & certificate','research.cert':'Certificate of presentation, ICIC 2026',
+      'research.s2':'Accuracy','research.s3':'Precision','research.s5':'Labeled data',
+      'research.v1':'84.70%','research.v2':'86.44%','research.v3':'87.61%','research.v4':'81.97%','research.v5':'42,367',
+      'research.note':'Test set results of the final model, a combination of the three best cross-attention models.',
+      'contact.big':'Let\'s work <em>together.</em>',
+      'contact.sub':'I am open to new opportunities in full-stack, frontend and data roles. The fastest way to reach me is by email.',
+      'contact.email':'Send an email'
+    },
+    id: {
+      'ui.skip':'Langsung ke konten','ui.top':'Kembali ke atas',
+      'nav.about':'Tentang','nav.work':'Proyek','nav.skills':'Keahlian','nav.orgs':'Organisasi','nav.research':'Penelitian','nav.contact':'Kontak','nav.hire':'Hubungi saya',
+      'hero.status':'Terbuka untuk posisi full-stack, frontend, dan data',
+      'hero.lede':'Full-stack developer dengan fokus pada <strong>frontend dan desain UI</strong>. Saya membangun backend sekaligus tampilan aplikasi, dan memastikan produknya mudah serta nyaman digunakan.',
+      'hero.cv':'Unduh CV','hero.cta1':'Lihat proyek','hero.cta2':'Hubungi saya',
+      'hero.s1':'Paper konferensi','hero.s2':'Magang 2025',
+      'mail.title':'Kontak','mail.gmail':'Tulis di Gmail','mail.app':'Buka aplikasi email','mail.copy':'Salin alamat email','mail.copied':'Tersalin ✓','mail.subject':'Halo Yosia',
+      'about.title':'Tentang saya',
+      'about.lede':'Saya Yosia, full-stack developer. Saya senang membangun <em>produk secara utuh</em>, mulai dari database sampai tampilan yang dilihat pengguna.',
+      'about.body':'Saya menempuh pendidikan S1 Informatika di Telkom University. Dalam proyek tim, saya biasanya berperan sebagai full-stack developer: membangun API dan tampilan aplikasi, dan sering juga mendesain UI-nya. Saya juga memiliki pengalaman di bidang analisis data, dan skripsi saya tentang deteksi cyberbullying multimodal telah dipresentasikan di konferensi internasional.',
+      'about.f1':'Domisili','about.f2':'Pendidikan','about.f2v':'S1 Informatika, Telkom University','about.f3':'Bahasa','about.f3v':'Indonesia, Inggris','about.f4':'Terbuka untuk','about.f4v':'Full-stack, frontend, data',
+      'about.jh':'Pengalaman','about.j1w':'Jun – Agu 2025','about.j2w':'Jan – Jun 2025','about.j3w':'Des 2024 – Des 2025',
+      'about.j1':'Membangun platform internal tools self-hosted agar Product Owner dapat mengelola data tanpa akses langsung ke database. Hak akses dibagi menjadi tiga tingkat dan diperiksa di tampilan maupun di query SQL.',
+      'about.j2':'Mengelola alur data untuk 6 sampai 10 proyek klien dan membuat lebih dari 10 dashboard dan laporan menggunakan Excel, SQL, Python, dan Power BI.',
+      'about.j3h':'Kepala Bidang PSDM','about.j3':'Memimpin program kerja dan pengembangan anggota di KBSU, organisasi mahasiswa daerah Sumatera Utara di Telkom University.',
+      'about.j4h':'S1 Informatika','about.j4':'Skripsi tentang deteksi cyberbullying multimodal pada unggahan berbahasa Indonesia di X, dipresentasikan di ICIC 2026.',
+      'about.th':'Bidang keahlian',
+      'about.t1h':'Full-stack & desain UI','about.t1p':'Aplikasi web dan mobile dengan React, Laravel, dan Flutter, mulai dari desain database dan API sampai tampilan pengguna.',
+      'about.t2h':'Analisis data','about.t2p':'Dashboard dan laporan dengan SQL, Python, dan Power BI, berdasarkan data klien dan data operasional.',
+      'about.t3h':'Machine learning','about.t3p':'Klasifikasi teks dan gambar untuk konten berbahasa Indonesia, topik skripsi saya.',
+      'work.title':'Proyek pilihan','work.intro':'Empat proyek dengan demo live. Setiap proyek dapat Anda buka dan coba langsung.',
+      'ui.live':'Demo live','ui.source':'Kode sumber','ui.details':'Detail','ui.case':'Studi kasus','ui.app':'Aplikasi live','ui.proto':'Prototipe',
+      'ui.access':'Akses demo','ui.watch':'Lihat video demo','ui.walk':'Video demo','ui.photos':'foto','ui.posters':'poster',
+      'ui.openOrg':'Lihat foto dan detail','ui.openPosters':'Lihat poster','ui.close':'Tutup','ui.highlights':'Poin penting','ui.links':'Tautan','ui.prev':'Sebelumnya','ui.next':'Berikutnya',
+      'skills.title':'Keahlian & tools','skills.intro':'Teknologi yang saya gunakan dalam proyek dan pekerjaan.',
+      'skills.c1':'Frontend & mobile','skills.c2':'Backend & database','skills.c3':'Data & ML','skills.c4':'Desain & tools','skills.c5':'Soft skills',
+      'skills.d1':'Aplikasi web, dashboard, dan aplikasi mobile.','skills.d2':'API, autentikasi, desain database, dan deployment dengan container.',
+      'skills.d3':'Dari laporan klien sampai model deep learning.','skills.d4':'Desain UI, version control, pengujian API, dan deployment.',
+      'skills.d5':'Terbentuk melalui proyek tim, magang, dan memimpin divisi organisasi.',
+      'skills.used':'Digunakan di','skills.tools':'tools','skills.thesis':'Skripsi','skills.borisma':'Dashboard klien',
+      'soft':['Kepemimpinan dan koordinasi tim','Kolaborasi lintas divisi','Komunikasi dengan stakeholder','Berpikir analitis dan pemecahan masalah','Public speaking','Manajemen waktu'],
+      'orgs.title':'Organisasi','orgs.intro':'Pengalaman memimpin dan bekerja sama di luar perkuliahan.',
+      'research.title':'Penelitian','research.intro':'Skripsi saya yang dipresentasikan di konferensi internasional.',
+      'research.tag':'Paper konferensi','research.when':'Dipresentasikan pada 8–9 Oktober 2026',
+      'research.body':'Di platform X, hinaan sering muncul dari gabungan teks dan gambar dalam satu unggahan, sehingga sistem yang hanya membaca teks dapat melewatkannya. Penelitian ini menggabungkan IndoBERTweet untuk teks dan Vision Transformer untuk gambar melalui cross-attention dua arah, serta menambahkan fitur TF-IDF pada teks. Model dilatih dan diuji pada 42.367 pasang tweet dan gambar berbahasa Indonesia yang dilabeli secara manual, dan hasilnya lebih baik dibandingkan model yang hanya menggunakan teks atau hanya gambar.',
+      'research.read':'Baca paper','research.dl':'Unduh PDF','research.more':'Halaman & sertifikat','research.cert':'Sertifikat presentasi, ICIC 2026',
+      'research.s2':'Akurasi','research.s3':'Presisi','research.s5':'Data berlabel',
+      'research.v1':'84,70%','research.v2':'86,44%','research.v3':'87,61%','research.v4':'81,97%','research.v5':'42.367',
+      'research.note':'Hasil pada data uji untuk model akhir, yaitu gabungan tiga model cross-attention terbaik.',
+      'contact.big':'Mari bekerja <em>sama.</em>',
+      'contact.sub':'Saya terbuka untuk kesempatan baru di bidang full-stack, frontend, dan data. Cara tercepat untuk menghubungi saya adalah melalui email.',
+      'contact.email':'Kirim email'
+    }
+  };
+
+  const P = 'projects/';
+  const g = (dir, list) => list.map(([f, cap]) => ({ src: dir + f + '.webp', cap }));
+  const PROJECTS = [
+    { id:'dana', year:'2026', badge:{en:'Data engineering',id:'Data engineering'}, title:'Merchant DQ Pipeline',
+      url:'demo-dana.vercel.app', live:'https://demo-dana.vercel.app/', source:'https://github.com/Yombia/merchant-dq-pipeline',
+      video:P+'dana/demo.mp4', poster:P+'dana/01-runs.webp',
+      gallery:g(P+'dana/',[['01-runs',{en:'Daily runs, 29 batches',id:'Run harian, 29 batch'}],['02-blocked-batch',{en:'Log of a blocked batch',id:'Log batch yang dihentikan'}],['03-data-quality',{en:'Data quality overview',id:'Ringkasan kualitas data'}],
+        ['04-dq-charts',{en:'Volume and quarantine charts',id:'Grafik volume dan karantina'}],['05-chaos',{en:'Chaos test: 21 of 21 detected',id:'Uji chaos: 21 dari 21 terdeteksi'}],['06-scd-perf',{en:'SCD Type 2, re-run check and indexes',id:'SCD Type 2, uji run ulang, dan index'}],['07-how',{en:'Architecture and design decisions',id:'Arsitektur dan keputusan desain'}]]),
+      role:{en:'Solo project · Data pipeline and data quality',id:'Proyek mandiri · Data pipeline dan data quality'},
+      tags:['Airflow','dbt','PostgreSQL','Python','Docker'],
+      lead:{en:'A daily data pipeline for marketplace transactions, with data quality checks at every layer.',id:'Data pipeline harian untuk transaksi marketplace, dengan pengecekan kualitas data di setiap layer.'},
+      desc:{en:'A batch pipeline that loads merchant, order and payment data every day, built with Airflow, dbt and PostgreSQL on Docker. Every layer has data quality checks, invalid rows are moved to a quarantine table with a reason, and seller history is kept with SCD Type 2. To prove the checks work, 9 of the 29 daily batches were damaged on purpose, and all 21 defects were detected. The live demo replays the recorded run.',
+            id:'Pipeline batch yang memuat data merchant, pesanan, dan pembayaran setiap hari, dibangun dengan Airflow, dbt, dan PostgreSQL di atas Docker. Setiap layer memiliki pengecekan kualitas data, baris yang tidak valid dipindahkan ke tabel karantina beserta alasannya, dan riwayat seller disimpan dengan SCD Type 2. Untuk membuktikan pengecekannya bekerja, 9 dari 29 batch harian sengaja dirusak, dan seluruh 21 kesalahan berhasil terdeteksi. Demo live menampilkan ulang hasil run yang direkam.'},
+      highlights:{en:['21 of 21 injected defects detected, verified automatically in CI on every push.','Bad batches are stopped at the landing gate, bad rows are quarantined, and clean rows keep flowing.','Indexes chosen from real query plans, up to 41× faster daily upsert.'],
+        id:['21 dari 21 kesalahan yang disisipkan berhasil terdeteksi, diverifikasi otomatis di CI setiap push.','Batch yang rusak dihentikan di landing gate, baris yang rusak dikarantina, dan data yang bersih tetap diproses.','Index dipilih berdasarkan query plan, hingga 41× lebih cepat untuk upsert harian.']},
+      access:{en:'No login needed. Press <b>Replay the run</b>, click any square to open its log, then open the <b>Data quality</b> and <b>Chaos test</b> tabs.',id:'Tanpa login. Tekan <b>Replay the run</b>, klik kotak mana saja untuk membuka log-nya, lalu buka tab <b>Data quality</b> dan <b>Chaos test</b>.'},
+      meta:[[{en:'Role',id:'Peran'},{en:'Solo developer',id:'Dikerjakan sendiri'}],[{en:'Orchestration',id:'Orkestrasi'},'Airflow 3'],['Transform','dbt 1.12 · PostgreSQL 16'],['Data',{en:'Olist, 29 daily batches',id:'Olist, 29 batch harian'}]] },
+    { id:'compro', year:'2025', badge:{en:'Featured',id:'Unggulan'}, title:'Smart Academic Planner',
+      url:'compro-demo-nine.vercel.app', live:'https://compro-demo-nine.vercel.app/', source:'https://github.com/Yombia/compro',
+      video:P+'compro/demo.mp4', poster:P+'compro/01-landing.webp',
+      gallery:g(P+'compro/',[['01-landing',{en:'Landing page',id:'Halaman utama'}],['04-student-dashboard',{en:'Student dashboard',id:'Dashboard mahasiswa'}],['05-form',{en:'Study plan form',id:'Form rencana studi'}],
+        ['07-history',{en:'Submission history',id:'Riwayat pengajuan'}],['08-lecturer-dashboard',{en:'Lecturer dashboard',id:'Dashboard dosen'}],['09-lecturer-plans',{en:'Lecturer reviews study plans',id:'Dosen meninjau rencana studi'}]]),
+      role:{en:'Full-stack developer · Client: Faculty of Electrical Engineering, Telkom University',id:'Full-stack developer · Klien: Fakultas Teknik Elektro, Telkom University'},
+      tags:['Laravel','React','Tailwind CSS','LLM API'],
+      lead:{en:'An AI-based course recommendation system for students, with lecturer approval.',id:'Sistem rekomendasi mata kuliah berbasis AI untuk mahasiswa, dengan persetujuan dosen.'},
+      desc:{en:'A web application built for the Faculty of Electrical Engineering at Telkom University to help students choose elective courses. Students fill in a short interest quiz, and the system combines it with their grades and course history, then uses an LLM to recommend suitable courses. Lecturers review and approve each study plan from their own dashboard.',
+            id:'Aplikasi web untuk Fakultas Teknik Elektro Telkom University yang membantu mahasiswa memilih mata kuliah pilihan. Mahasiswa mengisi kuis minat singkat, lalu sistem menggabungkannya dengan nilai dan riwayat mata kuliah, kemudian menggunakan LLM untuk merekomendasikan mata kuliah yang sesuai. Dosen meninjau dan menyetujui setiap rencana studi melalui dashboard dosen.'},
+      highlights:{en:['Two complete user roles: students submit study plans, lecturers review and approve them.','The LLM request runs as a background job with status checks, so the page never freezes.','A demo mode replaces the data layer, so the real React app runs without a server.'],
+        id:['Dua peran pengguna yang lengkap: mahasiswa mengajukan rencana studi, dosen meninjau dan menyetujuinya.','Permintaan ke LLM berjalan sebagai proses latar belakang dengan pengecekan status, sehingga halaman tidak macet.','Mode demo mengganti lapisan data, sehingga aplikasi React yang asli dapat berjalan tanpa server.']},
+      access:{en:'Student <b>raka@student.telkomuniversity.ac.id</b> · Lecturer <b>erwin@telkomuniversity.ac.id</b> · Password <b>demo123</b>',id:'Mahasiswa <b>raka@student.telkomuniversity.ac.id</b> · Dosen <b>erwin@telkomuniversity.ac.id</b> · Kata sandi <b>demo123</b>'},
+      meta:[[{en:'Role',id:'Peran'},'Full-stack'],['Stack','Laravel · React'],['AI','LLM (OpenRouter)'],[{en:'Team',id:'Tim'},{en:'2–3 people',id:'2–3 orang'}]] },
+    { id:'penginapan', year:'2026', badge:{en:'Solo project',id:'Proyek mandiri'}, title:'Kasir Penginapan',
+      url:'penginapan-demo.vercel.app', live:'https://penginapan-demo.vercel.app/', source:null,
+      video:P+'penginapan/demo.mp4', poster:P+'penginapan/02-board.webp',
+      gallery:g(P+'penginapan/',[['02-board',{en:'Room board',id:'Papan kamar'}],['03-booking',{en:'Booking form',id:'Form booking'}],['04-checked-in',{en:'Paid and checked in',id:'Lunas dan check-in'}],
+        ['05-owner-dashboard',{en:'Owner dashboard',id:'Dashboard pemilik'}],['06-pricing',{en:'Price settings',id:'Pengaturan harga'}],['07-audit',{en:'Activity log',id:'Riwayat aktivitas'}]]),
+      role:{en:'Solo developer · Cashier app for a family lodging business',id:'Dikerjakan sendiri · Aplikasi kasir untuk usaha penginapan keluarga'},
+      tags:['React','TypeScript','Capacitor','SQLite'],
+      lead:{en:'A room management app that runs on the front-desk tablet without internet: 21 rooms, shifts, payments and reports.',id:'Aplikasi manajemen kamar yang berjalan di tablet resepsionis tanpa internet: 21 kamar, shift, pembayaran, dan laporan.'},
+      desc:{en:'An internal cashier and room management app for my family\'s lodging business. Front-desk staff use it on a tablet to check guests in and out, receive payments and hand over shifts, while the owner monitors revenue, room prices and the activity log. The app works offline, so the front desk can keep operating when the internet is down.',
+            id:'Aplikasi kasir dan manajemen kamar internal untuk usaha penginapan keluarga saya. Petugas resepsionis menggunakannya di tablet untuk check-in dan check-out tamu, menerima pembayaran, dan serah terima shift, sementara pemilik memantau pendapatan, harga kamar, dan riwayat aktivitas. Aplikasi ini tetap berjalan tanpa internet, sehingga pelayanan tidak terganggu saat koneksi terputus.'},
+      highlights:{en:['Booking takes three steps: room, duration and payment. The room board updates right away.','Shift handover with cash reconciliation, prices saved per transaction and a complete activity log.','Owner view with daily revenue, payment methods and price history.'],
+        id:['Booking hanya tiga langkah: kamar, durasi, dan pembayaran. Papan kamar langsung diperbarui.','Serah terima shift dengan pencocokan kas, harga tersimpan per transaksi, dan riwayat aktivitas yang lengkap.','Tampilan pemilik dengan pendapatan harian, metode pembayaran, dan riwayat harga.']},
+      access:{en:'No password needed. Choose <b>Karyawan</b> (staff) or <b>Owner</b>. You can switch roles at any time.',id:'Tanpa kata sandi. Pilih <b>Karyawan</b> atau <b>Owner</b>. Peran dapat diganti kapan saja.'},
+      meta:[[{en:'Role',id:'Peran'},{en:'Solo developer',id:'Dikerjakan sendiri'}],['Mode','Offline-first'],['Platform','Android (APK)'],['Database',{en:'SQLite on device',id:'SQLite di perangkat'}]] },
+    { id:'kp', year:'2025', badge:{en:'Internship · Telkom',id:'Magang · Telkom'}, title:'Internal Tools, RBAC',
+      url:'kp-showcase.vercel.app', live:'https://kp-showcase.vercel.app/', app:'https://kp-showcase.vercel.app/app/', source:'https://github.com/Yombia/Project-KP-Yosia',
+      video:P+'kp/demo.mp4', poster:P+'kp/01-case-hero.webp',
+      gallery:g(P+'kp/',[['01-case-hero',{en:'Case study',id:'Studi kasus'}],['02-case-45',{en:'Role selection in Lowcoder',id:'Pemilihan peran di Lowcoder'}],['02-case-68',{en:'Access rules in the code',id:'Aturan akses di kode'}],
+        ['03-app-overview',{en:'New console: overview',id:'Konsol baru: ringkasan'}],['04-registry-admin',{en:'Registry viewed as Admin',id:'Registry dilihat sebagai Admin'}],['05-registry-viewer',{en:'Same registry viewed as Viewer',id:'Registry yang sama dilihat sebagai Viewer'}],['06-audit',{en:'Activity log',id:'Riwayat aktivitas'}]]),
+      role:{en:'Software Engineer Intern · Telkom Indonesia',id:'Software Engineer Intern · Telkom Indonesia'},
+      tags:['Lowcoder','PostgreSQL','Docker','SSO'],
+      lead:{en:'An internal asset registry where sensitive data is only visible to authorized roles.',id:'Registry aset internal yang hanya menampilkan data sensitif kepada peran yang berwenang.'},
+      desc:{en:'Built during my internship in the Digital Business Technology division of Telkom Indonesia. Product Owners previously needed direct database access to manage their data. This self-hosted platform gives them a safe interface instead, with three access levels that are checked in both the interface and the SQL queries. The live demo is a rebuilt version, because the original runs on Telkom\'s internal network.',
+            id:'Dibangun selama magang di divisi Digital Business Technology, Telkom Indonesia. Sebelumnya, Product Owner membutuhkan akses langsung ke database untuk mengelola data. Platform self-hosted ini menyediakan tampilan yang aman sebagai gantinya, dengan tiga tingkat akses yang diperiksa di tampilan maupun di query SQL. Demo live merupakan versi yang dibangun ulang, karena versi aslinya berjalan di jaringan internal Telkom.'},
+      highlights:{en:['User roles come from the company SSO and map to two permissions: edit data and view sensitive data.','Access rules are applied in the interface and in the SQL query, so calling the API directly cannot bypass them.','Rebuilt from scratch with three visibility levels, an activity log and dark mode.'],
+        id:['Peran pengguna diambil dari SSO perusahaan dan dipetakan ke dua izin: mengubah data dan melihat data sensitif.','Aturan akses diterapkan di tampilan dan di query SQL, sehingga pemanggilan API secara langsung tidak dapat melewatinya.','Dibangun ulang dari awal dengan tiga tingkat visibilitas, riwayat aktivitas, dan mode gelap.']},
+      access:{en:'Switch between <b>Admin</b>, <b>PO</b> and <b>Viewer</b> in the console and see the restricted rows disappear.',id:'Ganti peran antara <b>Admin</b>, <b>PO</b>, dan <b>Viewer</b> di konsol, lalu lihat baris data terbatas menjadi tersembunyi.'},
+      meta:[[{en:'Role',id:'Peran'},'SE Intern'],[{en:'Access',id:'Akses'},{en:'3-level RBAC',id:'RBAC 3 tingkat'}],['Infra','Docker Compose'],['Database','PostgreSQL 15']] },
+    { id:'innoride', year:'2025', badge:{en:'Team of 3',id:'Tim 3 orang'}, title:'InnoRide',
+      url:'innoride-demo.vercel.app', live:'https://innoride-demo.vercel.app/', source:'https://github.com/adnsyhh/InnoRide-Project',
+      proto:'https://www.figma.com/proto/mUwbQVlzkqb2bUtSkUBSsN/InnoRide', video:P+'innoride/demo.mp4', poster:P+'innoride/00-poster.webp',
+      gallery:g(P+'innoride/',[['01-landing',{en:'Welcome screen',id:'Halaman pembuka'}],['03-home',{en:'Home and promotions',id:'Beranda dan promo'}],['05-detail',{en:'Vehicle details',id:'Detail kendaraan'}],
+        ['07-rent',{en:'Rental dates and total',id:'Tanggal sewa dan total'}],['08-booked',{en:'Booking confirmed',id:'Booking berhasil'}],['09-explore',{en:'Filter by category',id:'Filter kategori'}],
+        ['10-promo',{en:'Promo codes',id:'Kode promo'}],['11-profile',{en:'Profile and history',id:'Profil dan riwayat'}]]),
+      role:{en:'UI/UX, Flutter and Laravel · Platform-Based Application Development course',id:'UI/UX, Flutter, dan Laravel · Mata kuliah Pengembangan Aplikasi Berbasis Platform'},
+      tags:['Flutter','Laravel','Sanctum','MySQL'],
+      lead:{en:'A vehicle rental app with an admin dashboard: browse vehicles, book with dynamic pricing, use promo codes and leave reviews.',id:'Aplikasi rental kendaraan dengan dashboard admin: cari kendaraan, booking dengan harga dinamis, gunakan kode promo, dan beri ulasan.'},
+      desc:{en:'A vehicle rental platform built as a team project for the Platform-Based Application Development course. Customers use the mobile app to browse vehicles, make bookings, apply promo codes and write reviews, while admins manage vehicles and bookings from a dashboard connected to a Laravel API. The live demo is a web version of the mobile app.',
+            id:'Platform rental kendaraan yang dibangun sebagai proyek tim untuk mata kuliah Pengembangan Aplikasi Berbasis Platform. Pelanggan menggunakan aplikasi mobile untuk mencari kendaraan, melakukan booking, memakai kode promo, dan menulis ulasan, sementara admin mengelola kendaraan dan pemesanan melalui dashboard yang terhubung ke API Laravel. Demo live merupakan versi web dari aplikasi mobile tersebut.'},
+      highlights:{en:['Built the API with Sanctum authentication, the CRUD endpoints and the booking logic.','Designed the user flow and UI in Figma before development started.','Admin inventory with real-time availability.'],
+        id:['Membangun API dengan autentikasi Sanctum, endpoint CRUD, dan logika booking.','Merancang alur pengguna dan UI di Figma sebelum pengembangan dimulai.','Inventaris admin dengan ketersediaan kendaraan secara real-time.']},
+      access:{en:'The account is already filled in. Tap <b>Masuk</b> twice, then browse, rent a vehicle and open your profile.',id:'Akun sudah terisi. Ketuk <b>Masuk</b> dua kali, lalu cari kendaraan, lakukan sewa, dan buka profil.'},
+      meta:[[{en:'Role',id:'Peran'},'Full-stack + UI/UX'],['Mobile','Flutter'],['Backend','Laravel 12'],[{en:'Team',id:'Tim'},{en:'3 people',id:'3 orang'}]] }
+  ];
+
+  const ORGS = [
+    { id:'kbsu', year:'2024 – 2025', title:{en:'KBSU · Head of HR Development',id:'KBSU · Kepala Bidang PSDM'}, badge:{en:'Leadership',id:'Kepemimpinan'},
+      cover:'orgs/kbsu/01-gathering.webp',
+      gallery:g('orgs/kbsu/',[['01-gathering',{en:'Gathering with KBSU members',id:'Kebersamaan dengan anggota KBSU'}],['02-pengurus-bendera',{en:'Board members with the KBSU flag',id:'Pengurus bersama bendera KBSU'}],
+        ['03-bakti-sosial',{en:'Community service at LKSA Al-Mu’minun',id:'Bakti sosial di LKSA Al-Mu’minun'}],['04-bonding',{en:'Team activity outside campus',id:'Kegiatan kebersamaan tim di luar kampus'}],
+        ['05-tim-pengurus',{en:'The board team',id:'Tim pengurus'}]]),
+      role:{en:'Kepala Bidang PSDM · Regional student association, Telkom University',id:'Kepala Bidang PSDM · Organisasi mahasiswa daerah, Telkom University'},
+      lead:{en:'Led the Human Resource Development division of KBSU, the North Sumatra student association at Telkom University.',id:'Memimpin Bidang Pengembangan Sumber Daya Manusia (PSDM) di KBSU, organisasi mahasiswa daerah Sumatera Utara di Telkom University.'},
+      highlights:{en:['Ran member development programs, including skill training and team activities, that kept members active throughout the term.','Made sure the division followed the organization\'s SOPs and that every work program ran on schedule and on target.','Coordinated with other divisions as head of division.'],
+        id:['Menjalankan program pengembangan anggota, termasuk pelatihan keterampilan dan kegiatan kebersamaan, yang menjaga keaktifan anggota selama masa kepengurusan.','Memastikan divisi mengikuti SOP organisasi dan setiap program kerja berjalan tepat waktu serta tepat sasaran.','Berkoordinasi dengan bidang lain sebagai kepala bidang.']},
+      meta:[[{en:'Position',id:'Jabatan'},{en:'Head of HRD',id:'Kepala Bidang PSDM'}],[{en:'Term',id:'Periode'},'2024 – 2025'],[{en:'Organization',id:'Organisasi'},'KBSU'],[{en:'Scope',id:'Lingkup'},{en:'Division',id:'Bidang'}]] },
+    { id:'gmki', kind:'posters', year:'2023 – 2024', title:'GMKI Komisariat Telkom', badge:{en:'Student organization',id:'Organisasi kemahasiswaan'},
+      gallery:g('orgs/gmki/',[['01-maper',{en:'Maper: new member orientation with GMKI Cabang Bandung, 22 June 2024',id:'Maper: masa perkenalan anggota baru bersama GMKI Cabang Bandung, 22 Juni 2024'}],
+        ['02-dies-natalis',{en:'Dies Natalis of GMKI Komisariat Telkom',id:'Dies Natalis GMKI Komisariat Telkom'}],['03-study-banding',{en:'Study visit with BEM FEB',id:'Studi banding bersama BEM FEB'}]]),
+      role:{en:'Secretary · Indonesian Christian Student Movement, Telkom University chapter · 2023–2024 term',id:'Sekretaris · Gerakan Mahasiswa Kristen Indonesia, Komisariat Telkom University · Masa bakti 2023–2024'},
+      lead:{en:'Former Secretary at GMKI Telkom University Commissariat, a national Christian student movement centered on service, fellowship, and leadership development.',id:'Pernah menjabat sebagai Sekretaris Komisariat GMKI Telkom University, gerakan mahasiswa Kristen nasional yang berfokus pada pelayanan, persekutuan, dan kepemimpinan.'},
+      highlights:{en:['Welcomed new members at the orientation program (Maper) held with GMKI Cabang Bandung.','Celebrated the chapter\'s anniversary (Dies Natalis) with members and alumni.','Held a study visit with BEM FEB to share ideas between student organizations.'],
+        id:['Menyambut anggota baru dalam Masa Perkenalan (Maper) bersama GMKI Cabang Bandung.','Merayakan Dies Natalis komisariat bersama anggota dan alumni.','Mengadakan studi banding bersama BEM FEB untuk bertukar gagasan antarorganisasi.']},
+      meta:[[{en:'Position',id:'Jabatan'},{en:'Secretary',id:'Sekretaris'}],[{en:'Term',id:'Periode'},'2023 – 2024'],[{en:'Organization',id:'Organisasi'},'GMKI Kom. Telkom'],[{en:'Focus',id:'Fokus'},{en:'Service & leadership',id:'Pelayanan & kepemimpinan'}]] }
+  ];
+
+  const RESEARCH = { id:'research', title:'Multimodal Cyberbullying Detection on Platform X',
+    role:{en:'Conference paper · ICIC 2026 · with Erwin Budi Setiawan',id:'Paper konferensi · ICIC 2026 · bersama Erwin Budi Setiawan'},
+    lead:{en:'Full title: Multimodal Cyberbullying Detection on Platform X Using Cross-Attention Fusion of IndoBERTweet and Vision Transformer. Presented at the Eleventh International Conference on Informatics and Computing (ICIC 2026), Universitas Atma Jaya Yogyakarta, 8–9 October 2026.',
+          id:'Judul lengkap: Multimodal Cyberbullying Detection on Platform X Using Cross-Attention Fusion of IndoBERTweet and Vision Transformer. Dipresentasikan di The Eleventh International Conference on Informatics and Computing (ICIC 2026), Universitas Atma Jaya Yogyakarta, 8–9 Oktober 2026.'},
+    gallery:g('research/',[['certificate',{en:'Certificate of Appreciation, ICIC 2026',id:'Sertifikat ICIC 2026'}],['page-1',{en:'Paper, page 1',id:'Paper, halaman 1'}],['page-2',{en:'Paper, page 2',id:'Paper, halaman 2'}],
+      ['page-3',{en:'Paper, page 3',id:'Paper, halaman 3'}],['page-4',{en:'Paper, page 4',id:'Paper, halaman 4'}]]),
+    meta:[[{en:'Conference',id:'Konferensi'},'ICIC 2026'],[{en:'Venue',id:'Lokasi'},'UAJY, Yogyakarta'],[{en:'Date',id:'Tanggal'},{en:'8–9 Oct 2026',id:'8–9 Okt 2026'}],[{en:'Test F1',id:'F1 uji'},{en:'84.70%',id:'84,70%'}]],
+    highlights:{en:['A multimodal cyberbullying detector with cross-attention for Indonesian posts on X, which earlier studies had not covered.','A TF-IDF feature added to the text as one extra token, so the model also uses keyword information.','A step-by-step evaluation in five scenarios, ending with an analysis of the remaining errors.'],
+      id:['Detektor cyberbullying multimodal berbasis cross-attention untuk unggahan berbahasa Indonesia di X, yang belum dibahas pada penelitian sebelumnya.','Fitur TF-IDF yang ditambahkan ke teks sebagai satu token tambahan, sehingga model juga memanfaatkan informasi kata kunci.','Evaluasi bertahap dalam lima skenario, ditutup dengan analisis kesalahan yang masih terjadi.']},
+    pdf:'research/Sinaga-Setiawan-ICIC2026.pdf' };
+
+  /* brand marks: Simple Icons (CC0) paths; Power BI / Sanctum / Lowcoder are plain generic glyphs */
+  const SI = {"react":["61DAFB","M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z"],"typescript":["3178C6","M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z"],"javascript":["F7DF1E","M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"],"tailwindcss":["06B6D4","M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z"],"html5":["E34F26","M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"],"flutter":["02569B","M14.314 0L2.3 12 6 15.7 21.684.013h-7.357zm.014 11.072L7.857 17.53l6.47 6.47H21.7l-6.46-6.468 6.46-6.46h-7.37z"],"dart":["0175C2","M4.105 4.105S9.158 1.58 11.684.316a3.079 3.079 0 0 1 1.481-.315c.766.047 1.677.788 1.677.788L24 9.948v9.789h-4.263V24H9.789l-9-9C.303 14.5 0 13.795 0 13.105c0-.319.18-.818.316-1.105l3.789-7.895zm.679.679v11.787c.002.543.021 1.024.498 1.508L10.204 23h8.533v-4.263L4.784 4.784zm12.055-.678c-.899-.896-1.809-1.78-2.74-2.643-.302-.267-.567-.468-1.07-.462-.37.014-.87.195-.87.195L6.341 4.105l10.498.001z"],"kotlin":["7F52FF","M24 24H0V0h24L12 12Z"],"capacitor":["119EFF","M24 3.7l-5.766 5.766 5.725 5.736-3.713 3.712L5.073 3.742 8.786.03l5.736 5.726L20.284 0 24 3.7zM.029 8.785l3.713-3.713 15.173 15.173-3.713 3.714-5.732-5.726L3.7 24 0 20.285l5.754-5.764L.029 8.785z"],"laravel":["FF2D20","M23.642 5.43a.364.364 0 01.014.1v5.149c0 .135-.073.26-.189.326l-4.323 2.49v4.934a.378.378 0 01-.188.326L9.93 23.949a.316.316 0 01-.066.027c-.008.002-.016.008-.024.01a.348.348 0 01-.192 0c-.011-.002-.02-.008-.03-.012-.02-.008-.042-.014-.062-.025L.533 18.755a.376.376 0 01-.189-.326V2.974c0-.033.005-.066.014-.098.003-.012.01-.02.014-.032a.369.369 0 01.023-.058c.004-.013.015-.022.023-.033l.033-.045c.012-.01.025-.018.037-.027.014-.012.027-.024.041-.034H.53L5.043.05a.375.375 0 01.375 0L9.93 2.647h.002c.015.01.027.021.04.033l.038.027c.013.014.02.03.033.045.008.011.02.021.025.033.01.02.017.038.024.058.003.011.01.021.013.032.01.031.014.064.014.098v9.652l3.76-2.164V5.527c0-.033.004-.066.013-.098.003-.01.01-.02.013-.032a.487.487 0 01.024-.059c.007-.012.018-.02.025-.033.012-.015.021-.03.033-.043.012-.012.025-.02.037-.028.014-.01.026-.023.041-.032h.001l4.513-2.598a.375.375 0 01.375 0l4.513 2.598c.016.01.027.021.042.031.012.01.025.018.036.028.013.014.022.03.034.044.008.012.019.021.024.033.011.02.018.04.024.06.006.01.012.021.015.032zm-.74 5.032V6.179l-1.578.908-2.182 1.256v4.283zm-4.51 7.75v-4.287l-2.147 1.225-6.126 3.498v4.325zM1.093 3.624v14.588l8.273 4.761v-4.325l-4.322-2.445-.002-.003H5.04c-.014-.01-.025-.021-.04-.031-.011-.01-.024-.018-.035-.027l-.001-.002c-.013-.012-.021-.025-.031-.04-.01-.011-.021-.022-.028-.036h-.002c-.008-.014-.013-.031-.02-.047-.006-.016-.014-.027-.018-.043a.49.49 0 01-.008-.057c-.002-.014-.006-.027-.006-.041V5.789l-2.18-1.257zM5.23.81L1.47 2.974l3.76 2.164 3.758-2.164zm1.956 13.505l2.182-1.256V3.624l-1.58.91-2.182 1.255v9.435zm11.581-10.95l-3.76 2.163 3.76 2.163 3.759-2.164zm-.376 4.978L16.21 7.087 14.63 6.18v4.283l2.182 1.256 1.58.908zm-8.65 9.654l5.514-3.148 2.756-1.572-3.757-2.163-4.323 2.489-3.941 2.27z"],"php":["777BB4","M7.01 10.207h-.944l-.515 2.648h.838c.556 0 .97-.105 1.242-.314.272-.21.455-.559.55-1.049.092-.47.05-.802-.124-.995-.175-.193-.523-.29-1.047-.29zM12 5.688C5.373 5.688 0 8.514 0 12s5.373 6.313 12 6.313S24 15.486 24 12c0-3.486-5.373-6.312-12-6.312zm-3.26 7.451c-.261.25-.575.438-.917.551-.336.108-.765.164-1.285.164H5.357l-.327 1.681H3.652l1.23-6.326h2.65c.797 0 1.378.209 1.744.628.366.418.476 1.002.33 1.752a2.836 2.836 0 0 1-.305.847c-.143.255-.33.49-.561.703zm4.024.715l.543-2.799c.063-.318.039-.536-.068-.651-.107-.116-.336-.174-.687-.174H11.46l-.704 3.625H9.388l1.23-6.327h1.367l-.327 1.682h1.218c.767 0 1.295.134 1.586.401s.378.7.263 1.299l-.572 2.944h-1.389zm7.597-2.265a2.782 2.782 0 0 1-.305.847c-.143.255-.33.49-.561.703a2.44 2.44 0 0 1-.917.551c-.336.108-.765.164-1.286.164h-1.18l-.327 1.682h-1.378l1.23-6.326h2.649c.797 0 1.378.209 1.744.628.366.417.477 1.001.331 1.751zM17.766 10.207h-.943l-.516 2.648h.838c.557 0 .971-.105 1.242-.314.272-.21.455-.559.551-1.049.092-.47.049-.802-.125-.995s-.524-.29-1.047-.29z"],"go":["00ADD8","M1.811 10.231c-.047 0-.058-.023-.035-.059l.246-.315c.023-.035.081-.058.128-.058h4.172c.046 0 .058.035.035.07l-.199.303c-.023.036-.082.07-.117.07zM.047 11.306c-.047 0-.059-.023-.035-.058l.245-.316c.023-.035.082-.058.129-.058h5.328c.047 0 .07.035.058.07l-.093.28c-.012.047-.058.07-.105.07zm2.828 1.075c-.047 0-.059-.035-.035-.07l.163-.292c.023-.035.07-.07.117-.07h2.337c.047 0 .07.035.07.082l-.023.28c0 .047-.047.082-.082.082zm12.129-2.36c-.736.187-1.239.327-1.963.514-.176.046-.187.058-.34-.117-.174-.199-.303-.327-.548-.444-.737-.362-1.45-.257-2.115.175-.795.514-1.204 1.274-1.192 2.22.011.935.654 1.706 1.577 1.835.795.105 1.46-.175 1.987-.77.105-.13.198-.27.315-.434H10.47c-.245 0-.304-.152-.222-.35.152-.362.432-.97.596-1.274a.315.315 0 01.292-.187h4.253c-.023.316-.023.631-.07.947a4.983 4.983 0 01-.958 2.29c-.841 1.11-1.94 1.8-3.33 1.986-1.145.152-2.209-.07-3.143-.77-.865-.655-1.356-1.52-1.484-2.595-.152-1.274.222-2.419.993-3.424.83-1.086 1.928-1.776 3.272-2.02 1.098-.2 2.15-.07 3.096.571.62.41 1.063.97 1.356 1.648.07.105.023.164-.117.2m3.868 6.461c-1.064-.024-2.034-.328-2.852-1.029a3.665 3.665 0 01-1.262-2.255c-.21-1.32.152-2.489.947-3.529.853-1.122 1.881-1.706 3.272-1.95 1.192-.21 2.314-.095 3.33.595.923.63 1.496 1.484 1.648 2.605.198 1.578-.257 2.863-1.344 3.962-.771.783-1.718 1.273-2.805 1.495-.315.06-.63.07-.934.106zm2.78-4.72c-.011-.153-.011-.27-.034-.387-.21-1.157-1.274-1.81-2.384-1.554-1.087.245-1.788.935-2.045 2.033-.21.912.234 1.835 1.075 2.21.643.28 1.285.244 1.905-.07.923-.48 1.425-1.228 1.484-2.233z"],"openjdk":["000000","M11.915 0 11.7.215C9.515 2.4 7.47 6.39 6.046 10.483c-1.064 1.024-3.633 2.81-3.711 3.551-.093.87 1.746 2.611 1.55 3.235-.198.625-1.304 1.408-1.014 1.939.1.188.823.011 1.277-.491a13.389 13.389 0 0 0-.017 2.14c.076.906.27 1.668.643 2.232.372.563.956.911 1.667.911.397 0 .727-.114 1.024-.264.298-.149.571-.33.91-.5.68-.34 1.634-.666 3.53-.604 1.903.062 2.872.39 3.559.704.687.314 1.15.664 1.925.664.767 0 1.395-.336 1.807-.9.412-.563.631-1.33.72-2.24.06-.623.055-1.32 0-2.066.454.45 1.117.604 1.213.424.29-.53-.816-1.314-1.013-1.937-.198-.624 1.642-2.366 1.549-3.236-.08-.748-2.707-2.568-3.748-3.586C16.428 6.374 14.308 2.394 12.13.215zm.175 6.038a2.95 2.95 0 0 1 2.943 2.942 2.95 2.95 0 0 1-2.943 2.943A2.95 2.95 0 0 1 9.148 8.98a2.95 2.95 0 0 1 2.942-2.942zM8.685 7.983a3.515 3.515 0 0 0-.145.997c0 1.951 1.6 3.55 3.55 3.55 1.95 0 3.55-1.598 3.55-3.55 0-.329-.046-.648-.132-.951.334.095.64.208.915.336a42.699 42.699 0 0 1 2.042 5.829c.678 2.545 1.01 4.92.846 6.607-.082.844-.29 1.51-.606 1.94-.315.431-.713.651-1.315.651-.593 0-.932-.27-1.673-.61-.741-.338-1.825-.694-3.792-.758-1.974-.064-3.073.293-3.821.669-.375.188-.659.373-.911.5s-.466.2-.752.2c-.53 0-.876-.209-1.16-.64-.285-.43-.474-1.101-.545-1.948-.141-1.693.176-4.069.823-6.614a43.155 43.155 0 0 1 1.934-5.783c.348-.167.749-.31 1.192-.425zm-3.382 4.362a.216.216 0 0 1 .13.031c-.166.56-.323 1.116-.463 1.665a33.849 33.849 0 0 0-.547 2.555 3.9 3.9 0 0 0-.2-.39c-.58-1.012-.914-1.642-1.16-2.08.315-.24 1.679-1.755 2.24-1.781zm13.394.01c.562.027 1.926 1.543 2.24 1.783-.246.438-.58 1.068-1.16 2.08a4.428 4.428 0 0 0-.163.309 32.354 32.354 0 0 0-.562-2.49 40.579 40.579 0 0 0-.482-1.652.216.216 0 0 1 .127-.03z"],"postgresql":["4169E1","M23.5594 14.7228a.5269.5269 0 0 0-.0563-.1191c-.139-.2632-.4768-.3418-1.0074-.2321-1.6533.3411-2.2935.1312-2.5256-.0191 1.342-2.0482 2.445-4.522 3.0411-6.8297.2714-1.0507.7982-3.5237.1222-4.7316a1.5641 1.5641 0 0 0-.1509-.235C21.6931.9086 19.8007.0248 17.5099.0005c-1.4947-.0158-2.7705.3461-3.1161.4794a9.449 9.449 0 0 0-.5159-.0816 8.044 8.044 0 0 0-1.3114-.1278c-1.1822-.0184-2.2038.2642-3.0498.8406-.8573-.3211-4.7888-1.645-7.2219.0788C.9359 2.1526.3086 3.8733.4302 6.3043c.0409.818.5069 3.334 1.2423 5.7436.4598 1.5065.9387 2.7019 1.4334 3.582.553.9942 1.1259 1.5933 1.7143 1.7895.4474.1491 1.1327.1441 1.8581-.7279.8012-.9635 1.5903-1.8258 1.9446-2.2069.4351.2355.9064.3625 1.39.3772a.0569.0569 0 0 0 .0004.0041 11.0312 11.0312 0 0 0-.2472.3054c-.3389.4302-.4094.5197-1.5002.7443-.3102.064-1.1344.2339-1.1464.8115-.0025.1224.0329.2309.0919.3268.2269.4231.9216.6097 1.015.6331 1.3345.3335 2.5044.092 3.3714-.6787-.017 2.231.0775 4.4174.3454 5.0874.2212.5529.7618 1.9045 2.4692 1.9043.2505 0 .5263-.0291.8296-.0941 1.7819-.3821 2.5557-1.1696 2.855-2.9059.1503-.8707.4016-2.8753.5388-4.1012.0169-.0703.0357-.1207.057-.1362.0007-.0005.0697-.0471.4272.0307a.3673.3673 0 0 0 .0443.0068l.2539.0223.0149.001c.8468.0384 1.9114-.1426 2.5312-.4308.6438-.2988 1.8057-1.0323 1.5951-1.6698zM2.371 11.8765c-.7435-2.4358-1.1779-4.8851-1.2123-5.5719-.1086-2.1714.4171-3.6829 1.5623-4.4927 1.8367-1.2986 4.8398-.5408 6.108-.13-.0032.0032-.0066.0061-.0098.0094-2.0238 2.044-1.9758 5.536-1.9708 5.7495-.0002.0823.0066.1989.0162.3593.0348.5873.0996 1.6804-.0735 2.9184-.1609 1.1504.1937 2.2764.9728 3.0892.0806.0841.1648.1631.2518.2374-.3468.3714-1.1004 1.1926-1.9025 2.1576-.5677.6825-.9597.5517-1.0886.5087-.3919-.1307-.813-.5871-1.2381-1.3223-.4796-.839-.9635-2.0317-1.4155-3.5126zm6.0072 5.0871c-.1711-.0428-.3271-.1132-.4322-.1772.0889-.0394.2374-.0902.4833-.1409 1.2833-.2641 1.4815-.4506 1.9143-1.0002.0992-.126.2116-.2687.3673-.4426a.3549.3549 0 0 0 .0737-.1298c.1708-.1513.2724-.1099.4369-.0417.156.0646.3078.26.3695.4752.0291.1016.0619.2945-.0452.4444-.9043 1.2658-2.2216 1.2494-3.1676 1.0128zm2.094-3.988-.0525.141c-.133.3566-.2567.6881-.3334 1.003-.6674-.0021-1.3168-.2872-1.8105-.8024-.6279-.6551-.9131-1.5664-.7825-2.5004.1828-1.3079.1153-2.4468.079-3.0586-.005-.0857-.0095-.1607-.0122-.2199.2957-.2621 1.6659-.9962 2.6429-.7724.4459.1022.7176.4057.8305.928.5846 2.7038.0774 3.8307-.3302 4.7363-.084.1866-.1633.3629-.2311.5454zm7.3637 4.5725c-.0169.1768-.0358.376-.0618.5959l-.146.4383a.3547.3547 0 0 0-.0182.1077c-.0059.4747-.054.6489-.115.8693-.0634.2292-.1353.4891-.1794 1.0575-.11 1.4143-.8782 2.2267-2.4172 2.5565-1.5155.3251-1.7843-.4968-2.0212-1.2217a6.5824 6.5824 0 0 0-.0769-.2266c-.2154-.5858-.1911-1.4119-.1574-2.5551.0165-.5612-.0249-1.9013-.3302-2.6462.0044-.2932.0106-.5909.019-.8918a.3529.3529 0 0 0-.0153-.1126 1.4927 1.4927 0 0 0-.0439-.208c-.1226-.4283-.4213-.7866-.7797-.9351-.1424-.059-.4038-.1672-.7178-.0869.067-.276.1831-.5875.309-.9249l.0529-.142c.0595-.16.134-.3257.213-.5012.4265-.9476 1.0106-2.2453.3766-5.1772-.2374-1.0981-1.0304-1.6343-2.2324-1.5098-.7207.0746-1.3799.3654-1.7088.5321a5.6716 5.6716 0 0 0-.1958.1041c.0918-1.1064.4386-3.1741 1.7357-4.4823a4.0306 4.0306 0 0 1 .3033-.276.3532.3532 0 0 0 .1447-.0644c.7524-.5706 1.6945-.8506 2.802-.8325.4091.0067.8017.0339 1.1742.081 1.939.3544 3.2439 1.4468 4.0359 2.3827.8143.9623 1.2552 1.9315 1.4312 2.4543-1.3232-.1346-2.2234.1268-2.6797.779-.9926 1.4189.543 4.1729 1.2811 5.4964.1353.2426.2522.4522.2889.5413.2403.5825.5515.9713.7787 1.2552.0696.087.1372.1714.1885.245-.4008.1155-1.1208.3825-1.0552 1.717-.0123.1563-.0423.4469-.0834.8148-.0461.2077-.0702.4603-.0994.7662zm.8905-1.6211c-.0405-.8316.2691-.9185.5967-1.0105a2.8566 2.8566 0 0 0 .135-.0406 1.202 1.202 0 0 0 .1342.103c.5703.3765 1.5823.4213 3.0068.1344-.2016.1769-.5189.3994-.9533.6011-.4098.1903-1.0957.333-1.7473.3636-.7197.0336-1.0859-.0807-1.1721-.151zm.5695-9.2712c-.0059.3508-.0542.6692-.1054 1.0017-.055.3576-.112.7274-.1264 1.1762-.0142.4368.0404.8909.0932 1.3301.1066.887.216 1.8003-.2075 2.7014a3.5272 3.5272 0 0 1-.1876-.3856c-.0527-.1276-.1669-.3326-.3251-.6162-.6156-1.1041-2.0574-3.6896-1.3193-4.7446.3795-.5427 1.3408-.5661 2.1781-.463zm.2284 7.0137a12.3762 12.3762 0 0 0-.0853-.1074l-.0355-.0444c.7262-1.1995.5842-2.3862.4578-3.4385-.0519-.4318-.1009-.8396-.0885-1.2226.0129-.4061.0666-.7543.1185-1.0911.0639-.415.1288-.8443.1109-1.3505.0134-.0531.0188-.1158.0118-.1902-.0457-.4855-.5999-1.938-1.7294-3.253-.6076-.7073-1.4896-1.4972-2.6889-2.0395.5251-.1066 1.2328-.2035 2.0244-.1859 2.0515.0456 3.6746.8135 4.8242 2.2824a.908.908 0 0 1 .0667.1002c.7231 1.3556-.2762 6.2751-2.9867 10.5405zm-8.8166-6.1162c-.025.1794-.3089.4225-.6211.4225a.5821.5821 0 0 1-.0809-.0056c-.1873-.026-.3765-.144-.5059-.3156-.0458-.0605-.1203-.178-.1055-.2844.0055-.0401.0261-.0985.0925-.1488.1182-.0894.3518-.1226.6096-.0867.3163.0441.6426.1938.6113.4186zm7.9305-.4114c.0111.0792-.049.201-.1531.3102-.0683.0717-.212.1961-.4079.2232a.5456.5456 0 0 1-.075.0052c-.2935 0-.5414-.2344-.5607-.3717-.024-.1765.2641-.3106.5611-.352.297-.0414.6111.0088.6356.1851z"],"mysql":["4479A1","M16.405 5.501c-.115 0-.193.014-.274.033v.013h.014c.054.104.146.18.214.273.054.107.1.214.154.32l.014-.015c.094-.066.14-.172.14-.333-.04-.047-.046-.094-.08-.14-.04-.067-.126-.1-.18-.153zM5.77 18.695h-.927a50.854 50.854 0 00-.27-4.41h-.008l-1.41 4.41H2.45l-1.4-4.41h-.01a72.892 72.892 0 00-.195 4.41H0c.055-1.966.192-3.81.41-5.53h1.15l1.335 4.064h.008l1.347-4.064h1.095c.242 2.015.384 3.86.428 5.53zm4.017-4.08c-.378 2.045-.876 3.533-1.492 4.46-.482.716-1.01 1.073-1.583 1.073-.153 0-.34-.046-.566-.138v-.494c.11.017.24.026.386.026.268 0 .483-.075.647-.222.197-.18.295-.382.295-.605 0-.155-.077-.47-.23-.944L6.23 14.615h.91l.727 2.36c.164.536.233.91.205 1.123.4-1.064.678-2.227.835-3.483zm12.325 4.08h-2.63v-5.53h.885v4.85h1.745zm-3.32.135l-1.016-.5c.09-.076.177-.158.255-.25.433-.506.648-1.258.648-2.253 0-1.83-.718-2.746-2.155-2.746-.704 0-1.254.232-1.65.697-.43.508-.646 1.256-.646 2.245 0 .972.19 1.686.574 2.14.35.41.877.615 1.583.615.264 0 .506-.033.725-.098l1.325.772.36-.622zM15.5 17.588c-.225-.36-.337-.94-.337-1.736 0-1.393.424-2.09 1.27-2.09.443 0 .77.167.977.5.224.362.336.936.336 1.723 0 1.404-.424 2.108-1.27 2.108-.445 0-.77-.167-.978-.5zm-1.658-.425c0 .47-.172.856-.516 1.156-.344.3-.803.45-1.384.45-.543 0-1.064-.172-1.573-.515l.237-.476c.438.22.833.328 1.19.328.332 0 .593-.073.783-.22a.754.754 0 00.3-.615c0-.33-.23-.61-.648-.845-.388-.213-1.163-.657-1.163-.657-.422-.307-.632-.636-.632-1.177 0-.45.157-.81.47-1.085.315-.278.72-.415 1.22-.415.512 0 .98.136 1.4.41l-.213.476a2.726 2.726 0 00-1.064-.23c-.283 0-.502.068-.654.206a.685.685 0 00-.248.524c0 .328.234.61.666.85.393.215 1.187.67 1.187.67.433.305.648.63.648 1.168zm9.382-5.852c-.535-.014-.95.04-1.297.188-.1.04-.26.04-.274.167.055.053.063.14.11.214.08.134.218.313.346.407.14.11.28.216.427.31.26.16.555.255.81.416.145.094.293.213.44.313.073.05.12.14.214.172v-.02c-.046-.06-.06-.147-.105-.214-.067-.067-.134-.127-.2-.193a3.223 3.223 0 00-.695-.675c-.214-.146-.682-.35-.77-.595l-.013-.014c.146-.013.32-.066.46-.106.227-.06.435-.047.67-.106.106-.027.213-.06.32-.094v-.06c-.12-.12-.21-.283-.334-.395a8.867 8.867 0 00-1.104-.823c-.21-.134-.476-.22-.697-.334-.08-.04-.214-.06-.26-.127-.12-.146-.19-.34-.275-.514a17.69 17.69 0 01-.547-1.163c-.12-.262-.193-.523-.34-.763-.69-1.137-1.437-1.826-2.586-2.5-.247-.14-.543-.2-.856-.274-.167-.008-.334-.02-.5-.027-.11-.047-.216-.174-.31-.235-.38-.24-1.364-.76-1.644-.072-.18.434.267.862.422 1.082.115.153.26.328.34.5.047.116.06.235.107.356.106.294.207.622.347.897.073.14.153.287.247.413.054.073.146.107.167.227-.094.136-.1.334-.154.5-.24.757-.146 1.693.194 2.25.107.166.362.534.703.393.3-.12.234-.5.32-.835.02-.08.007-.133.048-.187v.015c.094.188.188.367.274.555.206.328.566.668.867.895.16.12.287.328.487.402v-.02h-.015c-.043-.058-.1-.086-.154-.133a3.445 3.445 0 01-.35-.4 8.76 8.76 0 01-.747-1.218c-.11-.21-.202-.436-.29-.643-.04-.08-.04-.2-.107-.24-.1.146-.247.273-.32.453-.127.288-.14.642-.188 1.01-.027.007-.014 0-.027.014-.214-.052-.287-.274-.367-.46-.2-.475-.233-1.238-.06-1.785.047-.14.247-.582.167-.716-.042-.127-.174-.2-.247-.303a2.478 2.478 0 01-.24-.427c-.16-.374-.24-.788-.414-1.162-.08-.173-.22-.354-.334-.513-.127-.18-.267-.307-.368-.52-.033-.073-.08-.194-.027-.274.014-.054.042-.075.094-.09.088-.072.335.022.422.062.247.1.455.194.662.334.094.066.195.193.315.226h.14c.214.047.455.014.655.073.355.114.675.28.962.46a5.953 5.953 0 012.085 2.286c.08.154.115.295.188.455.14.33.313.663.455.982.14.315.275.636.476.897.1.14.502.213.682.286.133.06.34.115.46.188.23.14.454.3.67.454.11.076.443.243.463.378z"],"mongodb":["47A248","M17.193 9.555c-1.264-5.58-4.252-7.414-4.573-8.115-.28-.394-.53-.954-.735-1.44-.036.495-.055.685-.523 1.184-.723.566-4.438 3.682-4.74 10.02-.282 5.912 4.27 9.435 4.888 9.884l.07.05A73.49 73.49 0 0111.91 24h.481c.114-1.032.284-2.056.51-3.07.417-.296.604-.463.85-.693a11.342 11.342 0 003.639-8.464c.01-.814-.103-1.662-.197-2.218zm-5.336 8.195s0-8.291.275-8.29c.213 0 .49 10.695.49 10.695-.381-.045-.765-1.76-.765-2.405z"],"sqlite":["003B57","M21.678.521c-1.032-.92-2.28-.55-3.513.544a8.71 8.71 0 0 0-.547.535c-2.109 2.237-4.066 6.38-4.674 9.544.237.48.422 1.093.544 1.561a13.044 13.044 0 0 1 .164.703s-.019-.071-.096-.296l-.05-.146a1.689 1.689 0 0 0-.033-.08c-.138-.32-.518-.995-.686-1.289-.143.423-.27.818-.376 1.176.484.884.778 2.4.778 2.4s-.025-.099-.147-.442c-.107-.303-.644-1.244-.772-1.464-.217.804-.304 1.346-.226 1.478.152.256.296.698.422 1.186.286 1.1.485 2.44.485 2.44l.017.224a22.41 22.41 0 0 0 .056 2.748c.095 1.146.273 2.13.5 2.657l.155-.084c-.334-1.038-.47-2.399-.41-3.967.09-2.398.642-5.29 1.661-8.304 1.723-4.55 4.113-8.201 6.3-9.945-1.993 1.8-4.692 7.63-5.5 9.788-.904 2.416-1.545 4.684-1.931 6.857.666-2.037 2.821-2.912 2.821-2.912s1.057-1.304 2.292-3.166c-.74.169-1.955.458-2.362.629-.6.251-.762.337-.762.337s1.945-1.184 3.613-1.72C21.695 7.9 24.195 2.767 21.678.521m-18.573.543A1.842 1.842 0 0 0 1.27 2.9v16.608a1.84 1.84 0 0 0 1.835 1.834h9.418a22.953 22.953 0 0 1-.052-2.707c-.006-.062-.011-.141-.016-.2a27.01 27.01 0 0 0-.473-2.378c-.121-.47-.275-.898-.369-1.057-.116-.197-.098-.31-.097-.432 0-.12.015-.245.037-.386a9.98 9.98 0 0 1 .234-1.045l.217-.028c-.017-.035-.014-.065-.031-.097l-.041-.381a32.8 32.8 0 0 1 .382-1.194l.2-.019c-.008-.016-.01-.038-.018-.053l-.043-.316c.63-3.28 2.587-7.443 4.8-9.791.066-.069.133-.128.198-.194Z"],"docker":["2496ED","M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.185.186.186m5.893 2.715h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.184-.186h-2.12a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m-2.92 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.082.185.185.185M23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 00-.75.748 11.376 11.376 0 00.692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.248 12.248 0 003.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288Z"],"python":["3776AB","M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"],"pandas":["150458","M16.922 0h2.623v18.104h-2.623zm-4.126 12.94h2.623v2.57h-2.623zm0-7.037h2.623v5.446h-2.623zm0 11.197h2.623v5.446h-2.623zM4.456 5.896h2.622V24H4.455zm4.213 2.559h2.623v2.57H8.67zm0 4.151h2.623v5.447H8.67zm0-11.187h2.623v5.446H8.67Z"],"numpy":["013243","M10.315 4.876L6.3048 2.8517l-4.401 2.1965 4.1186 2.0683zm1.8381.9277l4.2045 2.1223-4.3622 2.1906-4.125-2.0718zm5.6153-2.9213l4.3193 2.1658-3.863 1.9402-4.2131-2.1252zm-1.859-.9329L12.021 0 8.1742 1.9193l4.0068 2.0208zm-3.0401 16.7443V24l4.7107-2.3507-.0053-5.3085zm4.7037-4.2057l-.0052-5.2528-4.6985 2.3356v5.2546zm5.6553-.9845v5.327l-4.0178 2.0052-.0029-5.3028zm0-1.8626V6.4214l-4.0253 2.001.0034 5.2633zM11.2062 11.571L8.0333 9.9756v6.895s-3.8804-8.2564-4.2399-8.998c-.0463-.0957-.2371-.2007-.2858-.2262C2.8118 7.2812.773 6.2485.773 6.2485V18.43l2.8204 1.5076v-6.3674s3.8392 7.3775 3.878 7.458c.0389.0807.4245.8582.8362 1.1314.5485.363 2.8992 1.7766 2.8992 1.7766z"],"scikitlearn":["F7931E","M15.601 5.53c-1.91.035-3.981.91-5.63 2.56-2.93 2.93-2.083 8.53-1.088 9.525.805.804 6.595 1.843 9.526-1.088a9.74 9.74 0 0 0 .584-.643c.043-.292.205-.66.489-1.106a1.848 1.848 0 0 1-.537.176c-.144.265-.37.55-.676.855-.354.335-.607.554-.76.656a.795.795 0 0 1-.437.152c-.35 0-.514-.308-.494-.924-.22.316-.425.549-.612.7a.914.914 0 0 1-.578.224c-.194 0-.36-.09-.496-.273a1.03 1.03 0 0 1-.193-.507 4.016 4.016 0 0 1-.726.583c-.224.132-.47.197-.74.197-.3 0-.543-.096-.727-.288a.978.978 0 0 1-.257-.524v.004c-.3.276-.564.48-.79.611a1.295 1.295 0 0 1-.649.197.693.693 0 0 1-.571-.275c-.145-.183-.218-.43-.218-.739 0-.464.101-1.02.302-1.67.201-.65.445-1.25.733-1.797l.842-.312a.21.21 0 0 1 .06-.013c.063 0 .116.047.157.14.04.095.061.221.061.38 0 .451-.104.888-.312 1.31-.207.422-.532.873-.974 1.352-.018.23-.027.388-.027.474 0 .193.036.345.106.458.071.113.165.169.282.169a.71.71 0 0 0 .382-.13c.132-.084.333-.26.602-.523.028-.418.187-.798.482-1.142.324-.38.685-.569 1.08-.569.206 0 .37.054.494.16a.524.524 0 0 1 .186.417c0 .458-.486.829-1.459 1.114.088.43.32.646.693.646a.807.807 0 0 0 .417-.117c.129-.076.321-.243.575-.497.032-.252.118-.495.259-.728.182-.3.416-.544.701-.73.285-.185.537-.278.756-.278.276 0 .47.127.58.381l.677-.374h.186l-.292.971c-.15.488-.226.823-.226 1.004 0 .19.067.285.202.285.086 0 .181-.045.285-.137.104-.092.25-.232.437-.42v.001c.143-.155.274-.32.392-.494-.19-.084-.285-.21-.285-.375 0-.17.058-.352.174-.545.116-.194.275-.29.479-.29.172 0 .258.088.258.265 0 .139-.05.338-.149.596.367-.04.687-.32.961-.842l.228-.01c1.059-2.438.828-5.075-.83-6.732-1.019-1.02-2.408-1.5-3.895-1.471zm4.725 8.203a8.938 8.938 0 0 1-1.333 2.151 1.09 1.09 0 0 0-.012.147c0 .168.047.309.14.423.092.113.206.17.34.17.296 0 .714-.264 1.254-.787-.001.04-.003.08-.003.121 0 .146.012.368.036.666l.733-.172c0-.2.003-.357.01-.474.01-.157.033-.33.066-.517.02-.11.07-.216.152-.315l.186-.216a5.276 5.276 0 0 1 .378-.397c.062-.055.116-.099.162-.13a.26.26 0 0 1 .123-.046c.055 0 .083.035.083.106 0 .07-.052.236-.156.497-.194.486-.292.848-.292 1.084 0 .175.046.314.136.418a.45.45 0 0 0 .358.155c.365 0 .803-.269 1.313-.808v-.381c-.361.426-.623.64-.784.64-.109 0-.163-.067-.163-.2 0-.1.065-.316.195-.65.19-.486.285-.836.285-1.048a.464.464 0 0 0-.112-.319.36.36 0 0 0-.282-.127c-.165 0-.354.077-.567.233-.213.156-.5.436-.863.84.053-.262.165-.622.335-1.08l-.809.156a6.54 6.54 0 0 0-.399 1.074c-.04.156-.07.316-.092.48a7.447 7.447 0 0 1-.49.45.38.38 0 0 1-.229.08.208.208 0 0 1-.174-.082.352.352 0 0 1-.064-.222c0-.1.019-.214.056-.343.038-.13.12-.373.249-.731l.308-.849zm-17.21-2.927c-.863-.016-1.67.263-2.261.854-1.352 1.352-1.07 3.827.631 5.527 1.7 1.701 4.95 1.21 5.527.632.467-.466 1.07-3.827-.631-5.527-.957-.957-2.158-1.465-3.267-1.486zm12.285.358h.166v.21H15.4zm.427 0h.166v.865l.46-.455h.195l-.364.362.428.684h-.198l-.357-.575-.164.166v.41h-.166zm1.016 0h.166v.21h-.166zm.481.122h.166v.288h.172v.135h-.172v.717c0 .037.006.062.02.075.012.013.037.02.074.02a.23.23 0 0 0 .078-.01v.141a.802.802 0 0 1-.136.014.23.23 0 0 1-.15-.043.15.15 0 0 1-.052-.123v-.79h-.141v-.136h.141zm-3.562.258c.081 0 .15.012.207.038.057.024.1.061.13.11s.045.106.045.173h-.176c-.006-.111-.075-.167-.208-.167a.285.285 0 0 0-.164.041.134.134 0 0 0-.06.117c0 .035.015.065.045.088.03.024.08.044.15.06l.16.039a.47.47 0 0 1 .224.105c.047.046.07.108.07.186a.3.3 0 0 1-.052.175.327.327 0 0 1-.152.116.585.585 0 0 1-.226.041c-.136 0-.24-.03-.309-.088-.069-.059-.105-.149-.109-.269h.176c.004.037.01.065.017.084a.166.166 0 0 0 .034.054c.044.043.112.065.204.065a.31.31 0 0 0 .177-.045.139.139 0 0 0 .067-.119.116.116 0 0 0-.038-.09.287.287 0 0 0-.124-.055l-.156-.038a1.248 1.248 0 0 1-.159-.05.359.359 0 0 1-.098-.061.22.22 0 0 1-.058-.083.32.32 0 0 1-.016-.108c0-.096.036-.174.109-.232a.45.45 0 0 1 .29-.087zm1.035 0a.46.46 0 0 1 .202.043.351.351 0 0 1 .187.212.577.577 0 0 1 .023.126h-.168a.256.256 0 0 0-.078-.168.242.242 0 0 0-.17-.06.248.248 0 0 0-.155.05.306.306 0 0 0-.1.144.662.662 0 0 0-.034.224.58.58 0 0 0 .035.214.299.299 0 0 0 .101.135.261.261 0 0 0 .157.048c.142 0 .227-.084.256-.252h.167a.519.519 0 0 1-.065.22.35.35 0 0 1-.146.138.464.464 0 0 1-.216.048.448.448 0 0 1-.246-.066.441.441 0 0 1-.161-.192.703.703 0 0 1-.057-.293c0-.085.01-.163.032-.233a.522.522 0 0 1 .095-.182.403.403 0 0 1 .15-.117.453.453 0 0 1 .191-.04zm.603.03h.166v1.046H15.4zm1.443 0h.166v1.046h-.166zm-5.05.618c-.08 0-.2.204-.356.611-.155.407-.308.977-.459 1.71.281-.312.509-.662.683-1.05.175-.387.262-.72.262-.999a.455.455 0 0 0-.036-.197c-.025-.05-.056-.075-.093-.075zm4.662 1.797c-.221 0-.431.188-.629.563-.197.376-.296.722-.296 1.038 0 .12.029.216.088.29a.273.273 0 0 0 .223.111c.221 0 .43-.188.625-.565.196-.377.294-.725.294-1.043a.457.457 0 0 0-.083-.29.269.269 0 0 0-.222-.104zm-2.848.007c-.146 0-.285.11-.417.333-.133.222-.2.51-.2.866.566-.159.849-.452.849-.881 0-.212-.077-.318-.232-.318Z"],"pytorch":["EE4C2C","M12.005 0L4.952 7.053a9.865 9.865 0 000 14.022 9.866 9.866 0 0014.022 0c3.984-3.9 3.986-10.205.085-14.023l-1.744 1.743c2.904 2.905 2.904 7.634 0 10.538s-7.634 2.904-10.538 0-2.904-7.634 0-10.538l4.647-4.646.582-.665zm3.568 3.899a1.327 1.327 0 00-1.327 1.327 1.327 1.327 0 001.327 1.328A1.327 1.327 0 0016.9 5.226 1.327 1.327 0 0015.573 3.9z"],"tensorflow":["FF6F00","M1.292 5.856L11.54 0v24l-4.095-2.378V7.603l-6.168 3.564.015-5.31zm21.43 5.311l-.014-5.31L12.46 0v24l4.095-2.378V14.87l3.092 1.788-.018-4.618-3.074-1.756V7.603l6.168 3.564z"],"huggingface":["FFD21E","M12.025 1.13c-5.77 0-10.449 4.647-10.449 10.378 0 1.112.178 2.181.503 3.185.064-.222.203-.444.416-.577a.96.96 0 0 1 .524-.15c.293 0 .584.124.84.284.278.173.48.408.71.694.226.282.458.611.684.951v-.014c.017-.324.106-.622.264-.874s.403-.487.762-.543c.3-.047.596.06.787.203s.31.313.4.467c.15.257.212.468.233.542.01.026.653 1.552 1.657 2.54.616.605 1.01 1.223 1.082 1.912.055.537-.096 1.059-.38 1.572.637.121 1.294.187 1.967.187.657 0 1.298-.063 1.921-.178-.287-.517-.44-1.041-.384-1.581.07-.69.465-1.307 1.081-1.913 1.004-.987 1.647-2.513 1.657-2.539.021-.074.083-.285.233-.542.09-.154.208-.323.4-.467a1.08 1.08 0 0 1 .787-.203c.359.056.604.29.762.543s.247.55.265.874v.015c.225-.34.457-.67.683-.952.23-.286.432-.52.71-.694.257-.16.547-.284.84-.285a.97.97 0 0 1 .524.151c.228.143.373.388.43.625l.006.04a10.3 10.3 0 0 0 .534-3.273c0-5.731-4.678-10.378-10.449-10.378M8.327 6.583a1.5 1.5 0 0 1 .713.174 1.487 1.487 0 0 1 .617 2.013c-.183.343-.762-.214-1.102-.094-.38.134-.532.914-.917.71a1.487 1.487 0 0 1 .69-2.803m7.486 0a1.487 1.487 0 0 1 .689 2.803c-.385.204-.536-.576-.916-.71-.34-.12-.92.437-1.103.094a1.487 1.487 0 0 1 .617-2.013 1.5 1.5 0 0 1 .713-.174m-10.68 1.55a.96.96 0 1 1 0 1.921.96.96 0 0 1 0-1.92m13.838 0a.96.96 0 1 1 0 1.92.96.96 0 0 1 0-1.92M8.489 11.458c.588.01 1.965 1.157 3.572 1.164 1.607-.007 2.984-1.155 3.572-1.164.196-.003.305.12.305.454 0 .886-.424 2.328-1.563 3.202-.22-.756-1.396-1.366-1.63-1.32q-.011.001-.02.006l-.044.026-.01.008-.03.024q-.018.017-.035.036l-.032.04a1 1 0 0 0-.058.09l-.014.025q-.049.088-.11.19a1 1 0 0 1-.083.116 1.2 1.2 0 0 1-.173.18q-.035.029-.075.058a1.3 1.3 0 0 1-.251-.243 1 1 0 0 1-.076-.107c-.124-.193-.177-.363-.337-.444-.034-.016-.104-.008-.2.022q-.094.03-.216.087-.06.028-.125.063l-.13.074q-.067.04-.136.086a3 3 0 0 0-.135.096 3 3 0 0 0-.26.219 2 2 0 0 0-.12.121 2 2 0 0 0-.106.128l-.002.002a2 2 0 0 0-.09.132l-.001.001a1.2 1.2 0 0 0-.105.212q-.013.036-.024.073c-1.139-.875-1.563-2.317-1.563-3.203 0-.334.109-.457.305-.454m.836 10.354c.824-1.19.766-2.082-.365-3.194-1.13-1.112-1.789-2.738-1.789-2.738s-.246-.945-.806-.858-.97 1.499.202 2.362c1.173.864-.233 1.45-.685.64-.45-.812-1.683-2.896-2.322-3.295s-1.089-.175-.938.647 2.822 2.813 2.562 3.244-1.176-.506-1.176-.506-2.866-2.567-3.49-1.898.473 1.23 2.037 2.16c1.564.932 1.686 1.178 1.464 1.53s-3.675-2.511-4-1.297c-.323 1.214 3.524 1.567 3.287 2.405-.238.839-2.71-1.587-3.216-.642-.506.946 3.49 2.056 3.522 2.064 1.29.33 4.568 1.028 5.713-.624m5.349 0c-.824-1.19-.766-2.082.365-3.194 1.13-1.112 1.789-2.738 1.789-2.738s.246-.945.806-.858.97 1.499-.202 2.362c-1.173.864.233 1.45.685.64.451-.812 1.683-2.896 2.322-3.295s1.089-.175.938.647-2.822 2.813-2.562 3.244 1.176-.506 1.176-.506 2.866-2.567 3.49-1.898-.473 1.23-2.037 2.16c-1.564.932-1.686 1.178-1.464 1.53s3.675-2.511 4-1.297c.323 1.214-3.524 1.567-3.287 2.405.238.839 2.71-1.587 3.216-.642.506.946-3.49 2.056-3.522 2.064-1.29.33-4.568 1.028-5.713-.624"],"jupyter":["F37626","M7.157 22.201A1.784 1.799 0 0 1 5.374 24a1.784 1.799 0 0 1-1.784-1.799 1.784 1.799 0 0 1 1.784-1.799 1.784 1.799 0 0 1 1.783 1.799zM20.582 1.427a1.415 1.427 0 0 1-1.415 1.428 1.415 1.427 0 0 1-1.416-1.428A1.415 1.427 0 0 1 19.167 0a1.415 1.427 0 0 1 1.415 1.427zM4.992 3.336A1.047 1.056 0 0 1 3.946 4.39a1.047 1.056 0 0 1-1.047-1.055A1.047 1.056 0 0 1 3.946 2.28a1.047 1.056 0 0 1 1.046 1.056zm7.336 1.517c3.769 0 7.06 1.38 8.768 3.424a9.363 9.363 0 0 0-3.393-4.547 9.238 9.238 0 0 0-5.377-1.728A9.238 9.238 0 0 0 6.95 3.73a9.363 9.363 0 0 0-3.394 4.547c1.713-2.04 5.004-3.424 8.772-3.424zm.001 13.295c-3.768 0-7.06-1.381-8.768-3.425a9.363 9.363 0 0 0 3.394 4.547A9.238 9.238 0 0 0 12.33 21a9.238 9.238 0 0 0 5.377-1.729 9.363 9.363 0 0 0 3.393-4.547c-1.712 2.044-5.003 3.425-8.772 3.425Z"],"figma":["F24E1E","M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491zM12.735 7.51h3.117c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-3.117V7.51zm0 1.471H8.148c-2.476 0-4.49-2.014-4.49-4.49S5.672 0 8.148 0h4.588v8.981zm-4.587-7.51c-1.665 0-3.019 1.355-3.019 3.019s1.354 3.02 3.019 3.02h3.117V1.471H8.148zm4.587 15.019H8.148c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.588v8.98zM8.148 8.981c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h3.117V8.981H8.148zM8.172 24c-2.489 0-4.515-2.014-4.515-4.49s2.014-4.49 4.49-4.49h4.588v4.441c0 2.503-2.047 4.539-4.563 4.539zm-.024-7.51a3.023 3.023 0 0 0-3.019 3.019c0 1.665 1.365 3.019 3.044 3.019 1.705 0 3.093-1.376 3.093-3.068v-2.97H8.148zm7.704 0h-.098c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h.098c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.49-4.49 4.49zm-.097-7.509c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h.098c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-.098z"],"git":["F03C2E","M13.09 23.549a1.54 1.54 0 0 1-2.18 0L.451 13.089a1.54 1.54 0 0 1 0-2.179l7.191-7.19 2.733 2.733a1.85 1.85 0 0 0 .964 2.326v6.66a1.849 1.849 0 1 0 1.54 0V8.957l2.508 2.508a1.85 1.85 0 1 0 1.09-1.09l-2.634-2.634a1.85 1.85 0 0 0-2.378-2.377L8.73 2.63 10.91.451a1.54 1.54 0 0 1 2.179 0l10.459 10.46a1.54 1.54 0 0 1 0 2.179z"],"github":["181717","M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"],"postman":["FF6C37","M13.527.099C6.955-.744.942 3.9.099 10.473c-.843 6.572 3.8 12.584 10.373 13.428 6.573.843 12.587-3.801 13.428-10.374C24.744 6.955 20.101.943 13.527.099zm2.471 7.485a.855.855 0 0 0-.593.25l-4.453 4.453-.307-.307-.643-.643c4.389-4.376 5.18-4.418 5.996-3.753zm-4.863 4.861l4.44-4.44a.62.62 0 1 1 .847.903l-4.699 4.125-.588-.588zm.33.694l-1.1.238a.06.06 0 0 1-.067-.032.06.06 0 0 1 .01-.073l.645-.645.512.512zm-2.803-.459l1.172-1.172.879.878-1.979.426a.074.074 0 0 1-.085-.039.072.072 0 0 1 .013-.093zm-3.646 6.058a.076.076 0 0 1-.069-.083.077.077 0 0 1 .022-.046h.002l.946-.946 1.222 1.222-2.123-.147zm2.425-1.256a.228.228 0 0 0-.117.256l.203.865a.125.125 0 0 1-.211.117h-.003l-.934-.934-.294-.295 3.762-3.758 1.82-.393.874.874c-1.255 1.102-2.971 2.201-5.1 3.268zm5.279-3.428h-.002l-.839-.839 4.699-4.125a.952.952 0 0 0 .119-.127c-.148 1.345-2.029 3.245-3.977 5.091zm3.657-6.46l-.003-.002a1.822 1.822 0 0 1 2.459-2.684l-1.61 1.613a.119.119 0 0 0 0 .169l1.247 1.247a1.817 1.817 0 0 1-2.093-.343zm2.578 0a1.714 1.714 0 0 1-.271.218h-.001l-1.207-1.207 1.533-1.533c.661.72.637 1.832-.054 2.522zM18.855 6.05a.143.143 0 0 0-.053.157.416.416 0 0 1-.053.45.14.14 0 0 0 .023.197.141.141 0 0 0 .084.03.14.14 0 0 0 .106-.05.691.691 0 0 0 .087-.751.138.138 0 0 0-.194-.033z"],"vite":["9135FF","M13.056 23.238a.57.57 0 0 1-1.02-.355v-5.202c0-.63-.512-1.143-1.144-1.143H5.148a.57.57 0 0 1-.464-.903l3.777-5.29c.54-.753 0-1.804-.93-1.804H.57a.574.574 0 0 1-.543-.746.6.6 0 0 1 .08-.157L5.008.78a.57.57 0 0 1 .467-.24h14.589a.57.57 0 0 1 .466.903l-3.778 5.29c-.54.755 0 1.806.93 1.806h5.745c.238 0 .424.138.513.322a.56.56 0 0 1-.063.603z"],"androidstudio":["3DDC84","M19.2693 10.3368c-.3321 0-.6026.2705-.6026.6031v9.8324h-1.7379l-3.3355-6.9396c.476-.5387.6797-1.286.5243-2.0009a2.2862 2.2862 0 0 0-1.2893-1.6248v-.8124c.0121-.2871-.1426-.5787-.4043-.7407-.1391-.0825-.2884-.1234-.4402-.1234a.8478.8478 0 0 0-.4318.1182c-.2701.1671-.4248.4587-.4123.7662l-.0003.721c-1.0149.3668-1.6619 1.4153-1.4867 2.5197a2.282 2.282 0 0 0 .5916 1.2103l-3.2096 6.9064H4.0928c-1.0949-.007-1.9797-.8948-1.9832-1.9896V5.016c-.0055 1.1024.8836 2.0006 1.9859 2.0062a2.024 2.024 0 0 0 .1326-.0037h14.7453s2.5343-.2189 2.8619 1.5392c-.2491.0287-.4449.2321-.4449.4889 0 .7115-.5791 1.2901-1.3028 1.2901h-.8183zM17.222 22.5366c.2347.4837.0329 1.066-.4507 1.3007-.1296.0629-.2666.0895-.4018.0927a.9738.9738 0 0 1-.3194-.0455c-.024-.0078-.046-.0209-.0694-.0305a.9701.9701 0 0 1-.2277-.1321c-.0247-.0192-.0495-.038-.0724-.0598-.0825-.0783-.1574-.1672-.21-.2757l-1.2554-2.6143-1.5585-3.2452a.7725.7725 0 0 0-.6995-.4443h-.0024a.792.792 0 0 0-.7083.4443l-1.5109 3.2452-1.2321 2.6464a.9722.9722 0 0 1-.7985.5795c-.0626.0053-.1238-.0024-.185-.0087-.0344-.0036-.069-.0053-.1025-.0124-.0489-.0103-.0954-.0278-.142-.0452-.0301-.0113-.0613-.0197-.0901-.0339-.0496-.0244-.0948-.0565-.1397-.0889-.0217-.0156-.0457-.0275-.0662-.045a.9862.9862 0 0 1-.1695-.1844.9788.9788 0 0 1-.0708-.9852l.8469-1.8223 3.2676-7.0314a1.7964 1.7964 0 0 1-.7072-1.1637c-.1555-.9799.5129-1.9003 1.4928-2.0559V9.3946a.3542.3542 0 0 1 .1674-.3155.3468.3468 0 0 1 .3541 0 .354.354 0 0 1 .1674.3155v1.159l.0129.0064a1.8028 1.8028 0 0 1 1.2878 1.378 1.7835 1.7835 0 0 1-.6439 1.7836l3.3889 7.0507.8481 1.7643zM12.9841 12.306c.0042-.6081-.4854-1.1044-1.0935-1.1085a1.1204 1.1204 0 0 0-.7856.3219 1.101 1.101 0 0 0-.323.7716c-.0042.6081.4854 1.1044 1.0935 1.1085h.0077c.6046 0 1.0967-.488 1.1009-1.0935zm-1.027 5.2768c-.1119.0005-.2121.0632-.2571.1553l-1.4127 3.0342h3.3733l-1.4564-3.0328a.274.274 0 0 0-.2471-.1567zm8.1432-6.7459l-.0129-.0001h-.8177a.103.103 0 0 0-.103.103v12.9103a.103.103 0 0 0 .0966.103h.8435c.9861-.0035 1.7836-.804 1.7836-1.79V9.0468c0 .9887-.8014 1.7901-1.7901 1.7901zM2.6098 5.0161v.019c.0039.816.6719 1.483 1.4874 1.4869a12.061 12.061 0 0 1 .1309-.0034h1.1286c.1972-1.315.7607-2.525 1.638-3.4859H4.0993c-.9266.0031-1.6971.6401-1.9191 1.4975.2417.0355.4296.235.4296.4859zm6.3381-2.8977L7.9112.3284a.219.219 0 0 1 0-.2189A.2384.2384 0 0 1 8.098 0a.219.219 0 0 1 .1867.1094l1.0496 1.8158a6.4907 6.4907 0 0 1 5.3186 0L15.696.1094a.2189.2189 0 0 1 .3734.2189l-1.0302 1.79c1.6671.9125 2.7974 2.5439 3.0975 4.4018l-12.286-.0014c.3004-1.8572 1.4305-3.488 3.0972-4.4003zm5.3774 2.6202a.515.515 0 0 0 .5271.5028.515.515 0 0 0 .5151-.5151.5213.5213 0 0 0-.8885-.367.5151.5151 0 0 0-.1537.3793zm-5.7178-.0067a.5151.5151 0 0 0 .5207.5095.5086.5086 0 0 0 .367-.1481.5215.5215 0 1 0-.734-.7341.515.515 0 0 0-.1537.3727z"],"vercel":["000000","m12 1.608 12 20.784H0Z"],"latex":["008080","M2.176 2.814c.233.42.476.78.73 1.09.247-.013 1.132.456 1.312.523.508.282 1.063.63 1.567.966.505.337.96.662 1.272.9.156.12.278.218.352.286a.483.483 0 01.078.082.08.08 0 01.01.021.06.06 0 01-.004.047.057.057 0 01-.04.03.077.077 0 01-.028 0c-.057 0-.203-.163-.497-.415a23.474 23.474 0 00-2.759-1.827c-.504-.28-.956-.542-1.264-.613a2.322 2.322 0 00-.36-.025 2.706 2.706 0 00-.788.133c.494.414.91.716 1.28.949-.57-.182-1.182-.21-1.902.133.526.329.967.567 1.354.745 1.103.156 2.258.696 3.224 1.309.483.307.904.615 1.219.867.157.125.29.237.39.328.098.091.174.154.197.21.03.073-.019.104-.084.058-.032-.022-.088-.102-.184-.191a7.35 7.35 0 00-.384-.327c-.312-.25-.729-.552-1.209-.857-.893-.562-2.232-1.013-3.173-1.397-.602-.11-1.225-.06-1.906.39.449.2.837.349 1.182.463.812 0 1.892.365 2.935.922 1.042.556 2.04 1.214 2.523 1.774.066.077-.016.126-.074.07-.52-.495-1.463-1.204-2.498-1.756-.639-.337-2.153-1.01-2.886-1.01l.004.002c-.567.02-1.13.195-1.679.716.477.118.885.196 1.244.249-.44.088-.87.3-1.289.722.324.07.616.122.882.162-.328.159-.639.404-.923.78.373.03.703.042 1 .044-.36.166-.696.43-.996.85.533.027.98.025 1.364.003-.422.172-.812.464-1.145.968.662.01 1.188-.022 1.628-.076l-.006.002c.99-.073 2.297.127 2.962.847.052.057-.024.118-.072.074-.648-.58-1.493-.827-2.89-.921h-.002c-.543.149-1.046.446-1.46 1.074.536.008.982-.013 1.366-.05-.469.257-.873.644-1.139 1.306.483-.092.888-.19 1.237-.292-.363.265-.668.636-.873 1.194.324-.072.612-.146.871-.221a2.519 2.519 0 00-.513 1.095c.352-.13.655-.254.926-.377-.257.3-.453.681-.55 1.19.495-.199.899-.388 1.238-.568-.31.333-.543.76-.635 1.356a11.816 11.816 0 001.442-.744c-.433.362-.764.843-.879 1.587.788-.348 1.339-.663 1.767-.955-.184.372-.282.806-.235 1.348.762-.584 1.243-1.056 1.602-1.473-.024.269-.003.56.077.884.546-.939 1.089-1.212 1.65-1.526-.895.451-.762.79-.762 1.184.683-.72 1.635-1.482 1.927-1.96-.39.585-.547 1.14-.65 1.63-1.993 1.054-3.207 1.329-4.568 1.75.528.194 1.093.383.859.652l-.624.622c.399-.124.805-.3 1.158-.059-.035.327-.447.492-.8.683.621-.224.756-.172.92-.12.081.393-.203.603-.388.862 1.565-1.19 3.606-2.13 5.044-2.522 2.022-.681 4.63-1.389 5.339-3.115l.712-2.847-.004.004c-.111-.034-.246-.063-.35-.133a.651.651 0 01-.235-.297c-.252.065-.44.03-.56-.088-.117-.117-.167-.296-.203-.491-.203.041-.362.016-.467-.077-.116-.101-.17-.26-.198-.444l-.008-.039.037-.015a.842.842 0 00.302-.194.257.257 0 00.07-.225l-.006-.037.03-.016c.163-.093.345-.169.428-.28a.274.274 0 00.053-.21.88.88 0 00-.155-.357l-.027-.04.04-.027c.118-.09.244-.179.308-.26.032-.04.048-.076.047-.11 0-.033-.015-.07-.064-.117l-.098-.094.135.006c.213.01.395-.007.538-.053a.504.504 0 00.274-.197c-.007-.033-.02-.063-.02-.098a.484.484 0 01.967 0c0 .044-.015.084-.026.125.177.014.347.01.507-.06l.002.001.035-.013c.236-.085.334.045.72-.456-1.69-2.19-4.157-.635-4.977 1.622-.21.576-1.405.578-1.751 0-1.37-2.95-5.53-6.068-9.07-7.218zm.86 2.145c.906.293 1.913.782 2.77 1.328.43.273.813.543 1.114.779.301.236.566.473.62.575.054.102 0 .14-.082.06-.081-.078-.303-.32-.6-.553-.298-.234-.68-.505-1.106-.777-.775-.49-1.982-.958-2.716-1.412zm-1.7 2.7c1.116.014 2.35.447 3.434.997.541.275 1.023.567 1.395.83.372.263.672.524.734.657.061.134-.02.13-.087.055a4.401 4.401 0 00-.704-.626 11.47 11.47 0 00-1.385-.826C3.76 8.264 2.439 7.82 1.336 7.66zm14.916.772a.381.381 0 100 .762.381.381 0 000-.762zM1.7 8.478c.822.072 1.72.368 2.534.75 1.086.509 2.035 1.158 2.434 1.667.035.045-.014.131-.08.062-.428-.44-1.322-1.131-2.397-1.635-.913-.421-2.282-.87-3.262-.78.251-.03.497-.088.771-.064zm16.339.01c-.366.475-.53.423-.703.464.094.43.35.586.585.77l-.06.012c2.315-.447 4.186-.286 6.139-.236l-5.961-1.01zm-.178 1.246h-.002l-.004.016.006-.016zm-.625-.757c-.183.074-.373.076-.563.059a.477.477 0 01-.42.26.483.483 0 01-.435-.278.609.609 0 01-.274.188c-.139.045-.308.057-.493.055.02.035.054.068.055.104a.273.273 0 01-.069.174c-.073.092-.189.17-.295.248.087.141.137.26.149.362a.39.39 0 01-.07.284c-.106.14-.288.21-.439.293a.374.374 0 01-.09.268.89.89 0 01-.297.198c.027.156.074.283.154.354.086.076.211.103.425.047l.055-.014.01.055c.033.207.088.385.187.483.1.099.244.135.503.055l.049-.015.016.048c.05.142.12.223.209.282.087.06.247.112.358.147.798-.869 1.525-1.772 1.884-2.86-.225-.177-.506-.338-.609-.797zm-16.23.386c1.165-.08 2.283.196 3.202.626.92.43 1.658.939 1.974 1.307.075.087-.019.12-.072.072a8.187 8.187 0 00-1.947-1.29c-.904-.414-2.193-.644-3.157-.715zm.864.802c.61.02 1.24.155 1.806.352.756.262 1.421.614 1.747.98.045.05-.007.127-.074.069-.349-.304-.961-.693-1.706-.951-.574-.195-1.613-.369-2.268-.397.197-.022.292-.06.495-.053zm1.05 1.788c.423.034.886.133 1.341.407.043.026.049.136-.049.09-.856-.402-1.326-.49-2.457-.31.386-.128.74-.221 1.164-.187zm-.04.788c.4-.035.784-.002 1.297.204.044.018.08.126-.033.094-.857-.243-1.167-.328-2.287.104.28-.229.622-.366 1.023-.402zm1.285.687c.317-.023.635-.026.934.006.052.006.055.105-.006.102a7.87 7.87 0 00-1.837.115c-.243.046-.423.043-1.405.458.287-.233.794-.452 1.385-.56a8.91 8.91 0 01.93-.12zm1.28.49c.099.003.062.104.006.103-.728-.01-1.304.132-1.875.295a9.78 9.78 0 00-1.318.525c.283-.23.713-.457 1.291-.622.579-.166 1.248-.326 1.896-.302zm.528.398c.036-.005.105.084.018.1-.73.137-1.244.267-1.794.454-.216.074-.58.207-1.243.587.26-.269.656-.492 1.213-.68.558-.19 1.196-.37 1.806-.46zm.311.507c.075-.012.097.087.02.102-1.217.241-1.76.556-2.54 1.144.504-.523 1.297-1.051 2.52-1.246zm.595.448c.087-.013.11.087.021.1-.872.13-1.477.553-2.255 1.33.295-.493 1.004-1.24 2.234-1.43zm.372.39c.046-.006.114.073.023.1a2.634 2.634 0 00-.669.3c-.182.118-.3.2-.597.507.111-.245.296-.434.542-.59.247-.157.509-.293.7-.317z"],"powerbi":["F2C811","M3 14h4.2v7H3zM9.9 8.5h4.2V21H9.9zM16.8 3H21v18h-4.2z"],"sanctum":["FF2D20","M12 1.5 3.5 4.7v6.1c0 5.3 3.6 10 8.5 11.7 4.9-1.7 8.5-6.4 8.5-11.7V4.7L12 1.5zm0 6.3a2.6 2.6 0 0 1 1.3 4.85L14.1 17h-4.2l.8-4.35A2.6 2.6 0 0 1 12 7.8z"],"lowcoder":["3377FF","M3 3h8v8H3zM13 3h8v8h-8zM3 13h8v8H3zM13 13h8v8h-8zm2 2v4h4v-4z"]};
+  const tone = hex => { const n = parseInt(hex, 16), c = [n >> 16, (n >> 8) & 255, n & 255].map(v => { v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); });
+    const l = .2126 * c[0] + .7152 * c[1] + .0722 * c[2]; return l < .06 ? 'dark' : l > .55 ? 'light' : ''; };
+  const svgOf = slug => `<svg viewBox="0 0 24 24" aria-hidden="true"${slug === 'sanctum' || slug === 'lowcoder' ? ' fill-rule="evenodd"' : ''}><path d="${SI[slug][1]}"/></svg>`;
+  const SKILLS = [
+    { n:'01', k:'c1', w:3, cols:5, items:[['react','React'],['typescript','TypeScript'],['javascript','JavaScript'],['tailwindcss','Tailwind CSS'],['html5','HTML/CSS'],
+        ['flutter','Flutter'],['dart','Dart'],['react','React Native'],['kotlin','Kotlin'],['capacitor','Capacitor']],
+      used:[['p-compro','Smart Academic Planner'],['p-penginapan','Kasir Penginapan'],['p-innoride','InnoRide']] },
+    { n:'02', k:'c2', w:3, cols:5, items:[['laravel','Laravel'],['php','PHP'],['go','Go'],['openjdk','Java'],['sanctum','Sanctum'],
+        ['postgresql','PostgreSQL'],['mysql','MySQL'],['mongodb','MongoDB'],['sqlite','SQLite'],['docker','Docker']],
+      used:[['p-compro','Smart Academic Planner'],['p-kp','Internal Tools'],['p-innoride','InnoRide']] },
+    { n:'03', k:'c3', cols:3, items:[['python','Python'],['pandas','pandas'],['numpy','NumPy'],['scikitlearn','scikit-learn'],['pytorch','PyTorch'],
+        ['tensorflow','TensorFlow'],['huggingface','Hugging Face'],['jupyter','Jupyter'],['powerbi','Power BI']],
+      used:[['research','skills.thesis'],[null,'skills.borisma']] },
+    { n:'04', k:'c4', cols:3, items:[['figma','Figma'],['git','Git'],['github','GitHub'],['postman','Postman'],['vite','Vite'],
+        ['androidstudio','Android Studio'],['vercel','Vercel'],['latex','LaTeX'],['lowcoder','Lowcoder']],
+      used:[['p-innoride','InnoRide'],['p-penginapan','Kasir Penginapan'],['p-kp','Internal Tools']] },
+    { n:'05', k:'c5', ways:true }
+  ];
+
+  const IC = {
+    play:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a.8.8 0 0 0 1.2.7l10.4-6.5a.8.8 0 0 0 0-1.4L9.2 4.8A.8.8 0 0 0 8 5.5z"/></svg>',
+    lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
+    img:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-9 9"/></svg>',
+    left:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>',
+    right:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>'
+  };
+
+  let lang = 'en';
+  try { const l = localStorage.getItem('lang'); if (l === 'en' || l === 'id') lang = l; } catch (e) {}
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]));
+  const L = o => (o && typeof o === 'object' && !Array.isArray(o)) ? (o[lang] || o.en) : o;
+  const tr = k => T[lang][k];
+
+  function skillHTML(s){
+    const head = `<div class="sk-head"><span class="sk-no">${s.n}</span><h3>${esc(tr('skills.' + s.k))}</h3>`;
+    const desc = `<p class="sk-desc">${esc(tr('skills.d' + s.n.slice(1)))}</p>`;
+    if (s.ways) return `<div class="sk full">${head}</div>${desc}<ol class="ways">${tr('soft').map((x, i) => `<li><span>${String(i + 1).padStart(2, '0')}</span>${esc(x)}</li>`).join('')}</ol></div>`;
+    const tiles = s.items.map(([slug, name]) => { const hex = SI[slug][0];
+      return `<div class="tile" style="--c:#${hex}" data-tone="${tone(hex)}" title="${esc(name)}">${svgOf(slug)}<b>${esc(name)}</b></div>`; }).join('');
+    const used = s.used.map(([href, label]) => { const l = label.startsWith('skills.') ? tr(label) : label;
+      return href ? `<a href="#${href}">${esc(l)}</a>` : `<span class="x">${esc(l)}</span>`; }).join('');
+    return `<div class="sk${s.w === 3 ? ' w3' : ''}">${head}<span class="cnt">${s.items.length} ${esc(tr('skills.tools'))}</span></div>${desc}
+      <div class="tiles" style="--cols:${s.cols}">${tiles}</div><div class="sk-foot"><span class="k">${esc(tr('skills.used'))}</span>${used}</div></div>`;
+  }
+  function marqueeHTML(){
+    const seen = new Set(), list = [];
+    SKILLS.forEach(s => (s.items || []).forEach(([slug, name]) => { if (!seen.has(name)) { seen.add(name); list.push([slug, name]); } }));
+    const one = list.map(([slug, name]) => `<span>${svgOf(slug)}${esc(name)}</span>`).join('');
+    return one + one;
+  }
+  function linksFor(it){
+    const out = [];
+    if (it.app) { out.push({ t:tr('ui.app'), u:it.app, p:true }); out.push({ t:tr('ui.case'), u:it.live }); }
+    else if (it.live) out.push({ t:tr('ui.live'), u:it.live, p:true });
+    if (it.proto) out.push({ t:tr('ui.proto'), u:it.proto });
+    if (it.source) out.push({ t:tr('ui.source'), u:it.source });
+    return out;
+  }
+  const linkBtns = it => linksFor(it).map(l => `<a class="btn sm${l.p ? ' primary' : ''}" href="${l.u}" target="_blank" rel="noopener">${esc(l.t)}<span class="arr up">↗</span></a>`).join('');
+
+  function projHTML(it, i){
+    const vtype = s => `<source src="${s}" type="video/mp4"><source src="${s.replace('.mp4', '.webm')}" type="video/webm">`;
+    return `<article class="proj reveal${i % 2 ? ' flip' : ''}" id="p-${it.id}">
+      <div class="proj-media"><div class="browser">
+        <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">${IC.lock}${esc(it.url)}</span><span class="live">LIVE</span></div>
+        <button class="screen" type="button" data-open="${it.id}" aria-label="${esc(it.title)}: ${esc(tr('ui.watch'))}">
+          <video muted loop playsinline preload="none" poster="${it.poster}">${vtype(it.video)}</video>
+          <span class="hint">${IC.play}${esc(tr('ui.watch'))}</span></button>
+      </div></div>
+      <div class="proj-body">
+        <div class="ptop"><span class="idx">${String(i + 1).padStart(2, '0')}</span><span class="sep"></span><span>${it.year}</span><span class="badge">${esc(L(it.badge))}</span></div>
+        <h3>${esc(it.title)}</h3>
+        <p class="role">${esc(L(it.role))}</p>
+        <p class="lead">${esc(L(it.lead))}</p>
+        <p class="desc">${esc(L(it.desc))}</p>
+        <div class="tags">${it.tags.map(x => `<span>${esc(x)}</span>`).join('')}</div>
+        <div class="actions">${linkBtns(it)}<button class="btn sm" type="button" data-open="${it.id}">${esc(tr('ui.details'))}<span class="arr">→</span></button></div>
+      </div>
+    </article>`;
+  }
+  function orgHTML(it){
+    const gal = it.gallery || [];
+    return `<button class="org reveal" type="button" data-org="${it.id}">
+      <div class="org-media"><img src="${it.cover}" alt="${esc(L(it.title))}" loading="lazy"><span class="count">${IC.img}${gal.length} ${esc(tr('ui.photos'))}</span></div>
+      <div class="org-body">
+        <div class="ptop"><span>${it.year}</span><span class="badge">${esc(L(it.badge))}</span></div>
+        <h3>${esc(L(it.title))}</h3>
+        <p class="role">${esc(L(it.role))}</p>
+        <p class="lead">${esc(L(it.lead))}</p>
+        <ul class="points">${L(it.highlights).slice(0, 2).map(h => `<li>${esc(h)}</li>`).join('')}</ul>
+        <div class="strip">${gal.slice(1, 5).map(x => `<img src="${x.src}" alt="${esc(L(x.cap))}" loading="lazy">`).join('')}</div>
+        <span class="open">${esc(tr('ui.openOrg'))}<span class="arr">→</span></span>
+      </div>
+    </button>`;
+  }
+  function posterHTML(it){
+    const gal = it.gallery || [];
+    return `<button class="org posters-card reveal" type="button" data-org="${it.id}">
+      <div class="org-body">
+        <div class="ptop"><span>${it.year}</span><span class="badge">${esc(L(it.badge))}</span></div>
+        <h3>${esc(L(it.title))}</h3>
+        <p class="role">${esc(L(it.role))}</p>
+        <p class="lead">${esc(L(it.lead))}</p>
+        <ul class="points">${L(it.highlights).map(h => `<li>${esc(h)}</li>`).join('')}</ul>
+        <span class="open">${esc(tr('ui.openPosters'))}<span class="arr">→</span></span>
+      </div>
+      <div class="fan">${gal.slice(0, 3).map((x, i) => `<img class="p${i}" src="${x.src}" alt="${esc(L(x.cap))}" loading="lazy">`).join('')}
+        <span class="count">${IC.img}${gal.length} ${esc(tr('ui.posters'))}</span></div>
+    </button>`;
+  }
+
+  /* ---------- render ---------- */
+  function render(){
+    $$('[data-i18n]').forEach(el => { const v = tr(el.getAttribute('data-i18n')); if (v != null) el.innerHTML = v; });
+    $('#work-list').innerHTML = PROJECTS.map(projHTML).join('');
+    $('#org-cards').innerHTML = ORGS.map(o => o.kind === 'posters' ? posterHTML(o) : orgHTML(o)).join('');
+    $('#skills-grid').innerHTML = SKILLS.map(skillHTML).join('');
+    if (!$('#marquee').childElementCount) $('#marquee').innerHTML = marqueeHTML();
+    $('#lang-en').setAttribute('aria-pressed', String(lang === 'en'));
+    $('#lang-id').setAttribute('aria-pressed', String(lang === 'id'));
+    root.lang = lang;
+    watchVideos(); observeNew(); requestAnimationFrame(moveInd);
+  }
+
+  /* ---------- detail overlay ---------- */
+  const overlay = $('#overlay'), sheet = $('#sheet'); let lastFocus = null, cur = null, idx = 0;
+  const vsrc = (v, p) => `<video poster="${p}" autoplay muted loop playsinline controls><source src="${v}" type="video/mp4"><source src="${v.replace('.mp4', '.webm')}" type="video/webm"></video>`;
+  function slides(it){ const s = []; if (it.video) s.push({ video:it.video, poster:it.poster, cap:{ en:T.en['ui.walk'], id:T.id['ui.walk'] } }); (it.gallery || []).forEach(x => s.push(x)); return s; }
+  function show(i){
+    const s = slides(cur); if (!s.length) return;
+    idx = (i + s.length) % s.length; const x = s[idx];
+    $('#viewer').innerHTML = x.video ? vsrc(x.video, x.poster) : `<img src="${x.src}" alt="${esc(L(x.cap))}">`;
+    $$('.th', sheet).forEach((t, j) => t.classList.toggle('on', j === idx));
+    $('#cap').innerHTML = `<span>${esc(L(x.cap))}</span><span>${idx + 1} / ${s.length}</span>`;
+  }
+  function openDetail(it){
+    cur = it; idx = 0;
+    const s = slides(it);
+    const ratio = it.kind === 'posters' ? ' style="aspect-ratio:1/1;max-width:min(620px,100%);margin-inline:auto"' : it.pdf ? ' style="aspect-ratio:4/3"' : '';
+    const thumbs = s.map((x, j) => `<button class="th" type="button" data-i="${j}" aria-label="${esc(L(x.cap))}"><img src="${x.video ? x.poster : x.src}" alt="" loading="lazy">${x.video ? `<span class="play">${IC.play}</span>` : ''}</button>`).join('');
+    const nav = s.length > 1 ? `<button class="vnav prev" type="button" aria-label="${esc(tr('ui.prev'))}">${IC.left}</button><button class="vnav next" type="button" aria-label="${esc(tr('ui.next'))}">${IC.right}</button>` : '';
+    const meta = (it.meta || []).map(m => `<div><dt>${esc(L(m[0]))}</dt><dd>${esc(L(m[1]))}</dd></div>`).join('');
+    let links = '';
+    if (it.pdf) links = `<a class="btn sm primary" href="${it.pdf}" target="_blank" rel="noopener">${esc(tr('research.read'))}<span class="arr up">↗</span></a><a class="btn sm" href="${it.pdf}" download="${it.pdf.split('/').pop()}" data-dl="${it.pdf.split('/').pop()}">${esc(tr('research.dl'))}</a>`;
+    else if (it.live) links = linkBtns(it);
+    sheet.innerHTML = `<div class="sheet-head"><div><p class="role">${esc(L(it.role))}</p><h3 id="sheet-title">${esc(L(it.title))}</h3></div>
+        <button class="close" id="close-btn" type="button">${esc(tr('ui.close'))} <span aria-hidden="true">✕</span></button></div>
+      <p class="lead">${esc(L(it.lead))}</p>${it.desc ? `<p class="desc">${esc(L(it.desc))}</p>` : ''}
+      ${s.length ? `<div class="vwrap"><div class="viewer" id="viewer"${ratio}></div>${nav}</div><div class="thumbs">${thumbs}</div><p class="cap" id="cap"></p>` : ''}
+      ${meta ? `<dl class="meta-grid">${meta}</dl>` : ''}
+      <h4>${esc(tr('ui.highlights'))}</h4><ul class="points">${L(it.highlights).map(h => `<li>${esc(h)}</li>`).join('')}</ul>
+      ${it.access ? `<h4>${esc(tr('ui.access'))}</h4><p class="access">${L(it.access)}</p>` : ''}
+      ${links ? `<h4>${esc(tr('ui.links'))}</h4><div class="actions">${links}</div>` : ''}`;
+    show(0);
+    lastFocus = document.activeElement; overlay.hidden = false; document.body.style.overflow = 'hidden'; sheet.scrollTop = 0;
+    $$('.screen video').forEach(v => v.pause());
+    $('#close-btn').focus({ preventScroll:true });
+  }
+  function closeDetail(){
+    if (overlay.hidden) return;
+    overlay.hidden = true; document.body.style.overflow = ''; sheet.innerHTML = ''; cur = null;
+    if (vio) $$('.screen video').forEach(v => { vio.unobserve(v); vio.observe(v); });
+    if (lastFocus) try { lastFocus.focus({ preventScroll:true }); } catch (e) {}
+  }
+  sheet.addEventListener('click', e => {
+    if (e.target.closest('#close-btn')) return closeDetail();
+    const th = e.target.closest('.th'); if (th) return show(+th.dataset.i);
+    if (e.target.closest('.vnav.prev')) return show(idx - 1);
+    if (e.target.closest('.vnav.next')) return show(idx + 1);
+  });
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeDetail(); });
+  document.addEventListener('keydown', e => {
+    if (overlay.hidden) return;
+    if (e.key === 'Escape') closeDetail();
+    else if (e.key === 'ArrowLeft') show(idx - 1);
+    else if (e.key === 'ArrowRight') show(idx + 1);
+    else if (e.key === 'Tab') {
+      const f = $$('button,a[href],video[controls]', sheet).filter(x => x.offsetParent); if (!f.length) return;
+      if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+      else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+    }
+  });
+  document.addEventListener('click', e => {
+    const o = e.target.closest('[data-open]'); if (o) { const it = PROJECTS.find(p => p.id === o.dataset.open); if (it) openDetail(it); return; }
+    const g2 = e.target.closest('[data-org]'); if (g2) { const it = ORGS.find(p => p.id === g2.dataset.org); if (it) openDetail(it); return; }
+    if (e.target.closest('[data-research]')) openDetail(RESEARCH);
+  });
+
+  /* card videos play only while visible */
+  let vio = null;
+  function watchVideos(){
+    if (reduce || !('IntersectionObserver' in window)) return;
+    if (!vio) vio = new IntersectionObserver(ents => ents.forEach(en => {
+      const v = en.target;
+      if (en.isIntersecting && overlay.hidden) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } else v.pause();
+    }), { threshold:.45 });
+    $$('.screen video').forEach(v => vio.observe(v));
+  }
+
+  /* ---------- email popover ---------- */
+  const MAIL = 'yosiaparadesinaga@gmail.com', mp = $('#mailpop'); let mpFrom = null;
+  function openMail(anchor){
+    const su = encodeURIComponent(tr('mail.subject'));
+    $('#mp-gmail').href = `https://mail.google.com/mail/?view=cm&fs=1&to=${MAIL}&su=${su}`;
+    $('#mp-app').href = `mailto:${MAIL}?subject=${su}`;
+    const cp = $('#mp-copy'); cp.classList.remove('done'); cp.firstElementChild.textContent = tr('mail.copy');
+    mp.hidden = false; mpFrom = anchor;
+    const r = anchor.getBoundingClientRect(), w = mp.offsetWidth, h = mp.offsetHeight;
+    const left = Math.min(Math.max(12, r.right - w), innerWidth - w - 12);
+    let top = r.bottom + 10; if (top + h > innerHeight - 12) top = Math.max(12, r.top - h - 10);
+    mp.style.left = left + 'px'; mp.style.top = top + 'px';
+    $('#mp-gmail').focus({ preventScroll:true });
+  }
+  function closeMail(){ if (mp.hidden) return; mp.hidden = true; if (mpFrom) try { mpFrom.focus({ preventScroll:true }); } catch (e) {} mpFrom = null; }
+  document.addEventListener('click', e => {
+    const a = e.target.closest('[data-mail]');
+    if (a) { e.preventDefault(); (mp.hidden || mpFrom !== a) ? openMail(a) : closeMail(); return; }
+    if (!mp.hidden && !mp.contains(e.target)) closeMail();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMail(); });
+  addEventListener('resize', closeMail);
+  mp.addEventListener('click', e => { if (e.target.closest('a.mp-row')) setTimeout(closeMail, 150); });
+  $('#mp-copy').addEventListener('click', async () => {
+    let ok = false;
+    try { await navigator.clipboard.writeText(MAIL); ok = true; } catch (e) {}
+    if (!ok) { const ta = document.createElement('textarea'); ta.value = MAIL; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+      document.body.appendChild(ta); ta.select(); try { ok = document.execCommand('copy'); } catch (e) {} ta.remove(); }
+    const cp = $('#mp-copy'); cp.firstElementChild.textContent = ok ? tr('mail.copied') : MAIL; cp.classList.toggle('done', ok);
+  });
+
+  /* ---------- nav: mobile menu, active section, scroll state ---------- */
+  const bar = $('#top-bar'), menuBtn = $('#menu-btn'), ind = $('#nav-ind');
+  const setMenu = open => { bar.classList.toggle('menu-open', open); menuBtn.setAttribute('aria-expanded', String(open)); };
+  menuBtn.addEventListener('click', e => { e.stopPropagation(); setMenu(!bar.classList.contains('menu-open')); });
+  $('#menu').addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('click', e => { if (!e.target.closest('#top-bar')) setMenu(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+  let active = '';
+  function moveInd(){
+    const a = active && $(`.nav-links a[data-nav="${active}"]`);
+    if (!a) { ind.style.opacity = '0'; return; }
+    ind.style.left = a.offsetLeft + 'px'; ind.style.width = a.offsetWidth + 'px'; ind.style.opacity = '1';
+  }
+  function setActive(id){
+    if (id === active) return; active = id;
+    $$('[data-nav]').forEach(a => a.classList.toggle('on', a.dataset.nav === id));
+    moveInd();
+  }
+  const secs = ['about', 'work', 'skills', 'orgs', 'research', 'contact'].map(id => document.getElementById(id));
+  const prog = $('#progress');
+  function onScroll(){
+    const y = scrollY, h = document.documentElement.scrollHeight - innerHeight;
+    prog.style.transform = `scaleX(${h > 0 ? Math.min(1, y / h) : 0})`;
+    bar.classList.toggle('scrolled', y > 24);
+    const line = innerHeight * .35; let id = '';
+    for (const s of secs) if (s.getBoundingClientRect().top <= line) id = s.id;
+    if (innerHeight + y >= document.documentElement.scrollHeight - 4) id = 'contact';
+    setActive(id);
+  }
+  addEventListener('scroll', onScroll, { passive:true });
+  addEventListener('resize', moveInd);
+
+  /* ---------- language ---------- */
+  function setLang(l){ lang = l; try { localStorage.setItem('lang', l); } catch (e) {} render(); }
+  $('#lang-en').addEventListener('click', () => setLang('en'));
+  $('#lang-id').addEventListener('click', () => setLang('id'));
+
+  /* ---------- reveal on scroll ---------- */
+  let observer = null;
+  if ('IntersectionObserver' in window && !reduce) {
+    root.classList.add('io');
+    observer = new IntersectionObserver(ents => ents.forEach(en => { if (en.isIntersecting) { en.target.classList.add('vis'); observer.unobserve(en.target); } }), { threshold:.1, rootMargin:'0px 0px -40px 0px' });
+  }
+  function observeNew(){ if (observer) $$('.reveal:not(.vis)').forEach(el => observer.observe(el)); }
+
+  render(); onScroll();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(moveInd);
+})();
+</script>
 </body>
 </html>
