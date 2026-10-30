@@ -14,6 +14,7 @@
 <meta property="og:description" content="Portfolio of Yosia Parade Banua Sinaga, a full-stack developer focused on frontend and UI design. Projects, skills, organizations and research." />
 <meta property="og:image" content="yosia.webp" />
 <meta name="twitter:card" content="summary" />
+<script defer src="/_vercel/insights/script.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Geist:wght@400..700&family=Geist+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@1,6..72,400&display=swap" rel="stylesheet" />
@@ -362,6 +363,8 @@
   .contacts a{display:inline-flex;gap:.6rem;align-items:baseline;color:var(--ink);border-bottom:1px solid transparent;width:fit-content;transition:color .2s,border-color .2s;}
   .contacts a:hover{color:var(--accent);border-bottom-color:var(--accent);}
   .contacts .k{font:500 .7rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);min-width:5.5rem;}
+  .views{display:inline-flex;gap:.6rem;align-items:baseline;margin:.35rem 0 0;padding-top:.75rem;border-top:1px solid var(--line);color:var(--ink-soft);width:fit-content;}
+  .views b{font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);}
   @media (max-width:720px){ .foot-top{grid-template-columns:1fr;align-items:start;} }
 
   /* ---------- detail overlay ---------- */
@@ -620,6 +623,7 @@
           <a href="https://linkedin.com/in/yosiasinaga" target="_blank" rel="noopener"><span class="k">LinkedIn</span>Yosia Sinaga ↗</a>
           <a href="https://github.com/Yombia" target="_blank" rel="noopener"><span class="k">GitHub</span>Yombia ↗</a>
           <a href="https://www.instagram.com/yosiaasinaga/" target="_blank" rel="noopener"><span class="k">Instagram</span>yosiaasinaga ↗</a>
+          <p class="views" id="views" hidden><span class="k" data-i18n="ui.viewsK">Views</span><b>0</b></p>
         </div>
       </div>
     </div>
@@ -706,7 +710,7 @@
       'research.s2':'Accuracy','research.s3':'Precision','research.s5':'Labeled data',
       'research.v1':'84.70%','research.v2':'86.44%','research.v3':'87.61%','research.v4':'81.97%','research.v5':'42,367',
       'research.note':'Test set results of the final model, a combination of the three best cross-attention models.',
-      'contact.big':'Let\'s work <em>together.</em>',
+      'contact.big':'Let\'s work <em>together.</em>','ui.viewsK':'Views',
       'contact.sub':'I am open to new opportunities in full-stack, frontend and data roles. The fastest way to reach me is by email.',
       'contact.email':'Send an email'
     },
@@ -750,7 +754,7 @@
       'research.s2':'Akurasi','research.s3':'Presisi','research.s5':'Data berlabel',
       'research.v1':'84,70%','research.v2':'86,44%','research.v3':'87,61%','research.v4':'81,97%','research.v5':'42.367',
       'research.note':'Hasil pada data uji untuk model akhir, yaitu gabungan tiga model cross-attention terbaik.',
-      'contact.big':'Mari bekerja <em>sama.</em>',
+      'contact.big':'Mari bekerja <em>sama.</em>','ui.viewsK':'Dilihat',
       'contact.sub':'Saya terbuka untuk kesempatan baru di bidang full-stack, frontend, dan data. Cara tercepat untuk menghubungi saya adalah melalui email.',
       'contact.email':'Kirim email'
     }
@@ -760,7 +764,7 @@
   const g = (dir, list) => list.map(([f, cap]) => ({ src: dir + f + '.webp', cap }));
   const PROJECTS = [
     { id:'dana', year:'2026', badge:{en:'Data engineering',id:'Data engineering'}, title:'Merchant DQ Pipeline',
-      url:'demo-dana.vercel.app', live:'https://demo-merchant-nine.vercel.app/#chaos', source:'https://github.com/Yombia/merchant-dq-pipeline',
+      url:'demo-dana.vercel.app', live:'https://demo-dana.vercel.app/', source:'https://github.com/Yombia/merchant-dq-pipeline',
       video:P+'dana/demo.mp4', poster:P+'dana/01-runs.webp',
       gallery:g(P+'dana/',[['01-runs',{en:'Daily runs, 29 batches',id:'Run harian, 29 batch'}],['02-blocked-batch',{en:'Log of a blocked batch',id:'Log batch yang dihentikan'}],['03-data-quality',{en:'Data quality overview',id:'Ringkasan kualitas data'}],
         ['04-dq-charts',{en:'Volume and quarantine charts',id:'Grafik volume dan karantina'}],['05-chaos',{en:'Chaos test: 21 of 21 detected',id:'Uji chaos: 21 dari 21 terdeteksi'}],['06-scd-perf',{en:'SCD Type 2, re-run check and indexes',id:'SCD Type 2, uji run ulang, dan index'}],['07-how',{en:'Architecture and design decisions',id:'Arsitektur dan keputusan desain'}]]),
@@ -987,7 +991,7 @@
     $('#lang-en').setAttribute('aria-pressed', String(lang === 'en'));
     $('#lang-id').setAttribute('aria-pressed', String(lang === 'id'));
     root.lang = lang;
-    watchVideos(); observeNew(); requestAnimationFrame(moveInd);
+    watchVideos(); observeNew(); requestAnimationFrame(moveInd); showViews();
   }
 
   /* ---------- detail overlay ---------- */
@@ -1140,6 +1144,23 @@
     observer = new IntersectionObserver(ents => ents.forEach(en => { if (en.isIntersecting) { en.target.classList.add('vis'); observer.unobserve(en.target); } }), { threshold:.1, rootMargin:'0px 0px -40px 0px' });
   }
   function observeNew(){ if (observer) $$('.reveal:not(.vis)').forEach(el => observer.observe(el)); }
+
+  /* ---------- page views (Vercel function + Upstash Redis); stays hidden if the API is unavailable ---------- */
+  let views = null;
+  function showViews(){
+    const el = $('#views'); if (!el || views == null) return;
+    el.querySelector('b').textContent = views.toLocaleString(lang === 'id' ? 'id-ID' : 'en-US');
+    el.hidden = false;
+  }
+  (async () => {
+    let self = false;   // open the site once with ?me to stop counting your own visits on that browser
+    try { if (new URLSearchParams(location.search).has('me')) localStorage.setItem('skip-views', '1'); self = localStorage.getItem('skip-views') === '1'; } catch (e) {}
+    try {
+      const r = await fetch('/api/views', { method: self ? 'GET' : 'POST', cache: 'no-store' });
+      if (!r.ok) return;
+      const j = await r.json(); if (typeof j.views === 'number') { views = j.views; showViews(); }
+    } catch (e) {}
+  })();
 
   render(); onScroll();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(moveInd);
