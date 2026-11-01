@@ -4,9 +4,14 @@
 // Storage: Upstash Redis (REST API), connected from the Vercel dashboard (Storage tab). No npm packages needed.
 const KEY = 'portfolio:views';
 
+// Vercel may add a custom prefix to the variable names (e.g. STORAGE_KV_REST_API_URL), so match by suffix.
+const pick = (re, skip) => {
+  for (const [k, v] of Object.entries(process.env)) if (v && re.test(k) && !(skip && skip.test(k))) return v;
+};
+
 module.exports = async (req, res) => {
-  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+  const url = pick(/(KV_REST_API_URL|REDIS_REST_URL)$/);
+  const token = pick(/(KV_REST_API_TOKEN|REDIS_REST_TOKEN)$/, /READ_ONLY/);
   res.setHeader('Cache-Control', 'no-store');
   if (!url || !token) return res.status(503).json({ error: 'counter not configured' });
   if (req.method !== 'GET' && req.method !== 'POST') return res.status(405).json({ error: 'method not allowed' });

@@ -364,6 +364,7 @@
   .contacts a:hover{color:var(--accent);border-bottom-color:var(--accent);}
   .contacts .k{font:500 .7rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);min-width:5.5rem;}
   .views{display:inline-flex;gap:.6rem;align-items:baseline;margin:.35rem 0 0;padding-top:.75rem;border-top:1px solid var(--line);color:var(--ink-soft);width:fit-content;}
+  .views[hidden]{display:none;}
   .views b{font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);}
   @media (max-width:720px){ .foot-top{grid-template-columns:1fr;align-items:start;} }
 
@@ -763,6 +764,21 @@
   const P = 'projects/';
   const g = (dir, list) => list.map(([f, cap]) => ({ src: dir + f + '.webp', cap }));
   const PROJECTS = [
+    { id:'borisma', year:'2026', badge:{en:'Live client website',id:'Website klien live'}, title:'Borisma Karya',
+      url:'borisma-karya.id', live:'https://borisma-karya.id/', liveText:{en:'Live website',id:'Website live'}, source:'https://github.com/Yombia/BorismaKarya',
+      video:P+'borisma/demo.mp4', poster:P+'borisma/01-home.webp',
+      gallery:g(P+'borisma/',[['01-home',{en:'Home page',id:'Beranda'}],['02-home-projects',{en:'Featured projects',id:'Proyek pilihan'}],['03-home-region',{en:'Work by region',id:'Wilayah kerja'}],
+        ['04-pbg-slf',{en:'PBG & SLF service page',id:'Halaman layanan PBG & SLF'}],['05-portfolio',{en:'Project portfolio',id:'Portofolio proyek'}],['06-project-detail',{en:'Project case study',id:'Studi kasus proyek'}],
+        ['07-experience',{en:'Searchable list of 97 contracts',id:'Daftar 97 paket pekerjaan yang bisa dicari'}],['08-mobile',{en:'Mobile view',id:'Tampilan HP'}]]),
+      role:{en:'Solo developer · Company website for CV. Borisma Karya, my family\'s planning consultancy',id:'Dikerjakan sendiri · Website perusahaan CV. Borisma Karya, usaha keluarga saya'},
+      tags:['Next.js','React','TypeScript','Tailwind CSS','Cloudflare'],
+      lead:{en:'The official website of a planning and supervision consultancy, live on its own domain.',id:'Website resmi perusahaan konsultan perencanaan dan pengawasan, live di domain sendiri.'},
+      desc:{en:'CV. Borisma Karya is a planning and supervision consultancy in North Sumatra, founded in 1989 and run by my family. I handled the whole project myself: buying the domain, designing the site from the company\'s brochure, building it, and hosting it on Cloudflare with automatic deploys. The site presents 7 service areas, 17 project case studies, a searchable list of 97 past contracts, and a sales page for building permit services (PBG and SLF).',
+            id:'CV. Borisma Karya adalah konsultan perencanaan dan pengawasan di Sumatera Utara yang berdiri sejak 1989 dan dikelola oleh keluarga saya. Seluruh proyek saya kerjakan sendiri: membeli domain, mendesain tampilan berdasarkan brosur perusahaan, membangun website, hingga meng-hosting-nya di Cloudflare dengan deploy otomatis. Website ini menampilkan 7 bidang layanan, 17 studi kasus proyek, daftar 97 paket pekerjaan yang bisa dicari, dan halaman khusus layanan perizinan bangunan (PBG dan SLF).'},
+      highlights:{en:['Handled end to end: domain, design, development, DNS, hosting and Google Search Console.','Static site built with Next.js 16 and deployed to Cloudflare Workers on every push.','All content and numbers come from the company\'s official documents, with SEO metadata and structured data on every page.'],
+        id:['Dikerjakan dari awal sampai akhir: domain, desain, pengembangan, DNS, hosting, hingga Google Search Console.','Website statis dengan Next.js 16, otomatis ter-deploy ke Cloudflare Workers setiap ada push.','Seluruh isi dan angka diambil dari dokumen resmi perusahaan, dengan metadata SEO dan data terstruktur di setiap halaman.']},
+      access:{en:'Live on the company\'s own domain. Open the <b>Pengalaman</b> page and search for a contract, or open the <b>PBG & SLF</b> page.',id:'Live di domain perusahaan. Buka halaman <b>Pengalaman</b> lalu cari paket pekerjaan, atau buka halaman <b>PBG & SLF</b>.'},
+      meta:[[{en:'Role',id:'Peran'},{en:'Solo developer',id:'Dikerjakan sendiri'}],['Stack','Next.js 16 · Tailwind 4'],['Hosting','Cloudflare Workers'],['Domain','borisma-karya.id']] },
     { id:'dana', year:'2026', badge:{en:'Data engineering',id:'Data engineering'}, title:'Merchant DQ Pipeline',
       url:'demo-dana.vercel.app', live:'https://demo-dana.vercel.app/', source:'https://github.com/Yombia/merchant-dq-pipeline',
       video:P+'dana/demo.mp4', poster:P+'dana/01-runs.webp',
@@ -923,7 +939,7 @@
   function linksFor(it){
     const out = [];
     if (it.app) { out.push({ t:tr('ui.app'), u:it.app, p:true }); out.push({ t:tr('ui.case'), u:it.live }); }
-    else if (it.live) out.push({ t:tr('ui.live'), u:it.live, p:true });
+    else if (it.live) out.push({ t:it.liveText ? L(it.liveText) : tr('ui.live'), u:it.live, p:true });
     if (it.proto) out.push({ t:tr('ui.proto'), u:it.proto });
     if (it.source) out.push({ t:tr('ui.source'), u:it.source });
     return out;
